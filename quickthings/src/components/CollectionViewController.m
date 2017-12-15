@@ -28,7 +28,6 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
-    
     fetchSettingsAction = [[FetchSettings alloc] init];
     settings = [fetchSettingsAction fetchSettings];
 }
@@ -63,8 +62,11 @@ static NSString * const reuseIdentifier = @"Cell";
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
     cell.cellLabel.text = @"Hello World";// settings[indexPath.row];
+    cell.layer.cornerRadius = 25;
     
     cell.backgroundColor = [UIColor grayColor];
+    
+    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     
     return cell;
 }

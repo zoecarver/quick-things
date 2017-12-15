@@ -10,4 +10,8 @@
 
 @implementation CollectionViewCell
 
+- (IBAction)cellButtonAction:(id)sender {
+    NSLog(@"Called");
+}
+
 @end

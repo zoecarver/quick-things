@@ -7,19 +7,25 @@
 //
 
 #import "DateModificationViewController.h"
+#import "CollectionViewController.h"
 
-@interface DateModificationViewController () {
+@interface DateModificationViewController () <CollectionViewDelegate> {
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
+    NSString *labelText;
 }
-
 @end
 
 @implementation DateModificationViewController
 
+@synthesize largeTimeDisplayLabel = _largeTimeDisplayLabel;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    CollectionViewController *controler = [[CollectionViewController alloc] init];
+    controler.deligate = self;
     
     NSDate *now = [NSDate date];
     
@@ -31,7 +37,10 @@
     
     
     [_datePickerAction setDate:now];
-    _largeTimeDisplayLabel.text = [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:now], [timeFormatter stringFromDate:now]];
+    
+    _labelString = [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:now], [timeFormatter stringFromDate:now]];
+    
+    _largeTimeDisplayLabel.text = _labelString;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,9 +58,15 @@
 }
 */
 
+- (void) sendTest {
+    NSLog(@"Delegates are great!");
+}
+
 - (IBAction)datePickerActionChanged:(id)sender {
     NSDate *chosen = [_datePickerAction date];
     
-    _largeTimeDisplayLabel.text = [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:chosen], [timeFormatter stringFromDate:chosen]];
+    //_largeTimeDisplayLabel.text = [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:chosen], [timeFormatter stringFromDate:chosen]];
+    _largeTimeDisplayLabel.text = labelText;
 }
+
 @end

@@ -7,11 +7,18 @@
 //
 
 #import "CollectionViewCell.h"
+#import "DateModificationViewController.h"
 
 @implementation CollectionViewCell
 
 - (IBAction)cellButtonAction:(id)sender {
-    NSLog(@"Called");
+    NSLog(@"Adding 5 minutes");
+    
+//    NSDate *oldDate = [dateModificationViewControllerClass.datePickerAction date];
+//    NSDate *newDate = [oldDate dateByAddingTimeInterval:5];
+    
+//    [dateModificationViewControllerClass.datePickerAction setDate:newDate];
+//    dateModificationViewControllerClass.labelString = @"hello";
 }
 
 @end

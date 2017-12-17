@@ -24,6 +24,8 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.deligate sendTest];
+    
     // Register cell classes
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
@@ -59,9 +61,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"check");
+    [self.deligate sendTest];
+    NSLog(@"passed");
+    
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.cellLabel.text = @"Hello World";// settings[indexPath.row];
+    cell.cellLabel.text = @"+5";// settings[indexPath.row];
     cell.layer.cornerRadius = 25;
     
     cell.backgroundColor = [UIColor grayColor];
@@ -70,6 +76,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     return cell;
 }
+
+
 
 #pragma mark <UICollectionViewDelegate>
 

@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DateModificationViewController : UIViewController
+@protocol DateModificationViewControllerDelegate <NSObject>
+@end
+@interface DateModificationViewController : UIViewController {
+    id <DateModificationViewControllerDelegate> _delegate;
+}
+@property (nonatomic, strong) id delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *largeTimeDisplayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *smallReminderDisplayLabel;
@@ -16,5 +21,6 @@
 @property (strong, nonatomic) NSString *labelString;
 
 - (IBAction)datePickerActionChanged:(id)sender;
+- (void) test;
 
 @end

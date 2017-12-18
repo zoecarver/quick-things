@@ -86,6 +86,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="DZq-Su-cR7"/>
                     </view>
                     <connections>
                         <outlet property="tableViewElement" destination="gIq-yt-3uW" id="50u-9c-6l5"/>
@@ -206,6 +207,7 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="DUG-88-fRn"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqy-wu-vB8" userLabel="First Responder" sceneMemberID="firstResponder"/>

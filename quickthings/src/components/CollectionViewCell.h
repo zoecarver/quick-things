@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DateModificationViewController.h"
 
 @interface CollectionViewCell : UICollectionViewCell
 

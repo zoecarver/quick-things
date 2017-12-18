@@ -7,16 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DateModificationViewController.h"
 
-@class CollectionViewController;
-
-@protocol CollectionViewDelegate <NSObject>
-
--(void) sendTest;
-
-@end
 @interface CollectionViewController : UICollectionViewController
-
-@property (nonatomic, weak) id<CollectionViewDelegate> deligate;
 
 @end

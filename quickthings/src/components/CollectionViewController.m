@@ -21,10 +21,14 @@
 
 static NSString * const reuseIdentifier = @"Cell";
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    DateModificationViewController *collectionViewController =(DateModificationViewController *) segue.destinationViewController;
+    collectionViewController.delegate = self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.deligate sendTest];
     
     // Register cell classes
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
@@ -61,9 +65,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"check");
-    [self.deligate sendTest];
-    NSLog(@"passed");
     
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     

@@ -7,9 +7,8 @@
 //
 
 #import "DateModificationViewController.h"
-#import "CollectionViewController.h"
 
-@interface DateModificationViewController () <CollectionViewDelegate> {
+@interface DateModificationViewController () {
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
     NSString *labelText;
@@ -23,9 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    CollectionViewController *controler = [[CollectionViewController alloc] init];
-    controler.deligate = self;
     
     NSDate *now = [NSDate date];
     
@@ -58,8 +54,9 @@
 }
 */
 
-- (void) sendTest {
+- (void) test {
     NSLog(@"Delegates are great!");
+    _largeTimeDisplayLabel.text = @"yup";
 }
 
 - (IBAction)datePickerActionChanged:(id)sender {

@@ -21,6 +21,6 @@
 @property (strong, nonatomic) NSString *labelString;
 
 - (IBAction)datePickerActionChanged:(id)sender;
-- (void) test;
+- (void) test: (NSDate *) date;
 
 @end

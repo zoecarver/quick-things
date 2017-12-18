@@ -21,12 +21,6 @@
 
 static NSString * const reuseIdentifier = @"Cell";
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    DateModificationViewController *collectionViewController =(DateModificationViewController *) segue.destinationViewController;
-    collectionViewController.delegate = self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

@@ -12,16 +12,6 @@
 
 @implementation CollectionViewCell
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    DateModificationViewController *VC = (DateModificationViewController *) segue.destinationViewController;
-    VC.delegate = self;
-    
-    NSLog(@"Prep...");
-    
-    [VC test];
-}
-
 - (IBAction)cellButtonAction:(id)sender {
     NSLog(@"Adding 5 minutes");
     
@@ -30,13 +20,11 @@
     DVC.delegate = self;
     
     NSLog(@"testing");
-    [DVC test];
     
-//    NSDate *oldDate = [dateModificationViewControllerClass.datePickerAction date];
-//    NSDate *newDate = [oldDate dateByAddingTimeInterval:5];
+    NSDate *oldDate = [DVC.datePickerAction date];
+    NSDate *newDate = [oldDate dateByAddingTimeInterval:5 * 60];
     
-//    [dateModificationViewControllerClass.datePickerAction setDate:newDate];
-//    dateModificationViewControllerClass.labelString = @"hello";
+    [DVC test:newDate];
 }
 
 @end

@@ -37,72 +37,75 @@ static NSString * const reuseIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-#pragma mark <UICollectionViewDataSource>
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;//[settings count];
+    return [settings count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+
+    if ([settings[indexPath.row] intValue]) {
+        return [self applyToAddCell:cell index:indexPath];
+    } else {
+        return [self applyToDoneCell:cell index:indexPath];
+    }
+}
+
+- (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    cell.cellLabel.text = @"Done";
     
-    cell.cellLabel.text = @"+5";// settings[indexPath.row];
     cell.layer.cornerRadius = 25;
     
     cell.backgroundColor = [UIColor grayColor];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventDone) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
-
-
-#pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
+- (CollectionViewCell *) applyToAddCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    NSNumber *tmpSettinsItem = settings[indexPath.row];
+    NSInteger settingsItem = [tmpSettinsItem intValue];
+    
+    cell.cellLabel.text = [NSString stringWithFormat:@"+%lu", settingsItem];
+    cell.layer.cornerRadius = 25;
+    
+    cell.backgroundColor = [UIColor grayColor];
+    
+    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
+    [cell.cellButton setTag: settingsItem];
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
+- (void) handleTouchUpEventDone {
+    [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
+    NSLog(@"Done");
 }
 
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
+- (void) handleTouchUpEvent: (UIButton *) sender {
+    NSLog(@"Adding %lu minutes", sender.tag);
+    
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    
+    DVC.delegate = self;
+        
+    NSDate *oldDate = [DVC.datePickerAction date];
+    NSDate *newDate = [oldDate dateByAddingTimeInterval:sender.tag * 60];
+    
+    [DVC test:newDate];
 }
-*/
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    NSLog(@"Hello");
+}
 
 @end

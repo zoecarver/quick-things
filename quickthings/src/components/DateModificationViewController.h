@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *largeTimeDisplayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *smallReminderDisplayLabel;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePickerAction;
-@property (strong, nonatomic) NSString *labelString;
+@property (strong, nonatomic) NSString *textPassedDuringSegue;
 
 - (IBAction)datePickerActionChanged:(id)sender;
 - (void) test: (NSDate *) date;

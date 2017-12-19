@@ -8,6 +8,7 @@
 
 #import "AddReminder.h"
 #import "FetchRembinders.h"
+#import "Reminder.h"
 
 @implementation AddReminder
 
@@ -17,13 +18,30 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
     NSMutableArray *currentReminders = [fetchRemindersAction fetchRembinders];
+    Reminder *reminder = [[Reminder alloc] init];
+    
+    NSDate *now = [NSDate date];
+    
+    reminder.title = _reminderToAdd;
+    reminder.date = now;
+    reminder.notificationKey = @"";
+    
+    NSLog(@"saving with title %@", reminder.title);
     
     if (currentReminders.count < 1) {
+        NSLog(@"Under 1");
         currentReminders = [[NSMutableArray alloc] init];
     }
     
-    [currentReminders addObject:_reminderToAdd];
-    [userDefaults setObject:currentReminders forKey:@"reminders"];
+    NSMutableArray *newReminders = [[NSMutableArray alloc] init];
+    for (Reminder *notArchivedReminder in currentReminders) {
+        [newReminders addObject:[NSKeyedArchiver archivedDataWithRootObject:notArchivedReminder]];
+    }
+    
+    NSData *reminderToSave = [NSKeyedArchiver archivedDataWithRootObject:reminder];
+    
+    [newReminders addObject:reminderToSave];
+    [userDefaults setObject:newReminders forKey:@"reminders"];
     [userDefaults synchronize];
 }
 

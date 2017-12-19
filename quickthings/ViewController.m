@@ -10,15 +10,25 @@
 #import "FetchRembinders.h"
 #import "AddReminder.h"
 #import "TableViewController.h"
+#import "DateModificationViewController.h"
 
 @interface ViewController ()
 @end
 
 @implementation ViewController
+@synthesize recivedString = _recivedString;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+        
+    _recivedString = @"unchanged";
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowDatePickerView"]) {
+        DateModificationViewController *destViewController = segue.destinationViewController;
+        destViewController.textPassedDuringSegue = _recivedString;
+    }
 }
 
 - (IBAction)addReminderButton:(id)sender {
@@ -39,6 +49,10 @@
     for (NSString *reminder in recivedReminders) {
         NSLog(@"Reminder: %@", reminder);
     }
+    
+    NSLog(@"Sending to date picker");
+    _recivedString = _reminderInputField.text;
+    [self performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
 
 @end

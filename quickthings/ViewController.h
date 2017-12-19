@@ -8,12 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@protocol ViewControllerDelegate <NSObject>
+@end
+@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    id <ViewControllerDelegate> _delegate;
+}
+@property (nonatomic, strong) id delegate;
 
 - (IBAction)addReminderButton:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITextField *reminderInputField;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSString *recivedString;
 
 @end
 

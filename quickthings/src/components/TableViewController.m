@@ -9,6 +9,8 @@
 #import "TableViewController.h"
 #import "FetchRembinders.h"
 #import "CompleteReminder.h"
+#import "TableViewCell.h"
+#import "ViewController.h"
 
 @interface TableViewController () {
     FetchRembinders *fetchRemindersAction;
@@ -53,14 +55,29 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [self updateTableView];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.textLabel.text = cells[indexPath.row];
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.textLabel.text = [cells[indexPath.row] title];
     
     cell.backgroundColor = [UIColor grayColor];
+    
+    cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
+    
+    [cell.cellButton addTarget:self action:@selector(onLongPress:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
+- (void) onLongPress: (UIButton *) sender {
+    NSString *recivedValue = [sender.accessibilityAttributedLabel string];
+    NSLog(@"Preforming Segue with value, %@", recivedValue);
+    
+    ViewController *VC =  ((ViewController *) self.parentViewController);
+    [VC setDelegate:self];
+    
+    [VC setRecivedString:recivedValue];
+    
+    [((ViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
+}
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

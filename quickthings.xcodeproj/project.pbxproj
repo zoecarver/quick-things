@@ -23,6 +23,9 @@
 		C86A9D721FE2FEFC00EBD50E /* FetchSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D711FE2FEFC00EBD50E /* FetchSettings.m */; };
 		C86A9D751FE30B8500EBD50E /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D741FE30B8500EBD50E /* CollectionViewCell.m */; };
 		C86A9D7B1FE427EB00EBD50E /* DateModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D7A1FE427EB00EBD50E /* DateModificationViewController.m */; };
+		C877B1CA1FE83DBF006F52D8 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C877B1C91FE83DBF006F52D8 /* TableViewCell.m */; };
+		C88943AB1FE9B07100DDC331 /* UpdateReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C88943AA1FE9B07100DDC331 /* UpdateReminder.m */; };
+		C88943AE1FE9B0EE00DDC331 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C88943AD1FE9B0EE00DDC331 /* Reminder.m */; };
 		C8AB072B1FE06957009DD6A6 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8AB072A1FE06957009DD6A6 /* TableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +79,12 @@
 		C86A9D741FE30B8500EBD50E /* CollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		C86A9D791FE427EB00EBD50E /* DateModificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateModificationViewController.h; sourceTree = "<group>"; };
 		C86A9D7A1FE427EB00EBD50E /* DateModificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateModificationViewController.m; sourceTree = "<group>"; };
+		C877B1C81FE83DBF006F52D8 /* TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		C877B1C91FE83DBF006F52D8 /* TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		C88943A91FE9B07100DDC331 /* UpdateReminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateReminder.h; sourceTree = "<group>"; };
+		C88943AA1FE9B07100DDC331 /* UpdateReminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateReminder.m; sourceTree = "<group>"; };
+		C88943AC1FE9B0EE00DDC331 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
+		C88943AD1FE9B0EE00DDC331 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
 		C8AB07291FE06957009DD6A6 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = src/components/TableViewController.h; sourceTree = "<group>"; };
 		C8AB072A1FE06957009DD6A6 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TableViewController.m; path = src/components/TableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,6 +206,12 @@
 				C86A9D6E1FE2FCAF00EBD50E /* CollectionViewController.m */,
 				C86A9D731FE30B8500EBD50E /* CollectionViewCell.h */,
 				C86A9D741FE30B8500EBD50E /* CollectionViewCell.m */,
+				C877B1C81FE83DBF006F52D8 /* TableViewCell.h */,
+				C877B1C91FE83DBF006F52D8 /* TableViewCell.m */,
+				C88943A91FE9B07100DDC331 /* UpdateReminder.h */,
+				C88943AA1FE9B07100DDC331 /* UpdateReminder.m */,
+				C88943AC1FE9B0EE00DDC331 /* Reminder.h */,
+				C88943AD1FE9B0EE00DDC331 /* Reminder.m */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -340,11 +355,14 @@
 				C86A9D6C1FE2F80E00EBD50E /* FetchCompleted.m in Sources */,
 				C86A9D721FE2FEFC00EBD50E /* FetchSettings.m in Sources */,
 				C81F3D3C1FDF6F5C00DC26F3 /* ViewController.m in Sources */,
+				C877B1CA1FE83DBF006F52D8 /* TableViewCell.m in Sources */,
 				C86A9D691FE2F0F300EBD50E /* CompleteReminder.m in Sources */,
+				C88943AB1FE9B07100DDC331 /* UpdateReminder.m in Sources */,
 				C81F3D701FDF6F8E00DC26F3 /* FetchRembinders.m in Sources */,
 				C81F3D471FDF6F5C00DC26F3 /* main.m in Sources */,
 				C81F3D391FDF6F5C00DC26F3 /* AppDelegate.m in Sources */,
 				C86A9D751FE30B8500EBD50E /* CollectionViewCell.m in Sources */,
+				C88943AE1FE9B0EE00DDC331 /* Reminder.m in Sources */,
 				C86A9D6F1FE2FCAF00EBD50E /* CollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

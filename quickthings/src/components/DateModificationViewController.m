@@ -12,31 +12,27 @@
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
     NSString *labelText;
+    NSData *timeToBeRemindedAt;
 }
 @end
 
-@implementation DateModificationViewController
+@implementation DateModificationViewController {
+    NSArray *stringWeAreGetting;
+}
 
 @synthesize largeTimeDisplayLabel = _largeTimeDisplayLabel;
+@synthesize textPassedDuringSegue = _textPassedDuringSegue;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self initilizeFormaters];
     
     NSDate *now = [NSDate date];
-    
-    timeFormatter = [[NSDateFormatter alloc] init];
-    dayFormatter = [[NSDateFormatter alloc] init];
-    
-    [timeFormatter setDateFormat:@"hh:mm a"];
-    [dayFormatter setDateFormat:@"EEEE"];
-    
-    
     [_datePickerAction setDate:now];
     
-    _labelString = [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:now], [timeFormatter stringFromDate:now]];
-    
-    _largeTimeDisplayLabel.text = _labelString;
+    _largeTimeDisplayLabel.text = [self formatDateAsString:now];
+    _smallReminderDisplayLabel.text = _textPassedDuringSegue;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,10 +40,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) initilizeFormaters {
+    timeFormatter = [[NSDateFormatter alloc] init];
+    dayFormatter = [[NSDateFormatter alloc] init];
+    
+    [timeFormatter setDateFormat:@"hh:mm a"];
+    [dayFormatter setDateFormat:@"EEEE"];
+}
+
+- (NSString *) formatDateAsString: (NSData *) date {
+    return [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:date], [timeFormatter stringFromDate:date]];
+}
+
 - (void) test: (NSDate *) date {
     [_datePickerAction setDate:date];
 
-    NSString *stringOfRecivedDate = [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:date], [timeFormatter stringFromDate:date]];
+    NSString *stringOfRecivedDate = [self formatDateAsString:date];
     
     NSLog(@"Receved time, %@", stringOfRecivedDate);
     _largeTimeDisplayLabel.text = stringOfRecivedDate;
@@ -56,7 +64,7 @@
 - (IBAction)datePickerActionChanged:(id)sender {
     NSDate *chosen = [_datePickerAction date];
     
-    _largeTimeDisplayLabel.text = [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:chosen], [timeFormatter stringFromDate:chosen]];
+    _largeTimeDisplayLabel.text = [self formatDateAsString:chosen];
 }
 
 @end

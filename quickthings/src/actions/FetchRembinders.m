@@ -19,7 +19,13 @@
     } else {
         NSLog(@"ERROR: user defaults is nil");
     }
-    return reminders;
+    
+    NSMutableArray *returnArray = [[NSMutableArray alloc] init];
+    for (NSData *data in reminders) {
+        [returnArray addObject:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+    }
+    
+    return returnArray;
 }
 
 @end

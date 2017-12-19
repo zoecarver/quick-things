@@ -20,7 +20,11 @@
         NSLog(@"ERROR: user defaults is nil");
     }
     if (settings.count < 1) {
-        return [[NSMutableArray alloc] init];
+        settings = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < 9; i++) {
+            [settings addObject: [NSNumber numberWithInteger:5]];
+        }
+        [settings addObject:@"Done"];
     }
     return settings;
 }

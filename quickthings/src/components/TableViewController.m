@@ -11,12 +11,15 @@
 #import "CompleteReminder.h"
 #import "TableViewCell.h"
 #import "ViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface TableViewController () {
     FetchRembinders *fetchRemindersAction;
     CompleteReminder *completeReminderAction;
     NSMutableArray *cells;
     NSInteger cellsCount;
+    NSDateFormatter *timeFormatter;
+    NSDateFormatter *dayFormatter;
 }
 
 @end
@@ -30,6 +33,16 @@
     completeReminderAction = [[CompleteReminder alloc] init];
     cells = [fetchRemindersAction fetchRembinders];
     cellsCount = [cells count];
+    
+    [self initilizeFormaters];
+}
+
+- (void) initilizeFormaters {
+    timeFormatter = [[NSDateFormatter alloc] init];
+    dayFormatter = [[NSDateFormatter alloc] init];
+    
+    [timeFormatter setDateFormat:@"hh:mm a"];
+    [dayFormatter setDateFormat:@"EEEE"];
 }
 
 - (void) updateTableView {
@@ -57,14 +70,19 @@
     
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     cell.textLabel.text = [cells[indexPath.row] title];
+    cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
     
     cell.backgroundColor = [UIColor grayColor];
     
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
-    
+    cell.cellButton.tag = indexPath.row;
     [cell.cellButton addTarget:self action:@selector(onLongPress:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
+}
+
+- (NSString *) formatDateAsString: (NSDate *) date {
+    return [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:date], [timeFormatter stringFromDate:date]];
 }
 
 - (void) onLongPress: (UIButton *) sender {
@@ -75,6 +93,7 @@
     [VC setDelegate:self];
     
     [VC setRecivedString:recivedValue];
+    [VC setRecivedIndex:sender.tag];
     
     [((ViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
@@ -94,7 +113,10 @@ void (^reminderCompleteHandler)(UITableViewRowAction*, NSIndexPath*, NSMutableAr
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"✅" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-            reminderCompleteHandler(action, indexPath, cells, tableView, completeReminderAction);
+        reminderCompleteHandler(action, indexPath, cells, tableView, completeReminderAction);
+        
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        [center removePendingNotificationRequestsWithIdentifiers:@[[NSString stringWithFormat:@"%lu", indexPath.row]]];
     }];
     button.backgroundColor = [UIColor greenColor];
     NSArray *returnArrayWithButtons = @[button];

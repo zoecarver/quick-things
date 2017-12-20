@@ -17,17 +17,24 @@
 
 @implementation ViewController
 @synthesize recivedString = _recivedString;
+@synthesize recivedIndex = _recivedIndex;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+    
+    NSLog(@"Started");
+    
     _recivedString = @"unchanged";
+    _recivedIndex = 0;
+    
+    NSLog(@"Finished");
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowDatePickerView"]) {
         DateModificationViewController *destViewController = segue.destinationViewController;
         destViewController.textPassedDuringSegue = _recivedString;
+        destViewController.indexPassedDuringSegue = _recivedIndex;
     }
 }
 

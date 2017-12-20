@@ -22,12 +22,14 @@
     reminderToUpdate.date = date;
     reminderToUpdate.notificationKey = notificationKey;
     
-    if (currentReminders.count < 1) {
-        currentReminders = [[NSMutableArray alloc] init];
+    [currentReminders setObject:reminderToUpdate atIndexedSubscript:index];
+    
+    NSMutableArray *newReminders = [[NSMutableArray alloc] init];
+    for (Reminder *notArchivedReminder in currentReminders) {
+        [newReminders addObject:[NSKeyedArchiver archivedDataWithRootObject:notArchivedReminder]];
     }
     
-    [currentReminders setObject:reminderToUpdate atIndexedSubscript:index];
-    [userDefaults setObject:currentReminders forKey:@"reminders"];
+    [userDefaults setObject:newReminders forKey:@"reminders"];
     [userDefaults synchronize];
 }
 

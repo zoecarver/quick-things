@@ -22,6 +22,7 @@
 
 @synthesize largeTimeDisplayLabel = _largeTimeDisplayLabel;
 @synthesize textPassedDuringSegue = _textPassedDuringSegue;
+@synthesize indexPassedDuringSegue = _indexPassedDuringSegue;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +49,7 @@
     [dayFormatter setDateFormat:@"EEEE"];
 }
 
-- (NSString *) formatDateAsString: (NSData *) date {
+- (NSString *) formatDateAsString: (NSDate *) date {
     return [NSString stringWithFormat:@"%@, %@", [dayFormatter stringFromDate:date], [timeFormatter stringFromDate:date]];
 }
 

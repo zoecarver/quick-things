@@ -21,8 +21,14 @@
     }
     if (settings.count < 1) {
         settings = [[NSMutableArray alloc] init];
-        for (NSInteger i = 0; i < 9; i++) {
+        for (NSInteger i = 0; i < 4; i++) {
             [settings addObject: [NSNumber numberWithInteger:5]];
+        }
+        for (NSInteger i = 0; i < 2; i++) {
+            [settings addObject: [NSNumber numberWithInteger:1]];
+        }
+        for (NSInteger i = 0; i < 3; i++) {
+            [settings addObject: [NSNumber numberWithInteger:2]];
         }
         [settings addObject:@"Done"];
     }

@@ -9,6 +9,9 @@
 #import "CollectionViewController.h"
 #import "FetchSettings.h"
 #import "CollectionViewCell.h"
+#import "UpdateReminder.h"
+#import "FetchRembinders.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface CollectionViewController () {
     FetchSettings *fetchSettingsAction;
@@ -87,8 +90,45 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void) handleTouchUpEventDone {
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
+    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    
+    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
+    NSInteger index = [DVC indexPassedDuringSegue];
+    
+    NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
+    
+    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex indexToUpdateWith:index];
+    
     [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
+    
+    [self scheduleNotificationWithTitle:[reminders[index] title] date:[DVC.datePickerAction date] stringNotificationKeyFromIndex:stringNotificationKeyFromIndex];
+    
     NSLog(@"Done");
+}
+
+- (void) scheduleNotificationWithTitle: (NSString *)title date:(NSDate *)date stringNotificationKeyFromIndex:(NSString *) identifierForRequest{
+    UNMutableNotificationContent *notificationContent = [[UNMutableNotificationContent alloc] init];
+    notificationContent.title = title;
+    
+    NSDateComponents *triggerMinutely = [[NSCalendar currentCalendar]
+                                                    components:NSCalendarUnitSecond fromDate:date];
+    
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:triggerMinutely repeats:true];
+    
+    UNNotificationRequest* request = [UNNotificationRequest
+                                      requestWithIdentifier:identifierForRequest content:notificationContent trigger:trigger];
+    
+    UNUserNotificationCenter *userNotificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+    [userNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        } else {
+            NSLog(@"Recived no errors while scheduling the notification");
+        }
+    }];
 }
 
 - (void) handleTouchUpEvent: (UIButton *) sender {

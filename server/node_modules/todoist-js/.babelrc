@@ -1,4 +1,0 @@
-{
-  "presets": ["env", "babili"],
-  "plugins": ["transform-async-to-generator", "transform-object-rest-spread"]
-}

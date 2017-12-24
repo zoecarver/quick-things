@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "DateModificationViewController.h"
+#import "CellEditViewController.h"
 
 @interface CollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *cellLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cellButton;
+@property (nonatomic) NSUInteger index;
 
 - (IBAction)cellButtonAction:(id)sender;
 

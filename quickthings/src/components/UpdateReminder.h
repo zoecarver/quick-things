@@ -11,5 +11,6 @@
 
 @interface UpdateReminder : NSObject
 
-- (void) reminderToUpdate:(Reminder *)reminderToUpdate date:(NSDate *) date notificationKey:(NSString *) notificationKey indexToUpdateWith:(NSInteger) index;
+- (void) reminderToUpdate:(Reminder *)reminderToUpdate date:(NSDate *) date notificationKey:(NSString *) notificationKey snooz:(NSInteger) snooz indexToUpdateWith:(NSInteger) index;
+
 @end

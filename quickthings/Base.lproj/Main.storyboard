@@ -157,6 +157,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uET-a4-zSX">
+                                <rect key="frame" x="33" y="230" width="308" height="206"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="fOQ-B5-ztx" kind="embed" id="QFz-Mg-cZT"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="jzG-vy-crc"/>
@@ -171,12 +178,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5L-AH-a2u" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="qCz-F2-7ZF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1014" y="117"/>
+            <point key="canvasLocation" x="1013.6" y="116.49175412293854"/>
         </scene>
-        <!--View Controller-->
+        <!--Cell Edit View Controller-->
         <scene sceneID="Tfp-dB-RMJ">
             <objects>
-                <viewController id="lJo-px-bfk" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lJo-px-bfk" customClass="CellEditViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ha3-Qf-2BB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -197,6 +204,7 @@
                                 <items>
                                     <barButtonItem title="Mark as complete" id="4I1-0B-hT9"/>
                                     <barButtonItem title="Send To Todoist" id="umq-n2-b2E"/>
+                                    <barButtonItem title="Cancel" id="9vn-sB-wUA"/>
                                 </items>
                             </toolbar>
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h2i-VU-yPp">
@@ -230,14 +238,32 @@
                                     <!--2017-12-20 19:59:34 +0000-->
                                 </date>
                             </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgr-UV-OfW">
+                                <rect key="frame" x="16" y="20" width="343" height="111"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LwA-jh-UuC">
+                                <rect key="frame" x="312" y="60" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="onCancelPressed:" destination="lJo-px-bfk" eventType="touchUpInside" id="Svc-Rz-5GL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="cUo-Hx-PRE"/>
                     </view>
+                    <connections>
+                        <segue destination="dPL-8o-hnF" kind="showDetail" identifier="cancelEdit" id="L5M-wK-hRl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xrn-yR-CzF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1856.8" y="116.49175412293854"/>
+            <point key="canvasLocation" x="1874" y="117"/>
         </scene>
         <!--Collection View Controller-->
         <scene sceneID="jaZ-DY-AEb">
@@ -301,5 +327,32 @@
             </objects>
             <point key="canvasLocation" x="1014" y="-518"/>
         </scene>
+        <!--Repeat Table View Controller-->
+        <scene sceneID="7sm-bg-pcN">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WUp-0U-5m8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="fOQ-B5-ztx" customClass="RepeatTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="K0G-lG-V2v">
+                        <rect key="frame" x="0.0" y="0.0" width="308" height="206"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="fLO-3t-aBB">
+                                <rect key="frame" x="0.0" y="28" width="308" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fLO-3t-aBB" id="x4M-dT-Gvc">
+                                    <rect key="frame" x="0.0" y="0.0" width="308" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1682" y="752"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="L5M-wK-hRl"/>
+    </inferredMetricsTieBreakers>
 </document>

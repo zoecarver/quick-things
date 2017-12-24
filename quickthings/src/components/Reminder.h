@@ -12,10 +12,13 @@
     NSString *title;
     NSDate *date;
     NSString *notificationKey;
+    NSInteger snooz;
 }
 
-@property (nonatomic, readwrite) NSString *title;
-@property (nonatomic, readwrite) NSDate *date;
-@property (nonatomic, readwrite) NSString *notificationKey;
+@property (nonatomic, readwrite) NSString * _Nonnull title;
+@property (nonatomic, readwrite) NSDate * _Nonnull date;
+@property (nonatomic, readwrite) NSString * _Nonnull notificationKey;
+@property (nonatomic, readwrite) NSInteger snooz;
+@property (nullable, nonatomic, readwrite) NSDate *repeat;
 
 @end

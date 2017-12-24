@@ -13,12 +13,16 @@
 @synthesize title;
 @synthesize date;
 @synthesize notificationKey;
+@synthesize snooz;
+@synthesize repeat;
 
 -(id) init {
     self = [super init];
     self.title = @"";
     self.date = [NSDate date];
     self.notificationKey = @"";
+    self.snooz = 1;
+    self.repeat = nil;
     return self;
 }
 
@@ -31,6 +35,8 @@
     self.title = [decoder decodeObjectForKey:@"title"];
     self.date = [decoder decodeObjectForKey:@"date"];
     self.notificationKey = [decoder decodeObjectForKey:@"notificationKey"];
+    self.snooz = [decoder decodeIntegerForKey:@"snooz"];
+    self.repeat = [decoder decodeObjectForKey:@"repeat"];
     
     return self;
 }
@@ -39,6 +45,8 @@
     [encoder encodeObject:self.title forKey:@"title"];
     [encoder encodeObject:self.date forKey:@"date"];
     [encoder encodeObject:self.notificationKey forKey:@"notificationKey"];
+    [encoder encodeInteger:self.snooz forKey:@"snooz"];
+    [encoder encodeObject:self.repeat forKey:@"repeat"];
 }
 
 

@@ -11,4 +11,6 @@
 
 @interface CollectionViewController : UICollectionViewController
 
+@property (nonatomic, strong) id previewingContext;
+
 @end

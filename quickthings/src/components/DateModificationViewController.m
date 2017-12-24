@@ -7,6 +7,8 @@
 //
 
 #import "DateModificationViewController.h"
+#import "CellEditViewController.h"
+#import "CollectionViewController.h"
 
 @interface DateModificationViewController () {
     NSDateFormatter *timeFormatter;

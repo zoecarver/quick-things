@@ -67,8 +67,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [self updateTableView];
-    
-    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.textLabel.text = [cells[indexPath.row] title];
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
     
@@ -77,7 +77,7 @@
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
     cell.cellButton.tag = indexPath.row;
     [cell.cellButton addTarget:self action:@selector(onLongPress:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     return cell;
 }
 
@@ -114,9 +114,6 @@ void (^reminderCompleteHandler)(UITableViewRowAction*, NSIndexPath*, NSMutableAr
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"✅" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         reminderCompleteHandler(action, indexPath, cells, tableView, completeReminderAction);
-        
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        [center removePendingNotificationRequestsWithIdentifiers:@[[NSString stringWithFormat:@"%lu", indexPath.row]]];
     }];
     button.backgroundColor = [UIColor greenColor];
     NSArray *returnArrayWithButtons = @[button];

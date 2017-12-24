@@ -1,0 +1,2 @@
+'use strict';Object.defineProperty(exports,'__esModule',{value:!0});var generate_uuid=exports.generate_uuid=function(){return'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(a){var b=0|16*Math.random(),d='x'==a?b:8|3&b;return d.toString(16)})};
+//# sourceMappingURL=uuid.js.map

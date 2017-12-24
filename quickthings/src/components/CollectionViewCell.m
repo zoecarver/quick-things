@@ -9,8 +9,11 @@
 #import "CollectionViewCell.h"
 #import "DateModificationViewController.h"
 #import "ViewController.h"
+#import "CollectionViewController.h"
+#import "CellEditViewController.h"
 
 @implementation CollectionViewCell
+@synthesize index = _index;
 
 - (IBAction)cellButtonAction:(id)sender {
     NSLog(@"Button Pressed");

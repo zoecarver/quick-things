@@ -11,11 +11,19 @@
 #import "CollectionViewCell.h"
 #import "UpdateReminder.h"
 #import "FetchRembinders.h"
+#import "CellEditViewController.h"
+#import "CellActions.h"
+#import "CompleteReminder.h"
+#import "TableViewController.h"
 #import <UserNotifications/UserNotifications.h>
 
 @interface CollectionViewController () {
     FetchSettings *fetchSettingsAction;
     NSMutableArray *settings;
+    UIGestureRecognizer *gestureRecognizer;
+    CellActions *cellActionsClass;
+    NSDateFormatter *timeFormatter;
+    NSDateFormatter *dayFormatter;
 }
 
 @end
@@ -27,12 +35,45 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initilizeFormaters];
+    [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    
     // Register cell classes
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
     fetchSettingsAction = [[FetchSettings alloc] init];
     settings = [fetchSettingsAction fetchSettings];
+    
+    cellActionsClass = [[CellActions alloc] init];
+}
+
+- (void) initilizeFormaters {
+    timeFormatter = [[NSDateFormatter alloc] init];
+    dayFormatter = [[NSDateFormatter alloc] init];
+    
+    [timeFormatter setDateFormat:@"hh:mm a"];
+    [dayFormatter setDateFormat:@"EEEE"];
+}
+
+- (UIViewController *) previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+
+    CellEditViewController *CEVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
+    
+    NSLog(@"Location: %f,%f", location.x, location.y);
+    NSLog(@"Idex of: %lu", [[self.collectionView indexPathForItemAtPoint:location] row]);
+    
+    [CEVC setPreferredContentSize:CGSizeMake(0.0, 320.0)];
+
+    return CEVC;
+}
+
+- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"Pressed");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,23 +93,182 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    NSLog(@"Giving it tag: %lu", indexPath.row);
+    cell.index = indexPath.row;
 
-    if ([settings[indexPath.row] intValue]) {
-        return [self applyToAddCell:cell index:indexPath];
-    } else {
+    if ([settings[indexPath.row] isKindOfClass:[NSDate class]]) {
+        return [self applyToSetTimeCell:cell index:indexPath];
+    } else if ([settings[indexPath.row]  isEqual:@"Done"]) {
         return [self applyToDoneCell:cell index:indexPath];
+    } else if ([settings[indexPath.row]  isEqual:@"Todoist"]) {
+        return [cellActionsClass applyToTodoistCell:cell index:indexPath];
+    } else if ([settings[indexPath.row]  isEqual:@"Cancel"]) {
+        return [self applyToCancelCell:cell index:indexPath];
+    } else if ([settings[indexPath.row]  isEqual:@"Complete"]) {
+        return [self applyToCompleteCell:cell index:indexPath];
+    } else if ([settings[indexPath.row]  isEqual:@"Repeat"]) {
+        return [self applyToRepeatCell:cell index:indexPath];
+    } else if ([settings[indexPath.row]  isEqual:@"Snooz"]) {
+        return [self applyToSnoozCell:cell index:indexPath];
+    } else {
+        return [self applyToAddCell:cell index:indexPath];
     }
 }
 
-- (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
-    cell.cellLabel.text = @"Done";
+- (CollectionViewCell *) applyToRepeatCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    cell.cellLabel.text = @"Repeat";
     
     cell.layer.cornerRadius = 25;
     
     cell.backgroundColor = [UIColor grayColor];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
-    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventDone) forControlEvents:UIControlEventTouchUpInside];
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventRepeat) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
+- (void) handleTouchUpEventRepeat {
+//    RepeatViewController *RVC = ((RepeatViewController *) self.childViewControllers);
+//    [self showAnimate:RVC];
+    NSLog(@"Repeat");
+}
+
+//- (void)showAnimate: (RepeatViewController *) RVC {
+//    RVC.view.transform = CGAffineTransformMakeScale(1.3, 1.3);
+//    RVC.view.alpha = 0;
+//    [UIView animateWithDuration:.25 animations:^{
+//        RVC.view.alpha = 1;
+//        RVC.view.transform = CGAffineTransformMakeScale(1, 1);
+//    }];
+//}
+
+//these are here because they needs to be for the segue - otherwise we would need to have some more of the deligate vudo that I don't completely understand.
+- (CollectionViewCell *) applyToSnoozCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    cell.cellLabel.text = @"Snooz";
+    
+    cell.layer.cornerRadius = 25;
+    
+    cell.backgroundColor = [UIColor grayColor];
+    
+    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventSnooz) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
+- (CollectionViewCell *) applyToCancelCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    cell.cellLabel.text = @"Cancel";
+    
+    cell.layer.cornerRadius = 25;
+    
+    cell.backgroundColor = [UIColor grayColor];
+    
+    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventCancel) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
+- (void) handleTouchUpEventCancel {
+    [self dismissViewControllerAnimated:true completion:nil];
+    NSLog(@"Cancel");
+}
+
+- (void) handleTouchUpEventSnooz {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter the NUMBER you want to set the snooz to" message:@"please only enter the number" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Enter the NUMBER you want to set the snooz to";
+    }];
+    
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+        DVC.delegate = self;
+        
+        NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", [DVC indexPassedDuringSegue]];
+        NSInteger valueGotFromAlert = [[[alertController textFields][0] text] integerValue];
+        NSLog(@"Got val %lu", valueGotFromAlert);
+        
+        UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
+        FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+        
+        NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
+        if (valueGotFromAlert) {
+            [updateReminderAction reminderToUpdate:reminders[DVC.indexPassedDuringSegue] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:valueGotFromAlert indexToUpdateWith:DVC.indexPassedDuringSegue];
+        }
+    }];
+    [alertController addAction:confirmAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"Canelled");
+    }];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (CollectionViewCell *) applyToCompleteCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    cell.cellLabel.text = @"Complete";
+    
+    cell.layer.cornerRadius = 25;
+    
+    cell.backgroundColor = [UIColor grayColor];
+    
+    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
+    
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventComplete) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
+- (void) handleTouchUpEventComplete {
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    
+    CompleteReminder *completeReminderAction = [[CompleteReminder alloc] init];
+    [completeReminderAction reminderToComplete:[DVC indexPassedDuringSegue]];
+    
+    [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
+}
+
+- (void) handleTouchUpEventTimeCell: (UIButton *) sender {    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier: NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate: [NSDate date]];
+    NSDateComponents *dateInComponentFormat = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:settings[sender.tag]];
+    [components setHour: [dateInComponentFormat hour]];
+    [components setMinute: [dateInComponentFormat minute]];
+    
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    
+    [DVC test:[calendar dateFromComponents:components]];
+}
+
+- (void) handleTouchUpEvent: (UIButton *) sender {
+    NSLog(@"Adding %lu minutes", sender.tag);
+    
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    
+    DVC.delegate = self;
+    
+    NSDate *oldDate = [DVC.datePickerAction date];
+    NSDate *newDate = [oldDate dateByAddingTimeInterval:sender.tag * 60];
+    
+    [DVC test:newDate];
+}
+
+- (CollectionViewCell *) applyToSetTimeCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    cell.cellLabel.text = [self formatDateAsString:settings[indexPath.row]];
+    
+    cell.layer.cornerRadius = 25;
+    
+    cell.backgroundColor = [UIColor grayColor];
+    
+    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
+    
+    [cell.cellButton setTag: [indexPath row]];
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventTimeCell:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
@@ -89,6 +289,19 @@ static NSString * const reuseIdentifier = @"Cell";
     return cell;
 }
 
+- (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    cell.cellLabel.text = @"Done";
+    
+    cell.layer.cornerRadius = 25;
+    
+    cell.backgroundColor = [UIColor grayColor];
+    
+    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventDone) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
 - (void) handleTouchUpEventDone {
     DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
     DVC.delegate = self;
@@ -100,52 +313,51 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
     
-    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex indexToUpdateWith:index];
+    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:1 indexToUpdateWith:index];
     
     [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
     
-    [self scheduleNotificationWithTitle:[reminders[index] title] date:[DVC.datePickerAction date] stringNotificationKeyFromIndex:stringNotificationKeyFromIndex];
+    [self scheduleNotificationWithTitle:[reminders[index] title] date:[DVC.datePickerAction date] stringNotificationKeyFromIndex:stringNotificationKeyFromIndex withSnoozFromReminder:[reminders[index] snooz]];
     
     NSLog(@"Done");
 }
 
-- (void) scheduleNotificationWithTitle: (NSString *)title date:(NSDate *)date stringNotificationKeyFromIndex:(NSString *) identifierForRequest{
+- (void) scheduleNotificationWithTitle: (NSString *)title date:(NSDate *)date stringNotificationKeyFromIndex:(NSString *) identifierForRequest withSnoozFromReminder:(NSInteger) snooz{
     UNMutableNotificationContent *notificationContent = [[UNMutableNotificationContent alloc] init];
     notificationContent.title = title;
-    
-    NSDateComponents *triggerMinutely = [[NSCalendar currentCalendar]
-                                                    components:NSCalendarUnitSecond fromDate:date];
-    
-    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:triggerMinutely repeats:true];
-    
-    UNNotificationRequest* request = [UNNotificationRequest
-                                      requestWithIdentifier:identifierForRequest content:notificationContent trigger:trigger];
-    
     UNUserNotificationCenter *userNotificationCenter = [UNUserNotificationCenter currentNotificationCenter];
-    [userNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        } else {
-            NSLog(@"Recived no errors while scheduling the notification");
-        }
-    }];
-}
-
-- (void) handleTouchUpEvent: (UIButton *) sender {
-    NSLog(@"Adding %lu minutes", sender.tag);
+    NSCalendar *gorgianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *dateComponets;
+    UNCalendarNotificationTrigger *trigger;
+    UNNotificationRequest *request;
     
-    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
-    
-    DVC.delegate = self;
+    for (NSInteger i = 0; i < 10; i++) {
+        dateComponets = [gorgianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
+        trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponets repeats:true];
+        request = [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%@_%lu", identifierForRequest, i] content:notificationContent trigger:trigger];
         
-    NSDate *oldDate = [DVC.datePickerAction date];
-    NSDate *newDate = [oldDate dateByAddingTimeInterval:sender.tag * 60];
-    
-    [DVC test:newDate];
+        [userNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+            if (error != nil) {
+                NSLog(@"Error: %@", error.localizedDescription);
+            }
+        }];
+        
+        date = [date dateByAddingTimeInterval:60*snooz];
+    }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    NSLog(@"Hello");
+- (NSDateComponents *) createGorgianDateComponentsForDate:(NSDate *) date {
+    NSCalendar *gorgianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    
+    return [gorgianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
+}
+
+- (UNCalendarNotificationTrigger *) createNotificationTriggerWithDateCompontnet:(NSDateComponents *) dateComponets {
+    return [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponets repeats:true];
+}
+
+- (NSString *) formatDateAsString: (NSDate *) date {
+    return [NSString stringWithFormat:@"%@", [timeFormatter stringFromDate:date]];
 }
 
 @end

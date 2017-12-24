@@ -9,6 +9,8 @@
 #import "CompleteReminder.h"
 #import "FetchRembinders.h"
 #import "FetchCompleted.h"
+#import "Reminder.h"
+#import <UserNotifications/UserNotifications.h>
 
 @implementation CompleteReminder
 
@@ -17,16 +19,27 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
-    FetchCompleted *fetchCompletedAction = [[FetchCompleted alloc] init];
-    NSMutableArray *completedReminder = [fetchCompletedAction fetchRembinders];
+//    FetchCompleted *fetchCompletedAction = [[FetchCompleted alloc] init];
+//    NSMutableArray *completedReminder = [fetchCompletedAction fetchRembinders];
     NSMutableArray *currentReminders = [fetchRemindersAction fetchRembinders];
-    
-    [completedReminder addObject:[currentReminders objectAtIndex:reminderToComplete]];
-    [userDefaults setObject:completedReminder forKey:@"completed"];
+//    re implement me later
+//    [completedReminder addObject:[[currentReminders objectAtIndex:reminderToComplete] title]];
+//    [userDefaults setObject:completedReminder forKey:@"completed"];
 
     [currentReminders removeObjectAtIndex:reminderToComplete];
-    [userDefaults setObject:currentReminders forKey:@"reminders"];
+    
+    NSMutableArray *newReminders = [[NSMutableArray alloc] init];
+    for (Reminder *notArchivedReminder in currentReminders) {
+        [newReminders addObject:[NSKeyedArchiver archivedDataWithRootObject:notArchivedReminder]];
+    }
+    
+    [userDefaults setObject:newReminders forKey:@"reminders"];
     [userDefaults synchronize];
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    for (NSInteger i = 0; i<10; i++) {
+        [center removePendingNotificationRequestsWithIdentifiers:@[[NSString stringWithFormat:@"%lu_%lu", reminderToComplete, i]]];
+    }
 }
 
 @end

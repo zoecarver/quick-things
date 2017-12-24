@@ -21,17 +21,28 @@
     }
     if (settings.count < 1) {
         settings = [[NSMutableArray alloc] init];
-        for (NSInteger i = 0; i < 4; i++) {
-            [settings addObject: [NSNumber numberWithInteger:5]];
-        }
-        for (NSInteger i = 0; i < 2; i++) {
-            [settings addObject: [NSNumber numberWithInteger:1]];
-        }
-        for (NSInteger i = 0; i < 3; i++) {
-            [settings addObject: [NSNumber numberWithInteger:2]];
-        }
+        
+        [settings addObject: [NSNumber numberWithInteger:5]];
+        [settings addObject: [NSNumber numberWithInteger:2]];
+        [settings addObject: [NSNumber numberWithInteger:1]];
+        [settings addObject: [[NSDate date] dateByAddingTimeInterval:60*2]];
+        [settings addObject:@"Todoist"];
         [settings addObject:@"Done"];
     }
+    //do it anyway for now
+    settings = [[NSMutableArray alloc] init];
+    
+    [settings addObject: [NSNumber numberWithInteger:5]];
+    [settings addObject: [NSNumber numberWithInteger:2]];
+    [settings addObject: [NSNumber numberWithInteger:1]];
+    [settings addObject: [[NSDate date] dateByAddingTimeInterval:60*2]];
+    [settings addObject:@"Todoist"];
+    [settings addObject:@"Done"];
+    [settings addObject:@"Complete"];
+    [settings addObject:@"Cancel"];
+    [settings addObject:@"Snooz"];
+    [settings addObject:@"Repeat"];
+    
     return settings;
 }
 

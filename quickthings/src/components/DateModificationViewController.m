@@ -9,6 +9,7 @@
 #import "DateModificationViewController.h"
 #import "CellEditViewController.h"
 #import "CollectionViewController.h"
+#import "RepeatTableViewController.h"
 
 @interface DateModificationViewController () {
     NSDateFormatter *timeFormatter;
@@ -20,6 +21,7 @@
 
 @implementation DateModificationViewController {
     NSArray *stringWeAreGetting;
+    UITapGestureRecognizer *tapRecognizer;
 }
 
 @synthesize largeTimeDisplayLabel = _largeTimeDisplayLabel;
@@ -36,6 +38,21 @@
     
     _largeTimeDisplayLabel.text = [self formatDateAsString:now];
     _smallReminderDisplayLabel.text = _textPassedDuringSegue;
+    
+    [[self.view viewWithTag:42] setHidden:YES];
+    [[[self.view viewWithTag:42] layer] setZPosition:-100];
+    
+//    tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(highlightLetter:)];
+//    tapRecognizer.cancelsTouchesInView = NO;
+//    [self.view addGestureRecognizer:tapRecognizer];
+}
+
+- (void)highlightLetter:(UITapGestureRecognizer *)sender {
+    if (![[self.view viewWithTag:42] isHidden]) {
+        [[self.view viewWithTag:12] removeFromSuperview];
+        [[self.view viewWithTag:42] setHidden:YES];
+        [[[self.view viewWithTag:42] layer] setZPosition:-100];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

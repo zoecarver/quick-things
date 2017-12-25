@@ -102,7 +102,7 @@ static NSString * const reuseIdentifier = @"Cell";
     } else if ([settings[indexPath.row]  isEqual:@"Done"]) {
         return [self applyToDoneCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Todoist"]) {
-        return [cellActionsClass applyToTodoistCell:cell index:indexPath];
+        return [self applyToTodoistCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Cancel"]) {
         return [self applyToCancelCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Complete"]) {
@@ -130,21 +130,108 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void) handleTouchUpEventRepeat {
-//    RepeatViewController *RVC = ((RepeatViewController *) self.childViewControllers);
-//    [self showAnimate:RVC];
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    
+    [[DVC.view viewWithTag:42] setHidden:NO];
+    [[[DVC.view viewWithTag:42] layer] setZPosition:100];
+    
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    //always fill the view
+    blurEffectView.frame = DVC
+    .view.bounds;
+    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    blurEffectView.tag = 12;
+    
+    [DVC.view addSubview:blurEffectView];
+    
+    [self showAnimate:[DVC.view viewWithTag:42]];
+    
     NSLog(@"Repeat");
 }
 
-//- (void)showAnimate: (RepeatViewController *) RVC {
-//    RVC.view.transform = CGAffineTransformMakeScale(1.3, 1.3);
-//    RVC.view.alpha = 0;
-//    [UIView animateWithDuration:.25 animations:^{
-//        RVC.view.alpha = 1;
-//        RVC.view.transform = CGAffineTransformMakeScale(1, 1);
-//    }];
-//}
+- (void)showAnimate: (UIView *) view {
+    view.transform = CGAffineTransformMakeScale(1.3, 1.3);
+    view.alpha = 0;
+    [UIView animateWithDuration:.25 animations:^{
+        view.alpha = 1;
+        view.transform = CGAffineTransformMakeScale(1, 1);
+    }];
+}
 
 //these are here because they needs to be for the segue - otherwise we would need to have some more of the deligate vudo that I don't completely understand.
+
+- (CollectionViewCell *) applyToTodoistCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
+    cell.cellLabel.text = @"Todoist";
+    
+    cell.layer.cornerRadius = 25;
+    
+    cell.backgroundColor = [UIColor blueColor];
+    
+    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
+    [cell.cellButton setTag:indexPath.row];
+    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventTodoist:) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
+- (void) handleTouchUpEventTodoist: (UIButton *) sender {
+    NSLog(@"Todoist");
+    
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    
+    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter the webhook attached to your zapier or ifttt recipy" message:@"Click help for more info" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Ender webhook url";
+    }];
+    
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSError *error;
+        
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+        NSURL *url = [NSURL URLWithString:[[alertController textFields][0] text]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                           timeoutInterval:60.0];
+        
+        [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        
+        [request setHTTPMethod:@"POST"];
+        NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys: [reminders[DVC.indexPassedDuringSegue] title], @"reminder", nil];
+        NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData options:0 error:&error];
+        [request setHTTPBody:postData];
+        
+        
+        NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error) {
+                NSLog(@"Error! %@", error.description);
+            } else {
+                NSLog(@"Success!");
+                
+                CompleteReminder *completeReminderAction = [[CompleteReminder alloc] init];
+                [completeReminderAction reminderToComplete:[DVC indexPassedDuringSegue]];
+                
+                [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
+            }
+        }];
+        
+        [postDataTask resume];
+    }];
+    [alertController addAction:confirmAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"Canelled");
+    }];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (CollectionViewCell *) applyToSnoozCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Snooz";
     

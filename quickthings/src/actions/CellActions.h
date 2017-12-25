@@ -11,8 +11,6 @@
 
 @interface CellActions : NSObject
 
-- (CollectionViewCell *) applyToRepeatCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath;
-- (CollectionViewCell *) applyToSnoozCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath;
 - (CollectionViewCell *) applyToTodoistCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath;
 
 @end

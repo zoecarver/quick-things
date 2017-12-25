@@ -10,4 +10,6 @@
 
 @interface RepeatTableViewController : UITableViewController
 
+@property (nonatomic, strong) IBOutlet UITableView *tableViewElement;
+
 @end

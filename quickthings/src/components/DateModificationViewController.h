@@ -10,7 +10,7 @@
 
 @protocol DateModificationViewControllerDelegate <NSObject>
 @end
-@interface DateModificationViewController : UIViewController {
+@interface DateModificationViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     id <DateModificationViewControllerDelegate> _delegate;
 }
 @property (nonatomic, strong) id delegate;

@@ -33,21 +33,4 @@
     [dayFormatter setDateFormat:@"EEEE"];
 }
 
-- (CollectionViewCell *) applyToTodoistCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
-    cell.cellLabel.text = @"Todoist";
-    
-    cell.layer.cornerRadius = 25;
-    
-    cell.backgroundColor = [UIColor grayColor];
-    
-    cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
-    [cell.cellButton addTarget:self action:@selector(handleTouchUpEventTodoist) forControlEvents:UIControlEventTouchUpInside];
-    
-    return cell;
-}
-
-- (void) handleTouchUpEventTodoist {
-    NSLog(@"Todoist");
-}
-
 @end

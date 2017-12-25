@@ -19,4 +19,13 @@
     NSLog(@"Button Pressed");
 }
 
+- (void) processDoubleTap:(UITapGestureRecognizer *)sender {
+    NSLog(@"Got tapped twice by the cell with index: %lu", sender.view.tag);
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"I was double tapped");
+        [((DateModificationViewController *) self.inputViewController) performSegueWithIdentifier:@"ShowCellEditMenu" sender:self.inputViewController];
+    }
+}
+
 @end

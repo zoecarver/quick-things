@@ -21,6 +21,7 @@
 
 @property (strong, nonatomic) NSString *textPassedDuringSegue;
 @property (nonatomic) NSInteger indexPassedDuringSegue;
+@property (nonatomic) NSInteger cellIndexToPassDuringSegue;
 
 - (IBAction)datePickerActionChanged:(id)sender;
 - (void) test: (NSDate *) date;

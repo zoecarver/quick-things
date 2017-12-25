@@ -17,5 +17,6 @@
 @property (nonatomic) NSUInteger index;
 
 - (IBAction)cellButtonAction:(id)sender;
+- (void) processDoubleTap:(UITapGestureRecognizer *)sender;
 
 @end

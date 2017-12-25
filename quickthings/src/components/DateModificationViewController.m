@@ -28,6 +28,7 @@
 @synthesize largeTimeDisplayLabel = _largeTimeDisplayLabel;
 @synthesize textPassedDuringSegue = _textPassedDuringSegue;
 @synthesize indexPassedDuringSegue = _indexPassedDuringSegue;
+@synthesize cellIndexToPassDuringSegue = _cellIndexToPassDuringSegue;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,6 +46,9 @@
     if ([segue.identifier isEqualToString:@"ShowRepeatTableView"]) {
         RepeatTableViewController *destViewController = segue.destinationViewController;
         destViewController.indexPassedDuringSegue = _indexPassedDuringSegue;
+    } else if ([segue.identifier isEqualToString:@"ShowCellEditMenu"]) {
+        CellEditViewController *destViewController = segue.destinationViewController;
+        destViewController.indexPassedDuringSegue = _cellIndexToPassDuringSegue;
     }
 }
 

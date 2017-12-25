@@ -37,7 +37,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     
     [self initilizeFormaters];
-    [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+//    [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    //while we get force touch working:
     
     // Register cell classes
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
@@ -91,9 +92,30 @@ static NSString * const reuseIdentifier = @"Cell";
     return [settings count];
 }
 
+- (void) processDoubleTap:(UITapGestureRecognizer *)sender {
+    NSLog(@"Got tapped twice by: %lu", sender.view.tag);
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"I was double tapped");
+        DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+        DVC.delegate = self;
+        DVC.cellIndexToPassDuringSegue = sender.view.tag;
+        
+        [DVC performSegueWithIdentifier:@"ShowCellEditMenu" sender:self];
+    }
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    UITapGestureRecognizer *doubleTapFolderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processDoubleTap:)];
+    [doubleTapFolderGesture setNumberOfTapsRequired:2];
+    [doubleTapFolderGesture setNumberOfTouchesRequired:1];
+    [doubleTapFolderGesture setDelaysTouchesBegan:YES];
+    [cell addGestureRecognizer:doubleTapFolderGesture];
+    
+    [cell setTag:[indexPath row]];
     
     NSLog(@"Giving it tag: %lu", indexPath.row);
     cell.index = indexPath.row;

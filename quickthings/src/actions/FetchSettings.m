@@ -29,19 +29,19 @@
         [settings addObject:@"Todoist"];
         [settings addObject:@"Done"];
     }
-    //do it anyway for now
-    settings = [[NSMutableArray alloc] init];
-    
-    [settings addObject: [NSNumber numberWithInteger:5]];
-    [settings addObject: [NSNumber numberWithInteger:2]];
-    [settings addObject: [NSNumber numberWithInteger:1]];
-    [settings addObject: [[NSDate date] dateByAddingTimeInterval:60*2]];
-    [settings addObject:@"Todoist"];
-    [settings addObject:@"Done"];
-    [settings addObject:@"Complete"];
-    [settings addObject:@"Cancel"];
-    [settings addObject:@"Snooz"];
-    [settings addObject:@"Repeat"];
+    //~~do~~ dont it anyway for now
+//    settings = [[NSMutableArray alloc] init];
+//
+//    [settings addObject: [NSNumber numberWithInteger:5]];
+//    [settings addObject: [NSNumber numberWithInteger:2]];
+//    [settings addObject: [NSNumber numberWithInteger:1]];
+//    [settings addObject: [[NSDate date] dateByAddingTimeInterval:60*2]];
+//    [settings addObject:@"Todoist"];
+//    [settings addObject:@"Done"];
+//    [settings addObject:@"Complete"];
+//    [settings addObject:@"Cancel"];
+//    [settings addObject:@"Snooz"];
+//    [settings addObject:@"Repeat"];
     
     return settings;
 }

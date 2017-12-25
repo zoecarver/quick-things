@@ -8,6 +8,9 @@
 
 #import "RepeatTableViewController.h"
 #import "TableViewCell.h"
+#import "TableViewController.h"
+#import "UpdateReminder.h"
+#import "FetchRembinders.h"
 
 @interface RepeatTableViewController () {
     NSMutableArray *options;
@@ -16,6 +19,7 @@
 @end
 
 @implementation RepeatTableViewController
+@synthesize indexPassedDuringSegue;
 
 - (void)viewDidLoad {
     NSLog(@"Log loading");
@@ -27,6 +31,7 @@
     [options addObject:@"Daily"];
     [options addObject:@"Weekly"];
     [options addObject:@"Monthly"];
+    [options addObject:@"None"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,7 +62,21 @@
 }
 
 - (void) handleTouchUpEvent: (UIButton *) sender {
-    NSLog(@"Got %@", options[sender.tag]);
+    UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
+    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    
+    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
+    Reminder *reminder = reminders[indexPassedDuringSegue];
+    NSString *item = options[sender.tag];
+    
+    NSLog(@"Got %@", item);
+    if ([item isEqual: @"None"]) {
+        [updateReminderAction reminderToUpdate:reminder date:reminder.date notificationKey:reminder.notificationKey snooz:reminder.snooz indexToUpdateWith:indexPassedDuringSegue setRepeat:nil];
+    } else {
+        [updateReminderAction reminderToUpdate:reminder date:reminder.date notificationKey:reminder.notificationKey snooz:reminder.snooz indexToUpdateWith:indexPassedDuringSegue setRepeat:item];
+    }
+    
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

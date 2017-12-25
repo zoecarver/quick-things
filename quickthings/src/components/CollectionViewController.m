@@ -131,25 +131,9 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void) handleTouchUpEventRepeat {
-    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
-    DVC.delegate = self;
-    
-    [[DVC.view viewWithTag:42] setHidden:NO];
-    [[[DVC.view viewWithTag:42] layer] setZPosition:100];
-    
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    //always fill the view
-    blurEffectView.frame = DVC
-    .view.bounds;
-    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    blurEffectView.tag = 12;
-    
-    [DVC.view addSubview:blurEffectView];
-    
-    [self showAnimate:[DVC.view viewWithTag:42]];
-    
     NSLog(@"Repeat");
+    
+    [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowRepeatTableView" sender:self];
 }
 
 - (void)showAnimate: (UIView *) view {
@@ -310,7 +294,7 @@ static NSString * const reuseIdentifier = @"Cell";
         
         NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
         if (valueGotFromAlert) {
-            [updateReminderAction reminderToUpdate:reminders[DVC.indexPassedDuringSegue] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:valueGotFromAlert indexToUpdateWith:DVC.indexPassedDuringSegue];
+            [updateReminderAction reminderToUpdate:reminders[DVC.indexPassedDuringSegue] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:valueGotFromAlert indexToUpdateWith:DVC.indexPassedDuringSegue setRepeat:nil];
         }
     }];
     [alertController addAction:confirmAction];
@@ -428,7 +412,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
     
-    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:1 indexToUpdateWith:index];
+    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:1 indexToUpdateWith:index setRepeat:nil];
     
     [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
     

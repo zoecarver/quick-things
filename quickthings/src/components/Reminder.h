@@ -19,6 +19,6 @@
 @property (nonatomic, readwrite) NSDate * _Nonnull date;
 @property (nonatomic, readwrite) NSString * _Nonnull notificationKey;
 @property (nonatomic, readwrite) NSInteger snooz;
-@property (nullable, nonatomic, readwrite) NSDate *repeat;
+@property (nullable, nonatomic, readwrite) NSString *repeat;
 
 @end

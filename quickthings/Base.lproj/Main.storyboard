@@ -157,13 +157,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView opaque="NO" tag="42" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="repeat" translatesAutoresizingMaskIntoConstraints="NO" id="uET-a4-zSX">
-                                <rect key="frame" x="33" y="86" width="308" height="350"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="fOQ-B5-ztx" kind="embed" id="QFz-Mg-cZT"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="jzG-vy-crc"/>
@@ -173,6 +166,7 @@
                         <outlet property="largeTimeDisplayLabel" destination="px7-2I-x9i" id="Jpk-cH-qE5"/>
                         <outlet property="smallReminderDisplayLabel" destination="giu-Aj-P0b" id="keG-eB-lhY"/>
                         <segue destination="BYZ-38-t0r" kind="showDetail" identifier="ShowAllRemindersView" id="kod-al-Psr"/>
+                        <segue destination="fOQ-B5-ztx" kind="showDetail" identifier="ShowRepeatTableView" id="cpn-5J-Dzp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5L-AH-a2u" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -332,15 +326,15 @@
             <objects>
                 <viewController id="fOQ-B5-ztx" customClass="RepeatTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="rOD-nB-rk4">
-                        <rect key="frame" x="0.0" y="0.0" width="308" height="350"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="8U5-nR-KHG" customClass="TableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="308" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="cell" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8U5-nR-KHG" id="GBK-DJ-Bto">
-                                    <rect key="frame" x="0.0" y="0.0" width="308" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEU-LG-we4">
@@ -367,11 +361,12 @@
                     </tableView>
                     <connections>
                         <outlet property="tableViewElement" destination="rOD-nB-rk4" id="PUM-Ye-UsW"/>
+                        <segue destination="dPL-8o-hnF" kind="showDetail" identifier="DismissRepeatTableView" id="l7h-dL-vrH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUp-0U-5m8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1224" y="881.5592203898052"/>
+            <point key="canvasLocation" x="1014" y="1118"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

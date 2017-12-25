@@ -10,6 +10,7 @@
 #import "FetchRembinders.h"
 #import "FetchCompleted.h"
 #import "Reminder.h"
+#import "UpdateReminder.h"
 #import <UserNotifications/UserNotifications.h>
 
 @implementation CompleteReminder
@@ -26,6 +27,13 @@
 //    [completedReminder addObject:[[currentReminders objectAtIndex:reminderToComplete] title]];
 //    [userDefaults setObject:completedReminder forKey:@"completed"];
 
+    Reminder *reminderToPreformRepeatOn = currentReminders[reminderToComplete];
+    NSLog(@"Got complete status %@", [reminderToPreformRepeatOn repeat]);
+    if ([reminderToPreformRepeatOn repeat] != nil) {
+        [self reScedule:reminderToPreformRepeatOn withIndex:reminderToComplete];
+        return;
+    }
+    
     [currentReminders removeObjectAtIndex:reminderToComplete];
     
     NSMutableArray *newReminders = [[NSMutableArray alloc] init];
@@ -40,6 +48,23 @@
     for (NSInteger i = 0; i<10; i++) {
         [center removePendingNotificationRequestsWithIdentifiers:@[[NSString stringWithFormat:@"%lu_%lu", reminderToComplete, i]]];
     }
+}
+
+- (void) reScedule:(Reminder *) reminder withIndex:(NSInteger ) index {
+    NSString *item = [reminder repeat];
+    UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
+    
+    if ([item isEqualToString:@"Hourly"]) {
+        reminder.date = [reminder.date dateByAddingTimeInterval:60*60];
+    } else if ([item isEqualToString:@"Daily"]) {
+        reminder.date = [reminder.date dateByAddingTimeInterval:60*60*24];
+    } else if ([item isEqualToString:@"Weekly"]) {
+        reminder.date = [reminder.date dateByAddingTimeInterval:60*60*24*7];
+    } else if ([item isEqualToString:@"Monthly"]) {
+        reminder.date = [reminder.date dateByAddingTimeInterval:60*60*42*7*4];
+    }
+    
+    [updateReminderAction reminderToUpdate:reminder date:reminder.date notificationKey:reminder.notificationKey snooz:reminder.snooz indexToUpdateWith:index setRepeat:reminder.repeat];
 }
 
 @end

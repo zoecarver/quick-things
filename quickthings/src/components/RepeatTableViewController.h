@@ -11,5 +11,6 @@
 @interface RepeatTableViewController : UITableViewController
 
 @property (nonatomic, strong) IBOutlet UITableView *tableViewElement;
+@property (nonatomic) NSInteger indexPassedDuringSegue;
 
 @end

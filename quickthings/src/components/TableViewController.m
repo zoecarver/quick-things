@@ -1,3 +1,4 @@
+
 //
 //  TableViewController.m
 //  quickthings
@@ -67,7 +68,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [self updateTableView];
-
+    
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.textLabel.text = [cells[indexPath.row] title];
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
@@ -77,7 +78,7 @@
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
     cell.cellButton.tag = indexPath.row;
     [cell.cellButton addTarget:self action:@selector(onLongPress:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     return cell;
 }
 

@@ -10,6 +10,7 @@
 #import "CellEditViewController.h"
 #import "CollectionViewController.h"
 #import "RepeatTableViewController.h"
+#import "RepeatViewController.h"
 
 @interface DateModificationViewController () {
     NSDateFormatter *timeFormatter;
@@ -38,13 +39,13 @@
     
     _largeTimeDisplayLabel.text = [self formatDateAsString:now];
     _smallReminderDisplayLabel.text = _textPassedDuringSegue;
-    
-    [[self.view viewWithTag:42] setHidden:YES];
-    [[[self.view viewWithTag:42] layer] setZPosition:-100];
-    
-//    tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(highlightLetter:)];
-//    tapRecognizer.cancelsTouchesInView = NO;
-//    [self.view addGestureRecognizer:tapRecognizer];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowRepeatTableView"]) {
+        RepeatTableViewController *destViewController = segue.destinationViewController;
+        destViewController.indexPassedDuringSegue = _indexPassedDuringSegue;
+    }
 }
 
 - (void)highlightLetter:(UITapGestureRecognizer *)sender {

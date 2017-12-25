@@ -12,7 +12,7 @@
 
 @implementation UpdateReminder
 
-- (void) reminderToUpdate:(Reminder *)reminderToUpdate date:(NSDate *) date notificationKey:(NSString *) notificationKey snooz:(NSInteger) snooz indexToUpdateWith:(NSInteger) index {
+- (void) reminderToUpdate:(Reminder *)reminderToUpdate date:(NSDate *) date notificationKey:(NSString *) notificationKey snooz:(NSInteger) snooz indexToUpdateWith:(NSInteger) index setRepeat:(NSString *)repeat {
     NSLog(@"Updateing reminder %@", reminderToUpdate.title);
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -22,6 +22,12 @@
     reminderToUpdate.date = date;
     reminderToUpdate.notificationKey = notificationKey;
     reminderToUpdate.snooz = snooz;
+    reminderToUpdate.repeat = repeat;
+
+    //This may be an issue - we will see
+//    if (repeat != nil) {
+//        reminderToUpdate.repeat = repeat;
+//    }
     
     [currentReminders setObject:reminderToUpdate atIndexedSubscript:index];
     

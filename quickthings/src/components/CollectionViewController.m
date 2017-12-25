@@ -15,6 +15,7 @@
 #import "CellActions.h"
 #import "CompleteReminder.h"
 #import "TableViewController.h"
+#import "FetchWebHook.h"
 #import <UserNotifications/UserNotifications.h>
 
 @interface CollectionViewController () {
@@ -178,51 +179,37 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void) handleTouchUpEventTodoist: (UIButton *) sender {
     NSLog(@"Todoist");
+
+    FetchWebHook *fetchWebhookActions = [[FetchWebHook alloc] init];
+    NSString *webHook = [fetchWebhookActions fetchWebHook];
     
-    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
-    DVC.delegate = self;
-    
-    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
-    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
-    
+    if (webHook && ![webHook isEqual: @""]) {
+        [self sendToWebHook:webHook];
+    } else {
+        [self getWebHookWithAlert];
+        [self alertHowToChangeWebHook];
+    }
+}
+
+- (void) alertHowToChangeWebHook {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Editing webhooks" message:@"If you need to change a webhook, edit the button and create a new webhook - this will re-prompt the webhook url input." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:confirmAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void) getWebHookWithAlert {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter the webhook attached to your zapier or ifttt recipy" message:@"Click help for more info" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Ender webhook url";
     }];
     
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSError *error;
+        FetchWebHook *fetchWebhookActions = [[FetchWebHook alloc] init];
+        NSString *textRecivedFromInput = [[alertController textFields][0] text];
         
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-        NSURL *url = [NSURL URLWithString:[[alertController textFields][0] text]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:60.0];
-        
-        [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        
-        [request setHTTPMethod:@"POST"];
-        NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys: [reminders[DVC.indexPassedDuringSegue] title], @"reminder", nil];
-        NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData options:0 error:&error];
-        [request setHTTPBody:postData];
-        
-        
-        NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (error) {
-                NSLog(@"Error! %@", error.description);
-            } else {
-                NSLog(@"Success!");
-                
-                CompleteReminder *completeReminderAction = [[CompleteReminder alloc] init];
-                [completeReminderAction reminderToComplete:[DVC indexPassedDuringSegue]];
-                
-                [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
-            }
-        }];
-        
-        [postDataTask resume];
+        [self sendToWebHook:textRecivedFromInput];
+        [fetchWebhookActions setWebHook:textRecivedFromInput];
     }];
     [alertController addAction:confirmAction];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -230,6 +217,47 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void) sendToWebHook: (NSString *) webHookToSendTo {
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    
+    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
+    
+    NSError *error;
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    NSURL *url = [NSURL URLWithString:webHookToSendTo];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPMethod:@"POST"];
+    NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys: [reminders[DVC.indexPassedDuringSegue] title], @"reminder", nil];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData options:0 error:&error];
+    [request setHTTPBody:postData];
+    
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"Error! %@", error.description);
+        } else {
+            NSLog(@"Success!");
+            
+            CompleteReminder *completeReminderAction = [[CompleteReminder alloc] init];
+            [completeReminderAction reminderToComplete:[DVC indexPassedDuringSegue]];
+            
+            [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
+        }
+    }];
+    
+    [postDataTask resume];
 }
 
 - (CollectionViewCell *) applyToSnoozCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {

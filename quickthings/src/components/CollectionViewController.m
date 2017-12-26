@@ -32,17 +32,17 @@
 
 @implementation CollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initilizeFormaters];
-//    [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
     //while we get force touch working:
     
     // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
     fetchSettingsAction = [[FetchSettings alloc] init];
@@ -107,7 +107,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     UITapGestureRecognizer *doubleTapFolderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processDoubleTap:)];
     [doubleTapFolderGesture setNumberOfTapsRequired:2];
@@ -119,11 +119,14 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSLog(@"Giving it tag: %lu", indexPath.row);
     cell.index = indexPath.row;
+    [cell.cellLabel setText:@"Test"];
+    cell.backgroundColor = [UIColor darkTextColor];
 
     if ([settings[indexPath.row] isKindOfClass:[NSDate class]]) {
         return [self applyToSetTimeCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Done"]) {
-        return [self applyToDoneCell:cell index:indexPath];
+        NSLog(@"Got done");
+        return cell;
     } else if ([settings[indexPath.row]  isEqual:@"Todoist"]) {
         return [self applyToTodoistCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Cancel"]) {
@@ -420,7 +423,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Done";
     
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
+//    cell.layer.cornerRadius = cell.bounds.size.width/2;
     [cell sizeToFit];
     
     cell.backgroundColor = [UIColor grayColor];
@@ -432,6 +435,8 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void) handleTouchUpEventDone {
+    NSLog(@"Done pressed! ");
+    
     DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
     DVC.delegate = self;
     UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];

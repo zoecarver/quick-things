@@ -39,10 +39,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     
     [self initilizeFormaters];
     [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
-    //while we get force touch working:
-    
-    // Register cell classes
-    [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
     fetchSettingsAction = [[FetchSettings alloc] init];
@@ -60,19 +56,25 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (UIViewController *) previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-
+    NSIndexPath *index = [self.collectionView indexPathForItemAtPoint:location];
+    if (!index) { return nil; }
     CellEditViewController *CEVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
     
-    NSLog(@"Location: %f,%f", location.x, location.y);
-    NSLog(@"Idex of: %lu", [[self.collectionView indexPathForItemAtPoint:location] row]);
+    NSLog(@"Idex of: %lu", index.row);
     
     [CEVC setPreferredContentSize:CGSizeMake(0.0, 320.0)];
 
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    DVC.cellIndexToPassDuringSegue = index.row;
+    
     return CEVC;
 }
 
 - (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    [self showViewController:viewControllerToCommit sender:self];
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    [DVC performSegueWithIdentifier:@"ShowCellEditMenu" sender:self];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,7 +109,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    CollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     UITapGestureRecognizer *doubleTapFolderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processDoubleTap:)];
     [doubleTapFolderGesture setNumberOfTapsRequired:2];
@@ -120,13 +122,11 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     NSLog(@"Giving it tag: %lu", indexPath.row);
     cell.index = indexPath.row;
     [cell.cellLabel setText:@"Test"];
-    cell.backgroundColor = [UIColor darkTextColor];
 
     if ([settings[indexPath.row] isKindOfClass:[NSDate class]]) {
         return [self applyToSetTimeCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Done"]) {
-        NSLog(@"Got done");
-        return cell;
+        return [self applyToDoneCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Todoist"]) {
         return [self applyToTodoistCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Cancel"]) {
@@ -423,7 +423,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Done";
     
-//    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
     [cell sizeToFit];
     
     cell.backgroundColor = [UIColor grayColor];

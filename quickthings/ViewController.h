@@ -16,6 +16,7 @@
 @property (nonatomic, strong) id delegate;
 
 - (IBAction)addReminderButton:(id)sender;
+- (IBAction)settingsButton:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITextField *reminderInputField;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;

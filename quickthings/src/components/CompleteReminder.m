@@ -11,6 +11,7 @@
 #import "FetchCompleted.h"
 #import "Reminder.h"
 #import "UpdateReminder.h"
+#import "FetchSmallUserSettings.h"
 #import <UserNotifications/UserNotifications.h>
 
 @implementation CompleteReminder
@@ -19,6 +20,7 @@
     NSLog(@"Completing reminder %lu", reminderToComplete);
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    FetchSmallUserSettings *smallUserSettings = [[FetchSmallUserSettings alloc] init];
     FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
 //    FetchCompleted *fetchCompletedAction = [[FetchCompleted alloc] init];
 //    NSMutableArray *completedReminder = [fetchCompletedAction fetchRembinders];
@@ -45,7 +47,7 @@
     [userDefaults synchronize];
     
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    for (NSInteger i = 0; i<10; i++) {
+    for (NSInteger i = 0; i < [smallUserSettings fetchNumberOfNotificationsToSchedule]; i++) {
         [center removePendingNotificationRequestsWithIdentifiers:@[[NSString stringWithFormat:@"%lu_%lu", reminderToComplete, i]]];
     }
 }

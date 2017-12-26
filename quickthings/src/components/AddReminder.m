@@ -9,6 +9,7 @@
 #import "AddReminder.h"
 #import "FetchRembinders.h"
 #import "Reminder.h"
+#import "FetchSmallUserSettings.h"
 
 @implementation AddReminder
 
@@ -17,6 +18,7 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    FetchSmallUserSettings *smallUserSettings = [[FetchSmallUserSettings alloc] init];
     NSMutableArray *currentReminders = [fetchRemindersAction fetchRembinders];
     Reminder *reminder = [[Reminder alloc] init];
     
@@ -25,6 +27,7 @@
     reminder.title = _reminderToAdd;
     reminder.date = now;
     reminder.notificationKey = @"";
+    reminder.snooz = [smallUserSettings fetchDefaultSnooz];
     
     NSLog(@"saving with title %@", reminder.title);
     

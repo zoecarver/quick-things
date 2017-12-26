@@ -62,4 +62,10 @@
     [self performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
 
+- (IBAction)settingsButton:(id)sender {
+    NSLog(@"Settings pressed");
+    
+    [self performSegueWithIdentifier:@"ShowUserSettings" sender:self];
+}
+
 @end

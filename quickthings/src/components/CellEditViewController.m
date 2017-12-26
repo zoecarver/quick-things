@@ -10,6 +10,7 @@
 #import "CollectionViewController.h"
 #import "FetchSettings.h"
 #import "FetchWebHook.h"
+#import "DateModificationViewController.h"
 
 @interface CellEditViewController () {
     NSMutableArray *settings;
@@ -57,6 +58,7 @@
 - (IBAction)setTimePressed:(id)sender {
     [self hideAll];
     self.cellEditDatePicker.hidden = NO;
+    self.setDatePicker.hidden = NO;
 }
 
 - (IBAction)preformActionPressed:(id)sender {
@@ -100,7 +102,7 @@
 }
 
 - (IBAction)setPressed:(id)sender {
-    settings[i] = currentlyAdding ? @([self.addSubInput.text integerValue]) : (@(0 - [self.addSubInput.text integerValue]));
+    settings[i] = currentlyAdding ? @([self.addSubInput.text integerValue]) : @(-[self.addSubInput.text integerValue]);
     [self saveSettings];
 }
 
@@ -118,6 +120,7 @@
     self.actionTwo.hidden = YES;
     self.addSub.hidden = YES;
     self.cellEditDatePicker.hidden = YES;
+    self.setDatePicker.hidden = YES;
 }
 
 - (void) saveSettings {
@@ -126,7 +129,8 @@
     [userDefaults setObject:settings forKey:@"settings"];
     [userDefaults synchronize];
     
-    [self dismissViewControllerAnimated:true completion:nil];
+//    [self dismissViewControllerAnimated:true completion:nil];
+    [self performSegueWithIdentifier:@"cancelEdit" sender:self];
 }
 
 @end

@@ -12,6 +12,7 @@
 
 @property (nonatomic) NSInteger indexPassedDuringSegue;
 @property (weak, nonatomic) IBOutlet UIDatePicker *cellEditDatePicker;
+@property (weak, nonatomic) IBOutlet UIButton *setDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *addSubInput;
 
 //top level

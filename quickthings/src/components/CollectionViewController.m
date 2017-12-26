@@ -16,6 +16,7 @@
 #import "CompleteReminder.h"
 #import "TableViewController.h"
 #import "FetchWebHook.h"
+#import "FetchSmallUserSettings.h"
 #import <UserNotifications/UserNotifications.h>
 
 @interface CollectionViewController () {
@@ -106,7 +107,6 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
     UITapGestureRecognizer *doubleTapFolderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processDoubleTap:)];
@@ -142,8 +142,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CollectionViewCell *) applyToRepeatCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Repeat";
     
-    cell.layer.cornerRadius = 25;
-    
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    [cell sizeToFit];
+
     cell.backgroundColor = [UIColor grayColor];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
@@ -172,8 +173,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CollectionViewCell *) applyToTodoistCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Todoist";
     
-    cell.layer.cornerRadius = 25;
-    
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    [cell sizeToFit];
+
     cell.backgroundColor = [UIColor blueColor];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
@@ -269,8 +271,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CollectionViewCell *) applyToSnoozCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Snooz";
     
-    cell.layer.cornerRadius = 25;
-    
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    [cell sizeToFit];
+
     cell.backgroundColor = [UIColor grayColor];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
@@ -282,8 +285,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CollectionViewCell *) applyToCancelCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Cancel";
     
-    cell.layer.cornerRadius = 25;
-    
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    [cell sizeToFit];
+
     cell.backgroundColor = [UIColor grayColor];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
@@ -330,8 +334,9 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CollectionViewCell *) applyToCompleteCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Complete";
     
-    cell.layer.cornerRadius = 25;
-    
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    [cell sizeToFit];
+
     cell.backgroundColor = [UIColor grayColor];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
@@ -382,7 +387,8 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CollectionViewCell *) applyToSetTimeCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = [self formatDateAsString:settings[indexPath.row]];
     
-    cell.layer.cornerRadius = 25;
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    [cell sizeToFit];
     
     cell.backgroundColor = [UIColor grayColor];
     
@@ -399,7 +405,8 @@ static NSString * const reuseIdentifier = @"Cell";
     NSInteger settingsItem = [tmpSettinsItem intValue];
     
     cell.cellLabel.text = [NSString stringWithFormat:@"+%lu", settingsItem];
-    cell.layer.cornerRadius = 25;
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    [cell sizeToFit];
     
     cell.backgroundColor = [UIColor grayColor];
     
@@ -413,7 +420,8 @@ static NSString * const reuseIdentifier = @"Cell";
 - (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Done";
     
-    cell.layer.cornerRadius = 25;
+    cell.layer.cornerRadius = cell.bounds.size.width/2;
+    [cell sizeToFit];
     
     cell.backgroundColor = [UIColor grayColor];
     
@@ -434,7 +442,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
     
-    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:1 indexToUpdateWith:index setRepeat:nil];
+    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:[reminders[index] snooz] indexToUpdateWith:index setRepeat:nil];
     
     [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
     
@@ -452,7 +460,9 @@ static NSString * const reuseIdentifier = @"Cell";
     UNCalendarNotificationTrigger *trigger;
     UNNotificationRequest *request;
     
-    for (NSInteger i = 0; i < 10; i++) {
+    FetchSmallUserSettings *smallUserSettings = [[FetchSmallUserSettings alloc] init];
+    
+    for (NSInteger i = 0; i < [smallUserSettings fetchNumberOfNotificationsToSchedule]; i++) {
         dateComponets = [gorgianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
         trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponets repeats:true];
         request = [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%@_%lu", identifierForRequest, i] content:notificationContent trigger:trigger];
@@ -464,6 +474,7 @@ static NSString * const reuseIdentifier = @"Cell";
         }];
         
         date = [date dateByAddingTimeInterval:60*snooz];
+        NSLog(@"Next date will be %@ from snooz %lu", [self formatDateAsString:date], snooz);
     }
 }
 

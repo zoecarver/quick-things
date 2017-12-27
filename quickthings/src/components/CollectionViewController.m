@@ -174,7 +174,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 //these are here because they needs to be for the segue - otherwise we would need to have some more of the deligate vudo that I don't completely understand.
 
 - (CollectionViewCell *) applyToTodoistCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
-    cell.cellLabel.text = @"Todoist";
+    cell.cellLabel.text = @"WebHook";
     
     cell.layer.cornerRadius = cell.bounds.size.width/2;
     [cell sizeToFit];

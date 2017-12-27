@@ -26,6 +26,8 @@
     NSLog(@"Log loading");
     [super viewDidLoad];
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     options = [[NSMutableArray alloc] init];
     
     RepeatViewController *RVC = ((RepeatViewController *) self.parentViewController);

@@ -32,6 +32,8 @@ do { \
     NSLog(@"Log loading Settings");
     [super viewDidLoad];
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     smallUserSettings = [[FetchSmallUserSettings alloc] init];
     
     options = [[NSMutableArray alloc] init];
@@ -118,10 +120,8 @@ do { \
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 @end

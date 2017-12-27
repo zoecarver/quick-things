@@ -30,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     fetchRemindersAction = [[FetchRembinders alloc] init];
     completeReminderAction = [[CompleteReminder alloc] init];
     cells = [fetchRemindersAction fetchRembinders];
@@ -72,9 +74,7 @@
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
     cell.textLabel.text = [cells[indexPath.row] title];
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
-    
-    cell.backgroundColor = [UIColor grayColor];
-    
+        
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
     cell.cellButton.tag = indexPath.row;
     NSLog(@"Adding actrion");
@@ -88,6 +88,20 @@
 }
 
 - (void) onLongPress: (UIButton *) sender {
+    [UIView animateWithDuration:1.0f
+                     animations:^{
+                         // Set the original frame back
+                         self.view.transform = CGAffineTransformMakeScale(1.5, 1.5);
+                         sender.backgroundColor = [UIColor grayColor];
+                     }
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:1
+                                          animations:^{
+                                              self.view.transform = CGAffineTransformIdentity;
+                                              sender.backgroundColor = [UIColor whiteColor];
+                                          }];
+                     }];
+    
     NSLog(@"Got the press");
     NSString *recivedValue = [sender.accessibilityAttributedLabel string];
     NSLog(@"Preforming Segue with value, %@", recivedValue);

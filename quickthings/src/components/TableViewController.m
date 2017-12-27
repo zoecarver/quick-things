@@ -69,7 +69,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [self updateTableView];
     
-    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
     cell.textLabel.text = [cells[indexPath.row] title];
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
     
@@ -77,6 +77,7 @@
     
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
     cell.cellButton.tag = indexPath.row;
+    NSLog(@"Adding actrion");
     [cell.cellButton addTarget:self action:@selector(onLongPress:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
@@ -87,6 +88,7 @@
 }
 
 - (void) onLongPress: (UIButton *) sender {
+    NSLog(@"Got the press");
     NSString *recivedValue = [sender.accessibilityAttributedLabel string];
     NSLog(@"Preforming Segue with value, %@", recivedValue);
     
@@ -96,7 +98,11 @@
     [VC setRecivedString:recivedValue];
     [VC setRecivedIndex:sender.tag];
     
-    [((ViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [VC performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
+        });
+    });
 }
 
 // Override to support conditional editing of the table view.

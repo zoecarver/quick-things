@@ -11,6 +11,7 @@
 #import "TableViewController.h"
 #import "UpdateReminder.h"
 #import "FetchRembinders.h"
+#import "RepeatViewController.h"
 
 @interface RepeatTableViewController () {
     NSMutableArray *options;
@@ -26,6 +27,9 @@
     [super viewDidLoad];
     
     options = [[NSMutableArray alloc] init];
+    
+    RepeatViewController *RVC = ((RepeatViewController *) self.parentViewController);
+    indexPassedDuringSegue = [RVC indexPassedDuringSegue];
     
     [options addObject:@"Hourly"];
     [options addObject:@"Daily"];

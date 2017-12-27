@@ -10,4 +10,6 @@
 
 @interface SettingsTableViewController : TableViewController
 
+@property (nonatomic) NSInteger indexPassedDuringSegue;
+
 @end

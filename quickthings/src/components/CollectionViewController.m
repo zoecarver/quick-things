@@ -45,13 +45,8 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     settings = [fetchSettingsAction fetchSettings];
     
     cellActionsClass = [[CellActions alloc] init];
-    
-//    [self.view.layer setShadowColor:[[UIColor blackColor] CGColor]];
-//    [self.view.layer setShadowRadius:5.0f];
-//    [self.view.layer setShadowOffset:CGSizeMake(0 , 0)];
-//    [self.view.layer setShadowOpacity:0.3f];
-//    
-//    self.view.layer.cornerRadius = 5;
+
+    self.view.layer.cornerRadius = 25;
 }
 
 - (void) initilizeFormaters {
@@ -118,6 +113,9 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
+    cell.selectedBackgroundView = [[UIView alloc] init];
+    cell.selectedBackgroundView.backgroundColor = [UIColor blueColor];
+    
     UITapGestureRecognizer *doubleTapFolderGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processDoubleTap:)];
     [doubleTapFolderGesture setNumberOfTapsRequired:2];
     [doubleTapFolderGesture setNumberOfTouchesRequired:1];
@@ -179,11 +177,9 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 - (CollectionViewCell *) applyToTodoistCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"WebHook";
+    [cell.cellLabel adjustsFontSizeToFitWidth];
     
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
-    [cell sizeToFit];
-
-    cell.backgroundColor = [UIColor blueColor];
+    [self applyCollectionViewSettings:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton setTag:indexPath.row];
@@ -194,7 +190,18 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 - (void) handleTouchUpEventTodoist: (UIButton *) sender {
     NSLog(@"Todoist");
-
+    
+    [UIView animateWithDuration:1.0f
+                     animations:^{
+                         [sender setBackgroundColor:[UIColor blueColor]];
+                     }
+                     completion:^(BOOL finished) {
+                         [UIView animateWithDuration:1
+                                          animations:^{
+                                              [sender setBackgroundColor:[UIColor clearColor]];
+                                          }];
+                     }];
+    
     FetchWebHook *fetchWebhookActions = [[FetchWebHook alloc] init];
     NSString *webHook = [fetchWebhookActions fetchWebHook];
     

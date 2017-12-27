@@ -31,6 +31,7 @@
 		C89614761FF3169D00F614F4 /* SettingsParentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C89614751FF3169D00F614F4 /* SettingsParentView.m */; };
 		C89C1FB11FEB19B30097ADD6 /* CellEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89C1FB01FEB19B30097ADD6 /* CellEditViewController.m */; };
 		C89C78251FEF23D000D49E1B /* RepeatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89C78241FEF23D000D49E1B /* RepeatTableViewController.m */; };
+		C89E59711FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = C89E59701FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m */; };
 		C8A690CD1FF30D2A00FD82E2 /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A690CC1FF30D2A00FD82E2 /* SettingsView.m */; };
 		C8AB072B1FE06957009DD6A6 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8AB072A1FE06957009DD6A6 /* TableViewController.m */; };
 		C8DDB9CA1FF21436004BF8FE /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DDB9C91FF21436004BF8FE /* SettingsTableViewController.m */; };
@@ -105,6 +106,8 @@
 		C89C1FB01FEB19B30097ADD6 /* CellEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellEditViewController.m; sourceTree = "<group>"; };
 		C89C78231FEF23D000D49E1B /* RepeatTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepeatTableViewController.h; sourceTree = "<group>"; };
 		C89C78241FEF23D000D49E1B /* RepeatTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepeatTableViewController.m; sourceTree = "<group>"; };
+		C89E596F1FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewControllerForStylesOnly.h; sourceTree = "<group>"; };
+		C89E59701FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewControllerForStylesOnly.m; sourceTree = "<group>"; };
 		C8A690CB1FF30D2A00FD82E2 /* SettingsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
 		C8A690CC1FF30D2A00FD82E2 /* SettingsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
 		C8AB07291FE06957009DD6A6 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = src/components/TableViewController.h; sourceTree = "<group>"; };
@@ -259,6 +262,8 @@
 				C8A690CC1FF30D2A00FD82E2 /* SettingsView.m */,
 				C89614741FF3169D00F614F4 /* SettingsParentView.h */,
 				C89614751FF3169D00F614F4 /* SettingsParentView.m */,
+				C89E596F1FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.h */,
+				C89E59701FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				C8DE8BAC1FEEB81B0058F9FE /* CellActions.m in Sources */,
 				C81F3D471FDF6F5C00DC26F3 /* main.m in Sources */,
 				C81F3D391FDF6F5C00DC26F3 /* AppDelegate.m in Sources */,
+				C89E59711FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m in Sources */,
 				C86A9D751FE30B8500EBD50E /* CollectionViewCell.m in Sources */,
 				C88943AE1FE9B0EE00DDC331 /* Reminder.m in Sources */,
 				C8A690CD1FF30D2A00FD82E2 /* SettingsView.m in Sources */,

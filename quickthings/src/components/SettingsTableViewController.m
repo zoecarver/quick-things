@@ -38,11 +38,11 @@ do { \
     
     options = [[NSMutableArray alloc] init];
     
+    [options addObject:@"Done"];
     [options addObject:@"Swipe Options"];
     [options addObject:@"Theme"];
     [options addObject:@"Repeat Notification For"];
     [options addObject:@"Default Snooz"];
-    [options addObject:@"Back"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,6 +67,8 @@ do { \
         cell.textLabel.text = [NSString stringWithFormat:@"Repeat Notification %lu times", [smallUserSettings fetchNumberOfNotificationsToSchedule]];
     } else if ([item isEqualToString:@"Default Snooz"]) {
         cell.textLabel.text = [NSString stringWithFormat:@"Default Snooz %lu", [smallUserSettings fetchDefaultSnooz]];
+    } else if ([item isEqualToString:@"Done"]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CellDone"];
     } else {
         cell.textLabel.text = options[indexPath.row];
     }
@@ -82,8 +84,7 @@ do { \
 
 - (void) handleTouchUpEvent: (UIButton *) sender {
     NSString *item = options[sender.tag];
-    
-    if ([item isEqualToString:@"Back"]) {
+    if ([item isEqualToString:@"Done"]) {
         [self dismissViewControllerAnimated:true completion:nil];
     } else if ([item isEqualToString:@"Repeat Notification For"]) {
         [self prompt:@"Enter new number to repeat for" handler:@selector(setNewNotificationRepeat:) fromObject:self];

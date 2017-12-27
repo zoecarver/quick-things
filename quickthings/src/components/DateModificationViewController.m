@@ -32,9 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+        
     NSLog(@"I was called");
     
     [self initilizeFormaters];

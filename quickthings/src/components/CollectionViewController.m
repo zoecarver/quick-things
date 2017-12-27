@@ -45,6 +45,13 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     settings = [fetchSettingsAction fetchSettings];
     
     cellActionsClass = [[CellActions alloc] init];
+    
+//    [self.view.layer setShadowColor:[[UIColor blackColor] CGColor]];
+//    [self.view.layer setShadowRadius:5.0f];
+//    [self.view.layer setShadowOffset:CGSizeMake(0 , 0)];
+//    [self.view.layer setShadowOpacity:0.3f];
+//    
+//    self.view.layer.cornerRadius = 5;
 }
 
 - (void) initilizeFormaters {
@@ -145,10 +152,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToRepeatCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Repeat";
     
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
-    [cell sizeToFit];
-
-    cell.backgroundColor = [UIColor grayColor];
+    [self applyCollectionViewSettings:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventRepeat) forControlEvents:UIControlEventTouchUpInside];
@@ -274,10 +278,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToSnoozCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Snooz";
     
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
-    [cell sizeToFit];
-
-    cell.backgroundColor = [UIColor grayColor];
+    [self applyCollectionViewSettings:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventSnooz) forControlEvents:UIControlEventTouchUpInside];
@@ -288,10 +289,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToCancelCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Cancel";
     
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
-    [cell sizeToFit];
-
-    cell.backgroundColor = [UIColor grayColor];
+    [self applyCollectionViewSettings:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventCancel) forControlEvents:UIControlEventTouchUpInside];
@@ -337,10 +335,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToCompleteCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Complete";
     
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
-    [cell sizeToFit];
-
-    cell.backgroundColor = [UIColor grayColor];
+    [self applyCollectionViewSettings:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     
@@ -390,10 +385,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToSetTimeCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = [self formatDateAsString:settings[indexPath.row]];
     
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
-    [cell sizeToFit];
-    
-    cell.backgroundColor = [UIColor grayColor];
+    [self applyCollectionViewSettings:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     
@@ -408,10 +400,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     NSInteger settingsItem = [tmpSettinsItem intValue];
     
     cell.cellLabel.text = [NSString stringWithFormat:@"+%lu", settingsItem];
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
-    [cell sizeToFit];
-    
-    cell.backgroundColor = [UIColor grayColor];
+    [self applyCollectionViewSettings:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton setTag: settingsItem];
@@ -423,10 +412,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Done";
     
-    cell.layer.cornerRadius = cell.bounds.size.width/2;
-    [cell sizeToFit];
-    
-    cell.backgroundColor = [UIColor grayColor];
+    [self applyCollectionViewSettings:cell];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventDone) forControlEvents:UIControlEventTouchUpInside];
@@ -495,6 +481,16 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 - (NSString *) formatDateAsString: (NSDate *) date {
     return [NSString stringWithFormat:@"%@", [timeFormatter stringFromDate:date]];
+}
+
+- (void) applyCollectionViewSettings:(CollectionViewCell *) cell {
+    cell.layer.cornerRadius = 5;
+//
+//    [cell.cellButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
+//    [cell.cellButton.layer setShadowRadius:5.0f];
+//    [cell.cellButton.layer setShadowOffset:CGSizeMake(0, 0)];
+//    [cell.cellButton.layer setShadowOpacity:0.5f];
+    
 }
 
 @end

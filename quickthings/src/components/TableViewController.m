@@ -112,11 +112,7 @@
     [VC setRecivedString:recivedValue];
     [VC setRecivedIndex:sender.tag];
     
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            [VC performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
-        });
-    });
+    [VC performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
 
 // Override to support conditional editing of the table view.

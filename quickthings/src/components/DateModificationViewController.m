@@ -44,6 +44,16 @@
     
     _largeTimeDisplayLabel.text = [self formatDateAsString:now];
     _smallReminderDisplayLabel.text = _textPassedDuringSegue;
+    
+//    UIView *blur = [[UIView alloc] init];
+//
+//    blur.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*2);
+//    blur.layer.zPosition = 10;
+//    blur.backgroundColor = [UIColor blackColor];
+//    blur.layer.opacity = 0.05f;
+//    blur.userInteractionEnabled = NO;
+//
+//    [self.view addSubview:blur];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
         
-    NSLog(@"I was called");
+    NSLog(@"I was called with tag %lu", self.indexPassedDuringSegue);
     
     [self initilizeFormaters];
     
@@ -42,22 +42,12 @@
     
     _largeTimeDisplayLabel.text = [self formatDateAsString:now];
     _smallReminderDisplayLabel.text = _textPassedDuringSegue;
-    
-//    UIView *blur = [[UIView alloc] init];
-//
-//    blur.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*2);
-//    blur.layer.zPosition = 10;
-//    blur.backgroundColor = [UIColor blackColor];
-//    blur.layer.opacity = 0.05f;
-//    blur.userInteractionEnabled = NO;
-//
-//    [self.view addSubview:blur];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowRepeatTableView"]) {
-        RepeatTableViewController *destViewController = segue.destinationViewController;
-        destViewController.indexPassedDuringSegue = _indexPassedDuringSegue;
+        RepeatViewController *destViewController = segue.destinationViewController;
+        destViewController.indexPassedDuringSegue = self.indexPassedDuringSegue;
     } else if ([segue.identifier isEqualToString:@"ShowCellEditMenu"]) {
         CellEditViewController *destViewController = segue.destinationViewController;
         destViewController.indexPassedDuringSegue = _cellIndexToPassDuringSegue;

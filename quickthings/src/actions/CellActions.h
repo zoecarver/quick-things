@@ -11,6 +11,4 @@
 
 @interface CellActions : NSObject
 
-- (CollectionViewCell *) applyToTodoistCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath;
-
 @end

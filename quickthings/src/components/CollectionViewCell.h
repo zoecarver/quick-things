@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *cellLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cellButton;
 @property (nonatomic) NSUInteger index;
+@property (nonatomic) NSNumber *addSubVal;
 
 - (IBAction)cellButtonAction:(id)sender;
 - (void) processDoubleTap:(UITapGestureRecognizer *)sender;

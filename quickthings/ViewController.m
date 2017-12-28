@@ -34,7 +34,10 @@
     if ([segue.identifier isEqualToString:@"ShowDatePickerView"]) {
         DateModificationViewController *destViewController = segue.destinationViewController;
         destViewController.textPassedDuringSegue = _recivedString;
-        destViewController.indexPassedDuringSegue = _recivedIndex;
+        
+        NSLog(@"Giving DVC %lu", self.recivedIndex);
+        
+        destViewController.indexPassedDuringSegue = self.recivedIndex;
     }
 }
 

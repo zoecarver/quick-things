@@ -18,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSLog(@"Log loading with index %lu", self.indexPassedDuringSegue);
 }
 
 - (void)didReceiveMemoryWarning {

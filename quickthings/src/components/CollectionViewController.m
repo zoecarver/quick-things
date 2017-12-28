@@ -94,7 +94,20 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [settings count];
+    NSLog(@"Got it with %f", [[UIScreen mainScreen] bounds].size.width);
+    const int iPhoneSE = 320.000000;
+    const int iPhoneSix = 375.000000;
+    
+    switch ((int)[[UIScreen mainScreen] bounds].size.width) {
+        case iPhoneSE:
+            return 9;
+            break;
+        case iPhoneSix:
+            return [settings count]; //FIXME
+            break;
+        default:
+            return [settings count];
+    }
 }
 
 - (void) processDoubleTap:(UITapGestureRecognizer *)sender {
@@ -150,7 +163,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToRepeatCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Repeat";
     
-    [self applyCollectionViewSettings:cell];
+    [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventRepeat) forControlEvents:UIControlEventTouchUpInside];
@@ -179,7 +192,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     cell.cellLabel.text = @"WebHook";
     [cell.cellLabel adjustsFontSizeToFitWidth];
     
-    [self applyCollectionViewSettings:cell];
+    [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton setTag:indexPath.row];
@@ -190,17 +203,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 - (void) handleTouchUpEventTodoist: (UIButton *) sender {
     NSLog(@"Todoist");
-    
-    [UIView animateWithDuration:1.0f
-                     animations:^{
-                         [sender setBackgroundColor:[UIColor blueColor]];
-                     }
-                     completion:^(BOOL finished) {
-                         [UIView animateWithDuration:1
-                                          animations:^{
-                                              [sender setBackgroundColor:[UIColor clearColor]];
-                                          }];
-                     }];
     
     FetchWebHook *fetchWebhookActions = [[FetchWebHook alloc] init];
     NSString *webHook = [fetchWebhookActions fetchWebHook];
@@ -285,8 +287,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToSnoozCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Snooz";
     
-    [self applyCollectionViewSettings:cell];
-    
+    [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventSnooz) forControlEvents:UIControlEventTouchUpInside];
     
@@ -296,8 +297,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToCancelCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Cancel";
     
-    [self applyCollectionViewSettings:cell];
-    
+    [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventCancel) forControlEvents:UIControlEventTouchUpInside];
     
@@ -310,9 +310,10 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (void) handleTouchUpEventSnooz {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter the NUMBER you want to set the snooz to" message:@"please only enter the number" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"Enter the NUMBER you want to set the snooz to";
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter new snooz" message:@"This will only be applied to the current reminder" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.keyboardType = UIKeyboardTypeNumberPad;
     }];
     
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -342,8 +343,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToCompleteCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Complete";
     
-    [self applyCollectionViewSettings:cell];
-    
+    [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventComplete) forControlEvents:UIControlEventTouchUpInside];
@@ -377,14 +377,22 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (void) handleTouchUpEvent: (UIButton *) sender {
-    NSLog(@"Adding %lu minutes", sender.tag);
+    NSLog(@"Pressed Here ------------------ ");
+    UIView *parent = [sender superview];
+    while (parent && ![parent isKindOfClass:[CollectionViewCell class]]) {
+        parent = parent.superview;
+    }
     
+    CollectionViewCell *cell = (CollectionViewCell *)parent;
+    
+    NSLog(@"Adding %@ minutes", cell.addSubVal);
+
     DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
     
     DVC.delegate = self;
     
     NSDate *oldDate = [DVC.datePickerAction date];
-    NSDate *newDate = [oldDate dateByAddingTimeInterval:sender.tag * 60];
+    NSDate *newDate = [oldDate dateByAddingTimeInterval:cell.addSubVal.doubleValue * 60];
     
     [DVC test:newDate];
 }
@@ -392,8 +400,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToSetTimeCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = [self formatDateAsString:settings[indexPath.row]];
     
-    [self applyCollectionViewSettings:cell];
-    
+    [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     
     [cell.cellButton setTag: [indexPath row]];
@@ -404,13 +411,43 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 - (CollectionViewCell *) applyToAddCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     NSNumber *tmpSettinsItem = settings[indexPath.row];
-    NSInteger settingsItem = [tmpSettinsItem intValue];
+    double switchVal;
     
-    cell.cellLabel.text = [NSString stringWithFormat:@"+%lu", settingsItem];
-    [self applyCollectionViewSettings:cell];
+    if (tmpSettinsItem.doubleValue > 0) {
+        switchVal = tmpSettinsItem.doubleValue;
+    } else {
+        switchVal = tmpSettinsItem.doubleValue * -1;
+    }
     
+    if (switchVal < 60) {
+        if (tmpSettinsItem.doubleValue > 0) {
+            cell.cellLabel.text = [NSString stringWithFormat:@"+%@ Min", tmpSettinsItem];
+        } else {
+            cell.cellLabel.text = [NSString stringWithFormat:@"%@ Min", tmpSettinsItem];
+        }
+    } else if (switchVal < 60 * 24) {
+        if (tmpSettinsItem.doubleValue > 0) {
+            cell.cellLabel.text = [NSString stringWithFormat:@"+%.0f Hour", tmpSettinsItem.doubleValue/60];
+        } else {
+            cell.cellLabel.text = [NSString stringWithFormat:@"%.0f Hour", tmpSettinsItem.doubleValue/60];
+        }
+    } else if (switchVal < 60 * 24 * 7) {
+        if (tmpSettinsItem.doubleValue > 0) {
+            cell.cellLabel.text = [NSString stringWithFormat:@"+%.0f Day", tmpSettinsItem.doubleValue/(60 * 24)];
+        } else {
+            cell.cellLabel.text = [NSString stringWithFormat:@"%.0f Day", tmpSettinsItem.doubleValue/(60 * 24)];
+        }
+    } else {
+        if (tmpSettinsItem.doubleValue > 0) {
+            cell.cellLabel.text = [NSString stringWithFormat:@"+%.0f Week", tmpSettinsItem.doubleValue/(60 * 24 * 7)];
+        } else {
+            cell.cellLabel.text = [NSString stringWithFormat:@"%.0f Week", tmpSettinsItem.doubleValue/(60 * 24 * 7)];
+        }
+    }
+    
+    [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
-    [cell.cellButton setTag: settingsItem];
+    [cell setAddSubVal:tmpSettinsItem];
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEvent:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
@@ -419,8 +456,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 - (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Done";
     
-    [self applyCollectionViewSettings:cell];
-    
+    [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEventDone) forControlEvents:UIControlEventTouchUpInside];
     
@@ -438,9 +474,11 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
     NSInteger index = [DVC indexPassedDuringSegue];
     
+    NSLog(@"Index that we got for done was %lu", index);
+    
     NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
     
-    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:[reminders[index] snooz] indexToUpdateWith:index setRepeat:nil];
+    [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:[reminders[index] snooz] indexToUpdateWith:index setRepeat:[reminders[index] repeat]];
     
     [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
     
@@ -490,14 +528,8 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     return [NSString stringWithFormat:@"%@", [timeFormatter stringFromDate:date]];
 }
 
-- (void) applyCollectionViewSettings:(CollectionViewCell *) cell {
+- (void) applyCollectionViewSettings:(CollectionViewCell *) cell withIndex:(NSInteger) index {
     cell.layer.cornerRadius = 5;
-//
-//    [cell.cellButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
-//    [cell.cellButton.layer setShadowRadius:5.0f];
-//    [cell.cellButton.layer setShadowOffset:CGSizeMake(0, 0)];
-//    [cell.cellButton.layer setShadowOpacity:0.5f];
-    
 }
 
 @end

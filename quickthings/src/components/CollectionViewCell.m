@@ -17,6 +17,24 @@
 
 - (IBAction)cellButtonAction:(id)sender {
     NSLog(@"Button Pressed");
+    
+    [UIView animateWithDuration:0.5f
+                     animations:^{
+                         // Set the original frame back
+                         self.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.2f];
+                         
+                         [self.layer setShadowColor:[[UIColor grayColor] CGColor]];
+                         [self.layer setShadowRadius:5.0f];
+                         [self.layer setShadowOffset:CGSizeMake(0 , 0)];
+                         [self.layer setShadowOpacity:0.3f];
+                     }
+                     completion:^(BOOL finished) {
+//                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//
+//                         });
+                         self.backgroundColor = [UIColor clearColor];
+                         [self.layer setShadowColor:[[UIColor clearColor] CGColor]];
+                     }];
 }
 
 - (void) processDoubleTap:(UITapGestureRecognizer *)sender {

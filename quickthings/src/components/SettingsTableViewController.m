@@ -89,7 +89,7 @@ do { \
     } else if ([item isEqualToString:@"Repeat Notification For"]) {
         [self prompt:@"Enter new number to repeat for" handler:@selector(setNewNotificationRepeat:) fromObject:self];
     } else if ([item isEqualToString:@"Default Snooz"]) {
-        [self prompt:@"Enter new default snooz (number)" handler:@selector(setNewSnooz:) fromObject:self];
+        [self prompt:@"Enter new default snooz" handler:@selector(setNewSnooz:) fromObject:self];
     }
 }
 
@@ -104,7 +104,9 @@ do { \
 - (void) prompt:(NSString *) prompt handler:(SEL)handler fromObject:(id) object {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:prompt message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
-    [alertController addTextFieldWithConfigurationHandler:nil];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+    }];
     
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         

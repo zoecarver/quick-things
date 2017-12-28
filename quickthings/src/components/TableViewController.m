@@ -12,7 +12,10 @@
 #import "CompleteReminder.h"
 #import "TableViewCell.h"
 #import "ViewController.h"
+#import "Reminder.h"
 #import <UserNotifications/UserNotifications.h>
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface TableViewController () {
     FetchRembinders *fetchRemindersAction;
@@ -51,7 +54,7 @@
 - (void) updateTableView {
     cells = [fetchRemindersAction fetchRembinders];
     if ([cells count] > cellsCount) {
-        [_tableViewElement reloadData];
+        [self.tableView reloadData];
     }
     cellsCount = [cells count];
 }
@@ -61,7 +64,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 1; 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -72,15 +75,66 @@
     [self updateTableView];
     
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
-    cell.textLabel.text = [cells[indexPath.row] title];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", @"  ", [cells[indexPath.row] title]];
+    
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
-        
+    
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
     cell.cellButton.tag = indexPath.row;
-    NSLog(@"Adding actrion");
+    NSLog(@"Adding actrion for index %lu repeat %@", indexPath.row, [cells[indexPath.row] repeat]);
     [cell.cellButton addTarget:self action:@selector(onLongPress:) forControlEvents:UIControlEventTouchUpInside];
     
+    if ([cells[indexPath.row] repeat] != nil) {
+        NSLog(@"Adding repeat icon...");
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = [UIImage imageNamed:@"icons8-sync-50.png"];
+        CGRect bounds = attachment.bounds;
+        bounds.size.height = 15;
+        bounds.size.width = 15;
+        attachment.bounds = bounds;
+        
+        NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
+        
+        NSMutableAttributedString *myString= [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@, %@", [self formatDateAsString:[cells[indexPath.row] date]], @"   "]];
+        [myString appendAttributedString:attachmentString];
+        
+        cell.scheduledDateLabel.attributedText = myString;
+    }
+    
+//    UIButton *checkBox = [[UIButton alloc] initWithFrame:CGRectMake(15, 18, 10, 10)];
+//    checkBox.layer.borderWidth = 2;
+//    checkBox.layer.borderColor = [UIColor grayColor].CGColor;
+//    checkBox.layer.cornerRadius = 5;
+//
+//    CGRect checkBoxBounds = checkBox.bounds;
+//    checkBoxBounds.size.height = 15;
+//    checkBoxBounds.size.width = 15;
+//    checkBox.bounds = checkBoxBounds;
+//
+//    [checkBox setTag:indexPath.row];
+//    [checkBox addTarget:self action:@selector(handleTouchUpEventCheckBox:) forControlEvents:UIControlEventTouchUpInside];
+//
+//    [cell addSubview:checkBox];
+    
     return cell;
+}
+
+- (void) handleTouchUpEventCheckBox: (UIButton *) sender {
+    [UIView animateWithDuration:.5 animations:^{
+        sender.backgroundColor = [UIColor blueColor];
+        
+        [sender.layer setShadowColor:[[UIColor blueColor] CGColor]];
+        [sender.layer setShadowRadius:5.0f];
+        [sender.layer setShadowOffset:CGSizeMake(0, 0)];
+        [sender.layer setShadowOpacity:0.8f];
+
+        [sender.inputView setBackgroundColor:[[UIColor greenColor] colorWithAlphaComponent:0.5f]];
+    }
+    completion:^(BOOL finished) {
+        [UIView animateWithDuration:.5 animations:^{
+            [sender.layer setShadowColor:[[UIColor clearColor] CGColor]];
+        }];
+    }];
 }
 
 - (NSString *) formatDateAsString: (NSDate *) date {
@@ -112,6 +166,8 @@
     [VC setRecivedString:recivedValue];
     [VC setRecivedIndex:sender.tag];
     
+    NSLog(@"seguing to tag %lu", [VC recivedIndex]);
+    
     [VC performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
 
@@ -121,20 +177,39 @@
     return YES;
 }
 
-void (^reminderCompleteHandler)(UITableViewRowAction*, NSIndexPath*, NSMutableArray*, UITableView*, CompleteReminder*) = ^(UITableViewRowAction *action, NSIndexPath *indexPath, NSMutableArray *cells, UITableView *tableView, CompleteReminder *completeReminderAction){
-    NSLog(@"Handler called");
-    [completeReminderAction reminderToComplete:indexPath.row];
-    [cells removeObjectAtIndex:indexPath.row];
-    [tableView reloadData];
-};
-
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"✅" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        reminderCompleteHandler(action, indexPath, cells, tableView, completeReminderAction);
+        [completeReminderAction reminderToComplete:indexPath.row];
+
+        [self updateTableView];
+        [self.tableView reloadData];
     }];
     button.backgroundColor = [UIColor greenColor];
+
     NSArray *returnArrayWithButtons = @[button];
     return returnArrayWithButtons;
 }
+
+//- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+//    NSLog(@"Got trailing");
+//
+//    return [UISwipeActionsConfiguration configurationWithActions:@[[UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"✔" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+//        NSLog(@"You got me");
+//
+//        [tableView setEditing:NO animated:YES];
+//
+//        [UIView animateWithDuration:0.5f
+//                         animations:^{
+//                             TableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//                             cell.backgroundColor = [UIColor blueColor]; //UIColorFromRGB(0x28311FD)
+//                         }
+//                         completion:^(BOOL finished) {
+//                             [completeReminderAction reminderToComplete:indexPath.row];
+//
+//                             [self updateTableView];
+//                             [self.tableView reloadData];
+//                         }];
+//    }]]];
+//}
 
 @end

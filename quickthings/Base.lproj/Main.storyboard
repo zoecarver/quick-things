@@ -19,19 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tlb-Ad-ucJ">
-                                <rect key="frame" x="10" y="84" width="315" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHJ-mK-ePQ">
-                                <rect key="frame" x="335" y="84" width="30" height="30"/>
-                                <state key="normal" title="Add"/>
-                                <connections>
-                                    <action selector="addReminderButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hlC-s0-Psd"/>
-                                </connections>
-                            </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1tT-XU-uH5">
                                 <rect key="frame" x="0.0" y="134" width="375" height="594"/>
                                 <connections>
@@ -45,22 +32,37 @@
                                     <action selector="settingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lxb-TV-fSU"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tlb-Ad-ucJ">
+                                <rect key="frame" x="16" y="72" width="297" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHJ-mK-ePQ">
+                                <rect key="frame" x="329" y="71" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="VTN-uD-tL8"/>
+                                </constraints>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="addReminderButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hlC-s0-Psd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fCp-BM-AyZ" secondAttribute="trailing" constant="298" id="3jl-K4-Ami"/>
                             <constraint firstItem="fCp-BM-AyZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8qv-9K-iA3"/>
+                            <constraint firstItem="tlb-Ad-ucJ" firstAttribute="baseline" secondItem="BHJ-mK-ePQ" secondAttribute="baseline" id="BMo-ce-XBG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fCp-BM-AyZ" secondAttribute="bottom" constant="10" id="BYe-HO-YFh"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BHJ-mK-ePQ" secondAttribute="trailing" constant="10" id="EO4-Ch-usU"/>
                             <constraint firstItem="1tT-XU-uH5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Em8-2e-Wfo"/>
+                            <constraint firstItem="tlb-Ad-ucJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="28" id="JBu-7u-gEc"/>
                             <constraint firstItem="1tT-XU-uH5" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="KuB-B5-Tta"/>
-                            <constraint firstItem="1tT-XU-uH5" firstAttribute="top" secondItem="tlb-Ad-ucJ" secondAttribute="bottom" constant="20" id="Mod-oK-HV1"/>
-                            <constraint firstItem="BHJ-mK-ePQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="P4m-PO-xif"/>
+                            <constraint firstItem="1tT-XU-uH5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="134" id="O2S-Fv-4Wg"/>
                             <constraint firstItem="fCp-BM-AyZ" firstAttribute="top" secondItem="1tT-XU-uH5" secondAttribute="bottom" constant="10" id="TDM-af-qHU"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tlb-Ad-ucJ" secondAttribute="trailing" constant="50" id="U5M-IN-Jmw"/>
-                            <constraint firstItem="tlb-Ad-ucJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="YqJ-WB-dVP"/>
-                            <constraint firstItem="BHJ-mK-ePQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="ear-EI-1Pm"/>
-                            <constraint firstItem="tlb-Ad-ucJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="t9Q-fx-Ltr"/>
+                            <constraint firstItem="BHJ-mK-ePQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ZpT-Ho-7HJ"/>
+                            <constraint firstItem="BHJ-mK-ePQ" firstAttribute="leading" secondItem="tlb-Ad-ucJ" secondAttribute="trailing" constant="16" id="n8n-tr-b7c"/>
+                            <constraint firstItem="tlb-Ad-ucJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="oB2-Mt-knm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -73,7 +75,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="117.39130434782609"/>
+            <point key="canvasLocation" x="117.59999999999999" y="116.74876847290641"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="L6R-z9-Twl">
@@ -99,7 +101,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6m-Wo-VHf">
-                                            <rect key="frame" x="0.0" y="11" width="231" height="21"/>
+                                            <rect key="frame" x="63" y="-8" width="168" height="52"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -125,7 +127,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQd-gw-EBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="-627.4362818590705"/>
+            <point key="canvasLocation" x="117.59999999999999" y="-628.07881773399015"/>
         </scene>
         <!--Date Modification View Controller-->
         <scene sceneID="xfd-Bg-SVK">
@@ -207,14 +209,9 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHt-GD-gMm">
                                 <rect key="frame" x="0.0" y="156" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="Add" id="4Am-by-jJz">
+                                    <barButtonItem title="Add / Subtract" id="4Am-by-jJz">
                                         <connections>
                                             <action selector="addPressed:" destination="lJo-px-bfk" id="YAl-mc-2mF"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Subtract" id="ruk-7Z-caq">
-                                        <connections>
-                                            <action selector="subtractPressed:" destination="lJo-px-bfk" id="MbM-XY-iDa"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Set Time" id="YjJ-0a-Won">
@@ -269,30 +266,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ghE-cm-krE">
-                                <rect key="frame" x="0.0" y="200" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" id="yEV-2M-TEV">
-                                        <textField key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="Xby-gV-OQJ">
-                                            <rect key="frame" x="16" y="7" width="296" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <nil key="textColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" id="X6X-Yz-M9s">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BM1-H5-61Z">
-                                            <rect key="frame" x="312" y="7" width="47" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Set"/>
-                                            <connections>
-                                                <action selector="setPressed:" destination="lJo-px-bfk" eventType="touchUpInside" id="qyP-WF-Tm0"/>
-                                            </connections>
-                                        </button>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="rc4-sn-3MC">
                                 <rect key="frame" x="0.0" y="200" width="375" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="535492774.02026302">
@@ -319,6 +292,18 @@
                                     <action selector="setDatePickerTimePressed:" destination="lJo-px-bfk" eventType="touchUpInside" id="VQa-u1-TH5"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bbd-dh-TSU">
+                                <rect key="frame" x="317" y="416" width="47" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Set"/>
+                                <connections>
+                                    <action selector="setPressed:" destination="lJo-px-bfk" eventType="touchUpInside" id="68P-NE-AGJ"/>
+                                </connections>
+                            </button>
+                            <pickerView hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8e-wK-E4i">
+                                <rect key="frame" x="0.0" y="200" width="375" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -331,11 +316,9 @@
                             <constraint firstItem="zHt-GD-gMm" firstAttribute="trailing" secondItem="rc4-sn-3MC" secondAttribute="trailing" id="Cq0-UT-XbO"/>
                             <constraint firstItem="zHt-GD-gMm" firstAttribute="leading" secondItem="Y5X-1r-lNx" secondAttribute="leading" id="K4y-TD-vRe"/>
                             <constraint firstItem="LwA-jh-UuC" firstAttribute="top" secondItem="cUo-Hx-PRE" secondAttribute="top" constant="40" id="KXg-ze-Q6k"/>
-                            <constraint firstItem="zHt-GD-gMm" firstAttribute="leading" secondItem="ghE-cm-krE" secondAttribute="leading" id="O5J-1u-DAn"/>
                             <constraint firstItem="3im-Oi-qGC" firstAttribute="top" secondItem="rc4-sn-3MC" secondAttribute="bottom" id="Op2-8w-Kkc"/>
                             <constraint firstItem="tgr-UV-OfW" firstAttribute="top" secondItem="cUo-Hx-PRE" secondAttribute="top" constant="20" id="UTH-ws-kVw"/>
                             <constraint firstItem="zHt-GD-gMm" firstAttribute="trailing" secondItem="Y5X-1r-lNx" secondAttribute="trailing" id="VCy-qn-YsJ"/>
-                            <constraint firstItem="ghE-cm-krE" firstAttribute="top" secondItem="zHt-GD-gMm" secondAttribute="bottom" id="XrW-yJ-fTY"/>
                             <constraint firstItem="zHt-GD-gMm" firstAttribute="leading" secondItem="Ha3-Qf-2BB" secondAttribute="leading" id="b7m-Ei-7KY"/>
                             <constraint firstItem="zHt-GD-gMm" firstAttribute="top" secondItem="tgr-UV-OfW" secondAttribute="bottom" constant="20" id="hax-55-COb"/>
                             <constraint firstItem="zHt-GD-gMm" firstAttribute="leading" secondItem="h2i-VU-yPp" secondAttribute="leading" id="tfz-sP-Ut8"/>
@@ -346,11 +329,11 @@
                         <viewLayoutGuide key="safeArea" id="cUo-Hx-PRE"/>
                     </view>
                     <connections>
+                        <outlet property="AddSubPicker" destination="h8e-wK-E4i" id="WNW-4S-lnc"/>
                         <outlet property="actionOne" destination="Y5X-1r-lNx" id="LJa-N4-fc1"/>
                         <outlet property="actionTwo" destination="h2i-VU-yPp" id="TBu-dw-bOa"/>
-                        <outlet property="addSub" destination="ghE-cm-krE" id="2qO-4c-CWV"/>
-                        <outlet property="addSubInput" destination="Xby-gV-OQJ" id="0YJ-Lh-a32"/>
                         <outlet property="cellEditDatePicker" destination="rc4-sn-3MC" id="uVT-Th-5sA"/>
+                        <outlet property="setAddSubPressed" destination="Bbd-dh-TSU" id="Msh-Tj-PlE"/>
                         <outlet property="setDatePicker" destination="3im-Oi-qGC" id="ila-qk-Ezk"/>
                         <segue destination="dPL-8o-hnF" kind="showDetail" identifier="cancelEdit" id="L5M-wK-hRl"/>
                     </connections>
@@ -614,7 +597,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XSr-FR-7fH"/>
-        <segue reference="jcB-Yy-owO"/>
+        <segue reference="XkM-XG-fOb"/>
     </inferredMetricsTieBreakers>
 </document>

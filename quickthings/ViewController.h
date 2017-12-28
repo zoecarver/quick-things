@@ -20,6 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *reminderInputField;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *inputContainerView;
 
 @property (strong, nonatomic) NSString *recivedString;
 @property (nonatomic) NSInteger recivedIndex;

@@ -19,6 +19,8 @@
 		C81F3D5C1FDF6F5D00DC26F3 /* quickthingsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D5B1FDF6F5D00DC26F3 /* quickthingsUITests.m */; };
 		C81F3D701FDF6F8E00DC26F3 /* FetchRembinders.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D6C1FDF6F8E00DC26F3 /* FetchRembinders.m */; };
 		C81F3D711FDF6F8E00DC26F3 /* AddReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D6F1FDF6F8E00DC26F3 /* AddReminder.m */; };
+		C84C437B1FF5884D002DF511 /* icons8-select-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C84C437A1FF5884D002DF511 /* icons8-select-50.png */; };
+		C84C437D1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C84C437C1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png */; };
 		C86A9D691FE2F0F300EBD50E /* CompleteReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D681FE2F0F300EBD50E /* CompleteReminder.m */; };
 		C86A9D6C1FE2F80E00EBD50E /* FetchCompleted.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D6B1FE2F80E00EBD50E /* FetchCompleted.m */; };
 		C86A9D6F1FE2FCAF00EBD50E /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D6E1FE2FCAF00EBD50E /* CollectionViewController.m */; };
@@ -26,6 +28,7 @@
 		C86A9D751FE30B8500EBD50E /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D741FE30B8500EBD50E /* CollectionViewCell.m */; };
 		C86A9D7B1FE427EB00EBD50E /* DateModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D7A1FE427EB00EBD50E /* DateModificationViewController.m */; };
 		C877B1CA1FE83DBF006F52D8 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C877B1C91FE83DBF006F52D8 /* TableViewCell.m */; };
+		C8848C1D1FF5B8CF0055ED10 /* ApplyDarkTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C8848C1C1FF5B8CF0055ED10 /* ApplyDarkTheme.m */; };
 		C88943AB1FE9B07100DDC331 /* UpdateReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C88943AA1FE9B07100DDC331 /* UpdateReminder.m */; };
 		C88943AE1FE9B0EE00DDC331 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C88943AD1FE9B0EE00DDC331 /* Reminder.m */; };
 		C89614761FF3169D00F614F4 /* SettingsParentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C89614751FF3169D00F614F4 /* SettingsParentView.m */; };
@@ -37,6 +40,7 @@
 		C8DDB9CA1FF21436004BF8FE /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DDB9C91FF21436004BF8FE /* SettingsTableViewController.m */; };
 		C8DDB9CD1FF21779004BF8FE /* FetchSmallUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DDB9CC1FF21779004BF8FE /* FetchSmallUserSettings.m */; };
 		C8DE8BAC1FEEB81B0058F9FE /* CellActions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE8BAB1FEEB81B0058F9FE /* CellActions.m */; };
+		C8F103881FF56391001C8602 /* icons8-sync-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F103871FF56391001C8602 /* icons8-sync-50.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +85,8 @@
 		C81F3D6C1FDF6F8E00DC26F3 /* FetchRembinders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchRembinders.m; sourceTree = "<group>"; };
 		C81F3D6E1FDF6F8E00DC26F3 /* AddReminder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReminder.h; sourceTree = "<group>"; };
 		C81F3D6F1FDF6F8E00DC26F3 /* AddReminder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReminder.m; sourceTree = "<group>"; };
+		C84C437A1FF5884D002DF511 /* icons8-select-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-select-50.png"; path = "../../../../../Downloads/icons8-select-50.png"; sourceTree = "<group>"; };
+		C84C437C1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-checked-checkbox-filled-50.png"; path = "../../../../../Downloads/icons8-checked-checkbox-filled-50.png"; sourceTree = "<group>"; };
 		C86A9D671FE2F0F300EBD50E /* CompleteReminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompleteReminder.h; sourceTree = "<group>"; };
 		C86A9D681FE2F0F300EBD50E /* CompleteReminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompleteReminder.m; sourceTree = "<group>"; };
 		C86A9D6A1FE2F80E00EBD50E /* FetchCompleted.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchCompleted.h; sourceTree = "<group>"; };
@@ -95,6 +101,8 @@
 		C86A9D7A1FE427EB00EBD50E /* DateModificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateModificationViewController.m; sourceTree = "<group>"; };
 		C877B1C81FE83DBF006F52D8 /* TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		C877B1C91FE83DBF006F52D8 /* TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		C8848C1B1FF5B8CF0055ED10 /* ApplyDarkTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyDarkTheme.h; sourceTree = "<group>"; };
+		C8848C1C1FF5B8CF0055ED10 /* ApplyDarkTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyDarkTheme.m; sourceTree = "<group>"; };
 		C88943A91FE9B07100DDC331 /* UpdateReminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateReminder.h; sourceTree = "<group>"; };
 		C88943AA1FE9B07100DDC331 /* UpdateReminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateReminder.m; sourceTree = "<group>"; };
 		C88943AC1FE9B0EE00DDC331 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
@@ -118,6 +126,7 @@
 		C8DDB9CC1FF21779004BF8FE /* FetchSmallUserSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchSmallUserSettings.m; sourceTree = "<group>"; };
 		C8DE8BAA1FEEB81B0058F9FE /* CellActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellActions.h; sourceTree = "<group>"; };
 		C8DE8BAB1FEEB81B0058F9FE /* CellActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellActions.m; sourceTree = "<group>"; };
+		C8F103871FF56391001C8602 /* icons8-sync-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-sync-50.png"; path = "../../../../../Downloads/icons8-sync-50.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +215,7 @@
 		C81F3D691FDF6F8E00DC26F3 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				C8F103861FF5637C001C8602 /* img */,
 				C81F3D6A1FDF6F8E00DC26F3 /* actions */,
 				C81F3D6D1FDF6F8E00DC26F3 /* components */,
 			);
@@ -227,6 +237,8 @@
 				C80DBFED1FF07FB000B3B4B5 /* FetchWebHook.m */,
 				C8DDB9CB1FF21779004BF8FE /* FetchSmallUserSettings.h */,
 				C8DDB9CC1FF21779004BF8FE /* FetchSmallUserSettings.m */,
+				C8848C1B1FF5B8CF0055ED10 /* ApplyDarkTheme.h */,
+				C8848C1C1FF5B8CF0055ED10 /* ApplyDarkTheme.m */,
 			);
 			path = actions;
 			sourceTree = "<group>";
@@ -266,6 +278,16 @@
 				C89E59701FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		C8F103861FF5637C001C8602 /* img */ = {
+			isa = PBXGroup;
+			children = (
+				C84C437C1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png */,
+				C84C437A1FF5884D002DF511 /* icons8-select-50.png */,
+				C8F103871FF56391001C8602 /* icons8-sync-50.png */,
+			);
+			path = img;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,6 +406,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C81F3D441FDF6F5C00DC26F3 /* LaunchScreen.storyboard in Resources */,
+				C8F103881FF56391001C8602 /* icons8-sync-50.png in Resources */,
+				C84C437B1FF5884D002DF511 /* icons8-select-50.png in Resources */,
+				C84C437D1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png in Resources */,
 				C81F3D411FDF6F5C00DC26F3 /* Assets.xcassets in Resources */,
 				C81F3D3F1FDF6F5C00DC26F3 /* Main.storyboard in Resources */,
 			);
@@ -420,6 +445,7 @@
 				C86A9D721FE2FEFC00EBD50E /* FetchSettings.m in Sources */,
 				C8DDB9CD1FF21779004BF8FE /* FetchSmallUserSettings.m in Sources */,
 				C81F3D3C1FDF6F5C00DC26F3 /* ViewController.m in Sources */,
+				C8848C1D1FF5B8CF0055ED10 /* ApplyDarkTheme.m in Sources */,
 				C80DBFEE1FF07FB000B3B4B5 /* FetchWebHook.m in Sources */,
 				C877B1CA1FE83DBF006F52D8 /* TableViewCell.m in Sources */,
 				C86A9D691FE2F0F300EBD50E /* CompleteReminder.m in Sources */,

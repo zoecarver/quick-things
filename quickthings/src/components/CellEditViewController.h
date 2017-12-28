@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CellEditViewController : UIViewController
+@interface CellEditViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic) NSInteger indexPassedDuringSegue;
 @property (weak, nonatomic) IBOutlet UIDatePicker *cellEditDatePicker;
 @property (weak, nonatomic) IBOutlet UIButton *setDatePicker;
 @property (weak, nonatomic) IBOutlet UITextField *addSubInput;
+@property (weak, nonatomic) IBOutlet UIPickerView *AddSubPicker;
+@property (weak, nonatomic) IBOutlet UIButton *setAddSubPressed;
 
 //top level
 - (IBAction)addPressed:(id)sender;

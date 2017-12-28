@@ -23,15 +23,11 @@
 @synthesize indexPassedDuringSegue;
 
 - (void)viewDidLoad {
-    NSLog(@"Log loading");
     [super viewDidLoad];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     options = [[NSMutableArray alloc] init];
-    
-    RepeatViewController *RVC = ((RepeatViewController *) self.parentViewController);
-    indexPassedDuringSegue = [RVC indexPassedDuringSegue];
     
     [options addObject:@"Hourly"];
     [options addObject:@"Daily"];
@@ -68,6 +64,11 @@
 }
 
 - (void) handleTouchUpEvent: (UIButton *) sender {
+    RepeatViewController *RVC = ((RepeatViewController *) self.parentViewController);
+    indexPassedDuringSegue = [RVC indexPassedDuringSegue];
+    
+    NSLog(@"index from RVC %lu", self.indexPassedDuringSegue);
+    
     UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
     FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
     
@@ -80,6 +81,9 @@
         [updateReminderAction reminderToUpdate:reminder date:reminder.date notificationKey:reminder.notificationKey snooz:reminder.snooz indexToUpdateWith:indexPassedDuringSegue setRepeat:nil];
     } else {
         [updateReminderAction reminderToUpdate:reminder date:reminder.date notificationKey:reminder.notificationKey snooz:reminder.snooz indexToUpdateWith:indexPassedDuringSegue setRepeat:item];
+        
+        reminders = [fetchRemindersAction fetchRembinders];
+        NSLog(@"Succesefully changed repeat to %@ for %@ with index %lu", [reminders[indexPassedDuringSegue] repeat],[reminders[indexPassedDuringSegue] title], indexPassedDuringSegue);
     }
     
     [self dismissViewControllerAnimated:true completion:nil];

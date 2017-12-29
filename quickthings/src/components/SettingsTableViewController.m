@@ -43,6 +43,19 @@ do { \
 //    [options addObject:@"Theme"];
     [options addObject:@"Repeat Notification For"];
     [options addObject:@"Default Snooz"];
+    [options addObject:@"Set Icon: "];
+    [options addObject:@"Default"];
+    [options addObject:@"Blue"];
+    [options addObject:@"Clear"];
+    [options addObject:@"Grey"];
+    [options addObject:@"Stacked"];
+    [options addObject:@"Simple"];
+    [options addObject:@"Simple Blue"];
+    [options addObject:@"Inverted Blue With Box"];
+    [options addObject:@"Circle"];
+    [options addObject:@"Blue Circle"];
+    [options addObject:@"Blue Circle With Check"];
+    [options addObject:@"Circle with Check"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,6 +80,8 @@ do { \
         cell.textLabel.text = [NSString stringWithFormat:@"Repeat Notification %lu times", [smallUserSettings fetchNumberOfNotificationsToSchedule]];
     } else if ([item isEqualToString:@"Default Snooz"]) {
         cell.textLabel.text = [NSString stringWithFormat:@"Default Snooz %lu", [smallUserSettings fetchDefaultSnooz]];
+    } else if ([item isEqualToString:@"Set Icon: "]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CellHeader"];
     } else if ([item isEqualToString:@"Done"]) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"CellDone"];
     } else {
@@ -88,6 +103,54 @@ do { \
         [self dismissViewControllerAnimated:true completion:nil];
     } else if ([item isEqualToString:@"Repeat Notification For"]) {
         [self prompt:@"Enter new number to repeat for" handler:@selector(setNewNotificationRepeat:) fromObject:self];
+    } else if ([item isEqualToString:@"Default"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Blue"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_blue" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Clear"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_clear.png" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Grey"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_grey" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Stacked"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_stack" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Simple"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_black_simple" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Simple Blue"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_blue_simple" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Inverted Blue With Box"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_blue_check_inverted" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Circle"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_circle_black" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Blue Circle"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_circle_blue" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Blue Circle With Check"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_circle_check_blue" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
+    } else if ([item isEqualToString:@"Circle with Check"]) {
+        [[UIApplication sharedApplication] setAlternateIconName:@"icon_circle_check_black" completionHandler:^(NSError * _Nullable error) {
+            NSLog(@"Error... %@", error.localizedDescription);
+        }];
     } else if ([item isEqualToString:@"Default Snooz"]) {
         [self prompt:@"Enter new default snooz" handler:@selector(setNewSnooz:) fromObject:self];
     }

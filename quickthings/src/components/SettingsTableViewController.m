@@ -39,8 +39,8 @@ do { \
     options = [[NSMutableArray alloc] init];
     
     [options addObject:@"Done"];
-    [options addObject:@"Swipe Options"];
-    [options addObject:@"Theme"];
+//    [options addObject:@"Swipe Options"];
+//    [options addObject:@"Theme"];
     [options addObject:@"Repeat Notification For"];
     [options addObject:@"Default Snooz"];
 }

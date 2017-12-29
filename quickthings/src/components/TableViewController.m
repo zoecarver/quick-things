@@ -13,6 +13,7 @@
 #import "TableViewCell.h"
 #import "ViewController.h"
 #import "Reminder.h"
+#import "SortReminders.h"
 #import <UserNotifications/UserNotifications.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -21,9 +22,11 @@
     FetchRembinders *fetchRemindersAction;
     CompleteReminder *completeReminderAction;
     NSMutableArray *cells;
-    NSInteger cellsCount;
+    NSMutableArray *cellsCheck;
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
+    SortReminders *sortRemindersAction;
+    NSInteger numberOfNonReminderCells;
 }
 
 @end
@@ -37,10 +40,13 @@
     
     fetchRemindersAction = [[FetchRembinders alloc] init];
     completeReminderAction = [[CompleteReminder alloc] init];
-    cells = [fetchRemindersAction fetchRembinders];
-    cellsCount = [cells count];
+    sortRemindersAction = [[SortReminders alloc] init];
+//    cells = [sortRemindersAction sort];
+    cellsCheck = cells;
+    numberOfNonReminderCells = 0;
     
     [self initilizeFormaters];
+    [self updateTableView];
 }
 
 - (void) initilizeFormaters {
@@ -52,11 +58,86 @@
 }
 
 - (void) updateTableView {
-    cells = [fetchRemindersAction fetchRembinders];
-    if ([cells count] > cellsCount) {
-        [self.tableView reloadData];
+    cells = [sortRemindersAction sort];
+    
+    [self updateSections];
+    [self.tableView reloadData];
+    
+    cellsCheck = cells;
+
+    NSLog(@"Finished updating successfully");
+}
+
+- (void) updateSections {
+    BOOL hasDoneOverDue = NO;
+    BOOL hasDoneToday = NO;
+    BOOL hasDoneNextSevenDays = NO;
+    BOOL hasDoneFuture = NO;
+    
+    numberOfNonReminderCells = 0;
+    
+    for (NSInteger i = 0; i < cells.count; i++) {
+        NSLog(@"Currently on %lu with max %lu", i, cells.count);
+        [self logCells];
+        if (i+1 == cells.count) {
+            NSLog(@"Aborting!");
+            return;
+        }
+        
+        Reminder *reminderCell = cells[i];
+        
+        double diff = [self numberOfDaysBetween:[NSDate date] and:reminderCell.date];
+        NSLog(@"Got days difforence: %f for reminder %@", diff, reminderCell.title);
+        
+        if (diff < 0) {
+            if (hasDoneOverDue == NO) {
+                [cells insertObject:@"Overdue" atIndex:i];
+                hasDoneOverDue = YES;
+                i++;
+                numberOfNonReminderCells++;
+            }
+        } else if (diff == 0) {
+            if (hasDoneToday == NO) {
+                [cells insertObject:@"Today" atIndex:i];
+                hasDoneToday = YES;
+                i++;
+                numberOfNonReminderCells++;
+            }
+        } else if (diff < 7) {
+            if (hasDoneNextSevenDays == NO) {
+                [cells insertObject:@"This Week" atIndex:i];
+                hasDoneNextSevenDays = YES;
+                i++;
+                numberOfNonReminderCells++;
+            }
+        } else {
+            if (hasDoneFuture == NO) {
+                [cells insertObject:@"Future" atIndex:i];
+                hasDoneFuture = YES;
+                i++;
+                numberOfNonReminderCells++;
+            }
+        }
     }
-    cellsCount = [cells count];
+}
+         
+- (void) logCells {
+    for (NSInteger i = 0; i < cells.count; i++) {
+        if ([cells[i] isKindOfClass:[Reminder class]]) {
+            NSLog(@"%lu: %@", i, [cells[i] title]);
+        } else {
+            NSLog(@"%lu: %@", i, cells[i]);
+        }
+    }
+}
+
+- (double)numberOfDaysBetween:(NSDate *)startDate and:(NSDate *)endDate {
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay
+                                                        fromDate:startDate
+                                                          toDate:endDate
+                                                         options:0];
+    return [components day];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,9 +153,26 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self updateTableView];
+//    cells = [sortRemindersAction sort];
+    [self logCells];
+    if (![cells isEqualToArray:cellsCheck]) {
+        [self updateTableView];
+    }
+
+    TableViewCell *cell;
     
-    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
+    if ([cells[indexPath.row] isKindOfClass:[Reminder class]]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCell"];
+        cell = [self applyToCell:cell withIndexPath:indexPath];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCellDateSeprator"];
+        cell.textLabel.text = cells[indexPath.row];
+    }
+    
+    return cell;
+}
+
+- (TableViewCell *) applyToCell:(TableViewCell *) cell withIndexPath:(NSIndexPath *)indexPath {
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", @"  ", [cells[indexPath.row] title]];
     
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
@@ -100,21 +198,6 @@
         
         cell.scheduledDateLabel.attributedText = myString;
     }
-    
-//    UIButton *checkBox = [[UIButton alloc] initWithFrame:CGRectMake(15, 18, 10, 10)];
-//    checkBox.layer.borderWidth = 2;
-//    checkBox.layer.borderColor = [UIColor grayColor].CGColor;
-//    checkBox.layer.cornerRadius = 5;
-//
-//    CGRect checkBoxBounds = checkBox.bounds;
-//    checkBoxBounds.size.height = 15;
-//    checkBoxBounds.size.width = 15;
-//    checkBox.bounds = checkBoxBounds;
-//
-//    [checkBox setTag:indexPath.row];
-//    [checkBox addTarget:self action:@selector(handleTouchUpEventCheckBox:) forControlEvents:UIControlEventTouchUpInside];
-//
-//    [cell addSubview:checkBox];
     
     return cell;
 }
@@ -179,37 +262,30 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"✅" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        [completeReminderAction reminderToComplete:indexPath.row];
-
+        NSInteger nI = 0;
+        BOOL breakOut = NO;
+        
+        for (NSInteger i = 0; i < [cells count] && !breakOut; i++) {
+            if ([cells[i] isKindOfClass:[Reminder class]]) {
+                if ([cells[i] isEqual:cells[indexPath.row]]) {
+                    breakOut = YES;
+                }
+            } else {
+                nI++;
+            }
+        }
+        
+        NSInteger actualCellIndex = indexPath.row-nI;
+        NSLog(@"completing cell at %lu", actualCellIndex);
+        
+        [completeReminderAction reminderToComplete:actualCellIndex];
+        
         [self updateTableView];
-        [self.tableView reloadData];
     }];
     button.backgroundColor = [UIColor greenColor];
 
     NSArray *returnArrayWithButtons = @[button];
     return returnArrayWithButtons;
 }
-
-//- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-//    NSLog(@"Got trailing");
-//
-//    return [UISwipeActionsConfiguration configurationWithActions:@[[UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"✔" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-//        NSLog(@"You got me");
-//
-//        [tableView setEditing:NO animated:YES];
-//
-//        [UIView animateWithDuration:0.5f
-//                         animations:^{
-//                             TableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//                             cell.backgroundColor = [UIColor blueColor]; //UIColorFromRGB(0x28311FD)
-//                         }
-//                         completion:^(BOOL finished) {
-//                             [completeReminderAction reminderToComplete:indexPath.row];
-//
-//                             [self updateTableView];
-//                             [self.tableView reloadData];
-//                         }];
-//    }]]];
-//}
 
 @end

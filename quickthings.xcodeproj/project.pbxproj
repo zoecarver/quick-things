@@ -31,6 +31,7 @@
 		C8848C1D1FF5B8CF0055ED10 /* ApplyDarkTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C8848C1C1FF5B8CF0055ED10 /* ApplyDarkTheme.m */; };
 		C88943AB1FE9B07100DDC331 /* UpdateReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C88943AA1FE9B07100DDC331 /* UpdateReminder.m */; };
 		C88943AE1FE9B0EE00DDC331 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C88943AD1FE9B0EE00DDC331 /* Reminder.m */; };
+		C891F35A1FF5F47C00861EDD /* SortReminders.m in Sources */ = {isa = PBXBuildFile; fileRef = C891F3591FF5F47C00861EDD /* SortReminders.m */; };
 		C89614761FF3169D00F614F4 /* SettingsParentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C89614751FF3169D00F614F4 /* SettingsParentView.m */; };
 		C89C1FB11FEB19B30097ADD6 /* CellEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89C1FB01FEB19B30097ADD6 /* CellEditViewController.m */; };
 		C89C78251FEF23D000D49E1B /* RepeatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89C78241FEF23D000D49E1B /* RepeatTableViewController.m */; };
@@ -108,6 +109,8 @@
 		C88943AC1FE9B0EE00DDC331 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
 		C88943AD1FE9B0EE00DDC331 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
 		C88943AF1FEACBD400DDC331 /* quickthings.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = quickthings.entitlements; sourceTree = "<group>"; };
+		C891F3581FF5F47C00861EDD /* SortReminders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortReminders.h; sourceTree = "<group>"; };
+		C891F3591FF5F47C00861EDD /* SortReminders.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortReminders.m; sourceTree = "<group>"; };
 		C89614741FF3169D00F614F4 /* SettingsParentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsParentView.h; sourceTree = "<group>"; };
 		C89614751FF3169D00F614F4 /* SettingsParentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsParentView.m; sourceTree = "<group>"; };
 		C89C1FAF1FEB19B30097ADD6 /* CellEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellEditViewController.h; sourceTree = "<group>"; };
@@ -239,6 +242,8 @@
 				C8DDB9CC1FF21779004BF8FE /* FetchSmallUserSettings.m */,
 				C8848C1B1FF5B8CF0055ED10 /* ApplyDarkTheme.h */,
 				C8848C1C1FF5B8CF0055ED10 /* ApplyDarkTheme.m */,
+				C891F3581FF5F47C00861EDD /* SortReminders.h */,
+				C891F3591FF5F47C00861EDD /* SortReminders.m */,
 			);
 			path = actions;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				C8AB072B1FE06957009DD6A6 /* TableViewController.m in Sources */,
 				C86A9D6C1FE2F80E00EBD50E /* FetchCompleted.m in Sources */,
 				C86A9D721FE2FEFC00EBD50E /* FetchSettings.m in Sources */,
+				C891F35A1FF5F47C00861EDD /* SortReminders.m in Sources */,
 				C8DDB9CD1FF21779004BF8FE /* FetchSmallUserSettings.m in Sources */,
 				C81F3D3C1FDF6F5C00DC26F3 /* ViewController.m in Sources */,
 				C8848C1D1FF5B8CF0055ED10 /* ApplyDarkTheme.m in Sources */,

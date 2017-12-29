@@ -11,6 +11,7 @@
 #import "AddReminder.h"
 #import "TableViewController.h"
 #import "DateModificationViewController.h"
+#include <CoreImage/CoreImage.h>
 
 @interface ViewController ()
 @end
@@ -28,6 +29,13 @@
     _recivedIndex = 0;
     
     NSLog(@"Finished");
+    
+    static CIColorKernel *kernel = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        kernel = [CIColorKernel kernelWithString:
+                  @"kernel vec4 swapRedAndGreenAmount(__sample s) { return s.grba; }"];
+    });
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -47,7 +55,6 @@
     //init classes
     FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
     AddReminder *addRemindersAction = [[AddReminder alloc] init];
-//    TableViewController *cellHandlerClass = [[TableViewController alloc] init];
     
     //create reminder
     [addRemindersAction reminderToAdd:_reminderInputField.text];
@@ -62,6 +69,7 @@
     
     NSLog(@"Sending to date picker");
     _recivedString = _reminderInputField.text;
+    self.recivedIndex = [recivedReminders count] - 1;
     [self performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
 

@@ -26,7 +26,6 @@
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
     SortReminders *sortRemindersAction;
-    NSInteger numberOfNonReminderCells;
 }
 
 @end
@@ -43,7 +42,6 @@
     sortRemindersAction = [[SortReminders alloc] init];
 //    cells = [sortRemindersAction sort];
     cellsCheck = cells;
-    numberOfNonReminderCells = 0;
     
     [self initilizeFormaters];
     [self updateTableView];
@@ -74,8 +72,6 @@
     BOOL hasDoneNextSevenDays = NO;
     BOOL hasDoneFuture = NO;
     
-    numberOfNonReminderCells = 0;
-    
     for (NSInteger i = 0; i < cells.count; i++) {
         NSLog(@"Currently on %lu with max %lu", i, cells.count);
         [self logCells];
@@ -94,28 +90,24 @@
                 [cells insertObject:@"Overdue" atIndex:i];
                 hasDoneOverDue = YES;
                 i++;
-                numberOfNonReminderCells++;
             }
         } else if (diff == 0) {
             if (hasDoneToday == NO) {
                 [cells insertObject:@"Today" atIndex:i];
                 hasDoneToday = YES;
                 i++;
-                numberOfNonReminderCells++;
             }
         } else if (diff < 7) {
             if (hasDoneNextSevenDays == NO) {
                 [cells insertObject:@"This Week" atIndex:i];
                 hasDoneNextSevenDays = YES;
                 i++;
-                numberOfNonReminderCells++;
             }
         } else {
             if (hasDoneFuture == NO) {
                 [cells insertObject:@"Future" atIndex:i];
                 hasDoneFuture = YES;
                 i++;
-                numberOfNonReminderCells++;
             }
         }
     }
@@ -153,7 +145,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    cells = [sortRemindersAction sort];
     [self logCells];
     if (![cells isEqualToArray:cellsCheck]) {
         [self updateTableView];
@@ -166,8 +157,15 @@
         cell = [self applyToCell:cell withIndexPath:indexPath];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCellDateSeprator"];
-        cell.textLabel.text = cells[indexPath.row];
+        cell = [self applyToDivider:cell withIndexPath:indexPath];
     }
+    
+    return cell;
+}
+
+- (TableViewCell *) applyToDivider:(TableViewCell *) cell withIndexPath:(NSIndexPath *) indexPath {
+    [cell.textLabel setText:cells[indexPath.row]];
+    [cell.textLabel setFont:[UIFont boldSystemFontOfSize:24]];
     
     return cell;
 }
@@ -225,6 +223,8 @@
 }
 
 - (void) onLongPress: (UIButton *) sender {
+    NSInteger actualCellIndex = [self getActuallIndexForIndex:sender.tag];
+
     [UIView animateWithDuration:1.0f
                      animations:^{
                          // Set the original frame back
@@ -247,7 +247,7 @@
     [VC setDelegate:self];
     
     [VC setRecivedString:recivedValue];
-    [VC setRecivedIndex:sender.tag];
+    [VC setRecivedIndex:actualCellIndex];
     
     NSLog(@"seguing to tag %lu", [VC recivedIndex]);
     
@@ -262,20 +262,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"✅" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        NSInteger nI = 0;
-        BOOL breakOut = NO;
-        
-        for (NSInteger i = 0; i < [cells count] && !breakOut; i++) {
-            if ([cells[i] isKindOfClass:[Reminder class]]) {
-                if ([cells[i] isEqual:cells[indexPath.row]]) {
-                    breakOut = YES;
-                }
-            } else {
-                nI++;
-            }
-        }
-        
-        NSInteger actualCellIndex = indexPath.row-nI;
+        NSInteger actualCellIndex = [self getActuallIndexForIndex:indexPath.row];
         NSLog(@"completing cell at %lu", actualCellIndex);
         
         [completeReminderAction reminderToComplete:actualCellIndex];
@@ -286,6 +273,23 @@
 
     NSArray *returnArrayWithButtons = @[button];
     return returnArrayWithButtons;
+}
+
+- (NSInteger) getActuallIndexForIndex:(NSInteger)index {
+    NSInteger nI = 0;
+    BOOL breakOut = NO;
+    
+    for (NSInteger i = 0; i < [cells count] && !breakOut; i++) {
+        if ([cells[i] isKindOfClass:[Reminder class]]) {
+            if ([cells[i] isEqual:cells[index]]) {
+                breakOut = YES;
+            }
+        } else {
+            nI++;
+        }
+    }
+    
+    return index-nI;
 }
 
 @end

@@ -171,9 +171,12 @@
 }
 
 - (TableViewCell *) applyToCell:(TableViewCell *) cell withIndexPath:(NSIndexPath *)indexPath {
+    double diff = [self numberOfDaysBetween:[NSDate date] and:[cells[indexPath.row] date]];
+
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", @"  ", [cells[indexPath.row] title]];
     
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
+    cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f days", diff];
     
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
     cell.cellButton.tag = indexPath.row;

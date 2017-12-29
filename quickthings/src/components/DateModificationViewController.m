@@ -11,6 +11,8 @@
 #import "CollectionViewController.h"
 #import "RepeatTableViewController.h"
 #import "RepeatViewController.h"
+#import "FetchRembinders.h"
+#import "Reminder.h"
 
 @interface DateModificationViewController () {
     NSDateFormatter *timeFormatter;
@@ -36,12 +38,23 @@
     NSLog(@"I was called with tag %lu", self.indexPassedDuringSegue);
     
     [self initilizeFormaters];
+    [self initSetDateTimePicker];
     
-    NSDate *now = [NSDate date];
-    [_datePickerAction setDate:now];
-    
-    _largeTimeDisplayLabel.text = [self formatDateAsString:now];
+    _largeTimeDisplayLabel.text = [self formatDateAsString:[_datePickerAction date]];
     _smallReminderDisplayLabel.text = _textPassedDuringSegue;
+}
+
+- (void) initSetDateTimePicker {
+    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
+    Reminder *reminder = reminders[self.indexPassedDuringSegue];
+    
+    if (reminder.date) {
+        [_datePickerAction setDate:reminder.date];
+    } else {
+        NSDate *now = [NSDate date];
+        [_datePickerAction setDate:now];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

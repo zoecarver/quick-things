@@ -11,6 +11,7 @@
 @interface TableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *cellButton;
 @property (weak, nonatomic) IBOutlet UILabel *scheduledDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *diffLabel;
 
 - (IBAction)cellButton:(id)sender;
 @end

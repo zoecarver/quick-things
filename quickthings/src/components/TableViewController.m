@@ -261,7 +261,9 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
+    if ([cells[indexPath.row] class] != [Reminder class]) {
+        return NO;
+    }
     return YES;
 }
 
@@ -300,13 +302,6 @@
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
 trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([cells[indexPath.row] class] != [Reminder class]) { //FIXME I should not be editable if I am not a reminder
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [tableView setEditing:NO animated:YES];
-        });
-        
-        return nil;
-    }
 
     NSLog(@"Got swipe");
     UIContextualAction *button = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"" handler:^(UIContextualAction *ca, UIView *view, void (^err)(BOOL)){

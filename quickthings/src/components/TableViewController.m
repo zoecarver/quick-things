@@ -75,10 +75,10 @@
     for (NSInteger i = 0; i < cells.count; i++) {
         NSLog(@"Currently on %lu with max %lu", i, cells.count);
         [self logCells];
-        if (i+1 == cells.count) {
-            NSLog(@"Aborting!");
-            return;
-        }
+//        if (i+1 == cells.count) {
+//            NSLog(@"Aborting!");
+//            return;
+//        }
         
         Reminder *reminderCell = cells[i];
         

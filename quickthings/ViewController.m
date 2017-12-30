@@ -30,12 +30,8 @@
     
     NSLog(@"Finished");
     
-    static CIColorKernel *kernel = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        kernel = [CIColorKernel kernelWithString:
-                  @"kernel vec4 swapRedAndGreenAmount(__sample s) { return s.grba; }"];
-    });
+    self.reminderInputField.backgroundColor = [UIColor grayColor];
+    self.reminderInputField.placeholder = @"Type your reminder here...";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -41,6 +41,36 @@
     [self.reminderInputField.layer setShadowRadius:5.0f];
     [self.reminderInputField.layer setShadowOffset:CGSizeMake(0 , 0)];
     [self.reminderInputField.layer setShadowOpacity:0.3f];
+    
+    [self.reminderInputField setReturnKeyType:UIReturnKeyDone];
+    [self.reminderInputField addTarget:self
+                       action:@selector(textFieldFinished)
+             forControlEvents:UIControlEventEditingDidEndOnExit];
+}
+
+- (void) textFieldFinished {
+    NSLog(@"Done Pressed");
+    if ([_reminderInputField.text isEqual: @""]) return;
+    
+    //init classes
+    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    AddReminder *addRemindersAction = [[AddReminder alloc] init];
+    
+    //create reminder
+    [addRemindersAction reminderToAdd:_reminderInputField.text];
+    
+    //log out reminders
+    NSMutableArray *recivedReminders = [fetchRemindersAction fetchRembinders];
+    NSLog(@"logging %lu reminders", [recivedReminders count]);
+    
+    for (NSString *reminder in recivedReminders) {
+        NSLog(@"Reminder: %@", reminder);
+    }
+    
+    NSLog(@"Sending to date picker");
+    _recivedString = _reminderInputField.text;
+    self.recivedIndex = [recivedReminders count] - 1;
+    [self performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
 
 - (void) createBlur {

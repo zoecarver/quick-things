@@ -296,14 +296,6 @@
     return index-nI;
 }
 
-- (void)drawRect:(CGRect)rect withButton:(UIView *) view {
-    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(currentContext);
-    CGContextSetShadow(currentContext, CGSizeMake(-15, 20), 5);
-    [view drawRect: rect];
-    CGContextRestoreGState(currentContext);
-}
-
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
 trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

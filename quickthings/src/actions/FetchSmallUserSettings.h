@@ -14,5 +14,7 @@
 - (NSInteger) fetchNumberOfNotificationsToSchedule;
 - (void) setDefaultSnooz:(NSInteger ) snooz;
 - (NSInteger) fetchDefaultSnooz;
+- (void) setDoneColor:(BOOL ) color;
+- (NSInteger) fetchDoneColor;
 
 @end

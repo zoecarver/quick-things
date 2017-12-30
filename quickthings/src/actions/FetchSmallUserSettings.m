@@ -35,6 +35,31 @@
     }
 }
 
+- (NSInteger) fetchDoneColor {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    BOOL done = NO;
+    
+    if (userDefaults != nil) {
+        done = [userDefaults integerForKey:@"donecolor"];
+    } else {
+        NSLog(@"ERROR: user defaults is nil");
+    }
+    
+    return done;
+}
+
+- (void) setDoneColor:(BOOL ) color {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (userDefaults != nil) {
+        [userDefaults setBool:color forKey:@"donecolor"];
+        [userDefaults synchronize];
+    } else {
+        NSLog(@"ERROR: user defaults is nil");
+    }
+}
+
 - (NSInteger) fetchNumberOfNotificationsToSchedule {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     

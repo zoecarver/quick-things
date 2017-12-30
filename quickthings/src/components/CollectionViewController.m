@@ -21,6 +21,7 @@
 
 @interface CollectionViewController () {
     FetchSettings *fetchSettingsAction;
+    FetchSmallUserSettings *smallUserSettings;
     NSMutableArray *settings;
     UIGestureRecognizer *gestureRecognizer;
     CellActions *cellActionsClass;
@@ -40,8 +41,8 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     [self initilizeFormaters];
     [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
     
-    // Do any additional setup after loading the view.
     fetchSettingsAction = [[FetchSettings alloc] init];
+    smallUserSettings = [[FetchSmallUserSettings alloc] init];
     settings = [fetchSettingsAction fetchSettings];
     
     cellActionsClass = [[CellActions alloc] init];
@@ -455,6 +456,10 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 - (CollectionViewCell *) applyToDoneCell: (CollectionViewCell *) cell index: (NSIndexPath *) indexPath {
     cell.cellLabel.text = @"Done";
+    
+    if ([smallUserSettings fetchDoneColor]) {
+        cell.backgroundColor = [UIColor colorWithRed:0.11 green:0.69 blue:0.97 alpha:1.0];
+    }
     
     [self applyCollectionViewSettings:cell withIndex:indexPath.row];
     cell.layoutMargins = UIEdgeInsetsZero; // remove table cell separator margin

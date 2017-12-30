@@ -7,6 +7,7 @@
 //
 
 #import "TableViewCell.h"
+#import "FetchSmallUserSettings.h"
 
 @implementation TableViewCell
 
@@ -24,4 +25,15 @@
 - (IBAction)cellButton:(id)sender {
     NSLog(@"TableCellTouched");
 }
+
+- (IBAction)cellSwitchValChanged:(id)sender {
+    FetchSmallUserSettings *smallUserSettings = [[FetchSmallUserSettings alloc] init];
+    
+    if (self.cellSwitch.isOn) {
+        [smallUserSettings setDoneColor:YES];
+    } else {
+        [smallUserSettings setDoneColor:NO];
+    }
+}
+
 @end

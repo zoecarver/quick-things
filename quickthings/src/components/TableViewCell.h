@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *cellButton;
 @property (weak, nonatomic) IBOutlet UILabel *scheduledDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *diffLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *cellSwitch;
 
 - (IBAction)cellButton:(id)sender;
 @end

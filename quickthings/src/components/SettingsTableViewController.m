@@ -43,6 +43,7 @@ do { \
 //    [options addObject:@"Theme"];
     [options addObject:@"Repeat Notification For"];
     [options addObject:@"Default Snooz"];
+    [options addObject:@"Highlight done button"];
     [options addObject:@"Set Icon: "];
     [options addObject:@"Default"];
     [options addObject:@"Blue"];
@@ -80,6 +81,9 @@ do { \
         cell.textLabel.text = [NSString stringWithFormat:@"Repeat Notification %lu times", [smallUserSettings fetchNumberOfNotificationsToSchedule]];
     } else if ([item isEqualToString:@"Default Snooz"]) {
         cell.textLabel.text = [NSString stringWithFormat:@"Default Snooz %lu", [smallUserSettings fetchDefaultSnooz]];
+    } else if ([item isEqualToString:@"Highlight done button"]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CellSwitch"];
+        cell.cellSwitch.on = [smallUserSettings fetchDoneColor];
     } else if ([item isEqualToString:@"Set Icon: "]) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"CellHeader"];
     } else if ([item isEqualToString:@"Done"]) {

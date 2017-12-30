@@ -28,10 +28,31 @@
     _recivedString = @"unchanged";
     _recivedIndex = 0;
     
-    NSLog(@"Finished");
+    [self applyTextInputStyle];
     
-    self.reminderInputField.backgroundColor = [UIColor grayColor];
+    NSLog(@"Finished");
+}
+
+- (void) applyTextInputStyle {
     self.reminderInputField.placeholder = @"Type your reminder here...";
+    self.reminderInputField.layer.zPosition = 20;
+    
+    [self.reminderInputField.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [self.reminderInputField.layer setShadowRadius:5.0f];
+    [self.reminderInputField.layer setShadowOffset:CGSizeMake(0 , 0)];
+    [self.reminderInputField.layer setShadowOpacity:0.3f];
+}
+
+- (void) createBlur {
+    UIView *blur = [[UIView alloc] init];
+    
+    blur.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*2);
+    blur.layer.zPosition = 100;
+    blur.backgroundColor = [UIColor blackColor];
+    blur.layer.opacity = 0.5f;
+    blur.userInteractionEnabled = NO;
+    
+    [self.view addSubview:blur];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

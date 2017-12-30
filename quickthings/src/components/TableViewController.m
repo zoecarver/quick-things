@@ -14,6 +14,7 @@
 #import "ViewController.h"
 #import "Reminder.h"
 #import "SortReminders.h"
+#import <AudioToolbox/AudioToolbox.h>
 #import <UserNotifications/UserNotifications.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -166,6 +167,7 @@
 - (TableViewCell *) applyToDivider:(TableViewCell *) cell withIndexPath:(NSIndexPath *) indexPath {
     [cell.textLabel setText:cells[indexPath.row]];
     [cell.textLabel setFont:[UIFont boldSystemFontOfSize:24]];
+    cell.selectionStyle = UITableViewCellEditingStyleNone;
     
     return cell;
 }
@@ -257,7 +259,6 @@
     [VC performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
 
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
@@ -293,6 +294,59 @@
     }
     
     return index-nI;
+}
+
+- (void)drawRect:(CGRect)rect withButton:(UIView *) view {
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(currentContext);
+    CGContextSetShadow(currentContext, CGSizeMake(-15, 20), 5);
+    [view drawRect: rect];
+    CGContextRestoreGState(currentContext);
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
+trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    NSLog(@"Got swipe");
+    UIContextualAction *button = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"" handler:^(UIContextualAction *ca, UIView *view, void (^err)(BOOL)){
+        NSLog(@"Full swipe - you should not be seeing this");
+    }];
+    button.backgroundColor = [UIColor colorWithRed:0.11 green:0.69 blue:0.97 alpha:1.0];
+    
+    UISwipeActionsConfiguration *action = [UISwipeActionsConfiguration configurationWithActions:@[button]];
+    action.performsFirstActionWithFullSwipe = NO;
+    
+    AudioServicesPlaySystemSound(1519);
+    
+    [UIView animateWithDuration:5 //not working but thats okay cuz it doesnt need to
+                     animations:^{
+                         [cell.layer setShadowColor:[[UIColor blackColor] CGColor]];
+                         [cell.layer setShadowRadius:5.0f];
+                         [cell.layer setShadowOffset:CGSizeMake(0 , 0)];
+                         [cell.layer setShadowOpacity:0.8f];
+                     }
+                     completion:^(BOOL completed){
+                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                             [tableView setEditing:NO animated:YES];
+                             
+                             [UIView animateWithDuration:1
+                                              animations:^{
+                                                  cell.backgroundColor = [UIColor colorWithRed:0.11 green:0.69 blue:0.97 alpha:1.0];
+                                              }];
+                             
+                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.75 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                 NSInteger actualCellIndex = [self getActuallIndexForIndex:indexPath.row];
+                                 NSLog(@"completing cell at %lu", actualCellIndex);
+                                 
+                                 [completeReminderAction reminderToComplete:actualCellIndex];
+                                 
+                                 [self updateTableView];
+                             });
+                         });
+                     }];
+    
+    return action;
 }
 
 @end

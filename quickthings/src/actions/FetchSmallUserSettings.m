@@ -16,6 +16,9 @@
     NSInteger snooz = 1;
     
     if (userDefaults != nil) {
+        if(![[[userDefaults dictionaryRepresentation] allKeys] containsObject:@"defaultsnooz"]){
+            [self setDefaultSnooz:5];
+        }
         snooz = [userDefaults integerForKey:@"defaultsnooz"];
     } else {
         NSLog(@"ERROR: user defaults is nil");
@@ -66,6 +69,9 @@
     NSInteger notificationsNumber = 10;
     
     if (userDefaults != nil) {
+        if(![[[userDefaults dictionaryRepresentation] allKeys] containsObject:@"notificationsnumber"]){
+            [self setNumberOfNotificationsToSchedule:10];
+        }
         notificationsNumber = [userDefaults integerForKey:@"notificationsnumber"];
     } else {
         NSLog(@"ERROR: user defaults is nil");

@@ -47,16 +47,15 @@ do { \
     [options addObject:@"Set Icon: "];
     [options addObject:@"Default"];
     [options addObject:@"Blue"];
-    [options addObject:@"Clear"];
     [options addObject:@"Grey"];
     [options addObject:@"Stacked"];
-    [options addObject:@"Simple"];
+//    [options addObject:@"Simple"]; //needs white background
     [options addObject:@"Simple Blue"];
     [options addObject:@"Inverted Blue With Box"];
-    [options addObject:@"Circle"];
+//    [options addObject:@"Circle"]; //needs white background
     [options addObject:@"Blue Circle"];
     [options addObject:@"Blue Circle With Check"];
-    [options addObject:@"Circle with Check"];
+//    [options addObject:@"Circle with Check"]; //needs white background
 }
 
 - (void)didReceiveMemoryWarning {

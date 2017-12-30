@@ -76,10 +76,6 @@
     for (NSInteger i = 0; i < cells.count; i++) {
         NSLog(@"Currently on %lu with max %lu", i, cells.count);
         [self logCells];
-//        if (i+1 == cells.count) {
-//            NSLog(@"Aborting!");
-//            return;
-//        }
         
         Reminder *reminderCell = cells[i];
         
@@ -239,6 +235,8 @@
 - (void) setDiffLabelMinute:(double) diff forCell:(TableViewCell *) cell {
     if (diff == 1 || diff == -1) {
         cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f Min", diff];
+    } else if (diff == 0) {
+        cell.diffLabel.text = [NSString stringWithFormat:@"Due now"];
     } else {
         cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f Mins", diff];
     }

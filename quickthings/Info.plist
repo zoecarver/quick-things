@@ -39,6 +39,15 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
+            <key>icon_circle_blue</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>icon_circle_blue</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
 			<key>icon_blue_check_inverted</key>
 			<dict>
 				<key>CFBundleIconFiles</key>

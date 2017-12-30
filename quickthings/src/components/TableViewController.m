@@ -84,9 +84,10 @@
         Reminder *reminderCell = cells[i];
         
         double diff = [self numberOfDaysBetween:[NSDate date] and:reminderCell.date];
-        NSLog(@"Got days difforence: %f for reminder %@", diff, reminderCell.title);
+        double diffMins = [self numberOfMinutesBetween:[NSDate date] and:reminderCell.date];
+        NSLog(@"Got days difforence: %f or minutes %f for reminder %@", diff, diffMins, reminderCell.title);
         
-        if (diff < 0) {
+        if (diffMins < 0) {
             if (hasDoneOverDue == NO) {
                 [cells insertObject:@"Overdue" atIndex:i];
                 hasDoneOverDue = YES;
@@ -131,6 +132,24 @@
                                                           toDate:endDate
                                                          options:0];
     return [components day];
+}
+
+- (double)numberOfMinutesBetween:(NSDate *)startDate and:(NSDate *)endDate {
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute
+                                                        fromDate:startDate
+                                                          toDate:endDate
+                                                         options:0];
+    return [components minute];
+}
+
+- (double)numberOfHoursBetween:(NSDate *)startDate and:(NSDate *)endDate {
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay | NSCalendarUnitHour
+                                                        fromDate:startDate
+                                                          toDate:endDate
+                                                         options:0];
+    return [components hour];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -179,7 +198,18 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", @"  ", [cells[indexPath.row] title]];
     
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
-    cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f days", diff];
+    if (diff == 0) {
+        double diffMins = [self numberOfMinutesBetween:[NSDate date] and:[cells[indexPath.row] date]];
+        double diffHours = [self numberOfHoursBetween:[NSDate date] and:[cells[indexPath.row] date]];
+
+        if (diffHours == 0) {
+            [self setDiffLabelMinute:diffMins forCell:cell];
+        } else {
+            [self setDiffLabelHour:diffHours forCell:cell];
+        }
+    } else {
+        [self setDiffLabelDay:diff forCell:cell];
+    }
     
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
     cell.cellButton.tag = indexPath.row;
@@ -204,6 +234,30 @@
     }
     
     return cell;
+}
+
+- (void) setDiffLabelMinute:(double) diff forCell:(TableViewCell *) cell {
+    if (diff == 1 || diff == -1) {
+        cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f Min", diff];
+    } else {
+        cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f Mins", diff];
+    }
+}
+
+- (void) setDiffLabelHour:(double) diff forCell:(TableViewCell *) cell {
+    if (diff == 1 || diff == -1) {
+        cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f Hour", diff];
+    } else {
+        cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f Hours", diff];
+    }
+}
+
+- (void) setDiffLabelDay:(double) diff forCell:(TableViewCell *) cell {
+    if (diff == 1 || diff == -1) {
+        cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f day", diff];
+    } else {
+        cell.diffLabel.text = [NSString stringWithFormat:@"Due in %.0f days", diff];
+    }
 }
 
 - (void) handleTouchUpEventCheckBox: (UIButton *) sender {

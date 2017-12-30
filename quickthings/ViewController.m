@@ -68,6 +68,7 @@
 
 - (IBAction)addReminderButton:(id)sender {
     NSLog(@"Add button pressed");
+    if ([_reminderInputField.text isEqual: @""]) return;
     
     //init classes
     FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];

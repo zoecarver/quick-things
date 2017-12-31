@@ -67,6 +67,8 @@ do { \
     [options addObject:@"Blue Circle"];
     [options addObject:@"Blue Circle With Check"];
 //    [options addObject:@"Circle with Check"]; //needs white background
+    
+    self.view.tag = 80;
 }
 
 - (void)didReceiveMemoryWarning {

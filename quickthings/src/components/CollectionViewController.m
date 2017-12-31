@@ -371,17 +371,17 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
 }
 
-- (void) handleTouchUpEventTimeCell: (UIButton *) sender {    
+- (void) handleTouchUpEventTimeCell: (UIButton *) sender {
+    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
+    DVC.delegate = self;
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier: NSCalendarIdentifierGregorian];
-    NSDateComponents *components = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate: [NSDate date]];
+    NSDateComponents *components = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate: [[DVC datePickerAction] date]];
     NSDateComponents *dateInComponentFormat = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:settings[sender.tag]];
     [components setHour: [dateInComponentFormat hour]];
     [components setMinute: [dateInComponentFormat minute]];
-    
-    DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
-    DVC.delegate = self;
     
     [DVC test:[calendar dateFromComponents:components]];
 }

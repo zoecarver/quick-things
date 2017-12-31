@@ -1,30 +1,22 @@
 //
-//  RepeatViewController.m
+//  SettingsViewController.m
 //  quickthings
 //
-//  Created by Zoe IAMZOE.io on 12/24/17.
+//  Created by Zoe IAMZOE.io on 12/31/17.
 //  Copyright © 2017 Zoe IAMZOE.io. All rights reserved.
 //
 
-#import "RepeatViewController.h"
-#import "ApplyDarkTheme.h"
+#import "SettingsViewController.h"
 
-@interface RepeatViewController () {
-    ApplyDarkTheme *applyTheme;
-}
+@interface SettingsViewController ()
 
 @end
 
-@implementation RepeatViewController
-@synthesize indexPassedDuringSegue;
+@implementation SettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    applyTheme = [[ApplyDarkTheme alloc] init];
-    [applyTheme viewController:self];
-    
-    NSLog(@"Log loading with index %lu", self.indexPassedDuringSegue);
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

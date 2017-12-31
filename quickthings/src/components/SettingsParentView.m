@@ -8,6 +8,7 @@
 
 #import "SettingsParentView.h"
 #import "ApplyDarkTheme.h"
+#import "SettingsTableViewController.h"
 
 @implementation SettingsParentView {
     ApplyDarkTheme *applyTheme;

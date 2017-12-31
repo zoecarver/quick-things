@@ -20,6 +20,7 @@
 		C81F3D711FDF6F8E00DC26F3 /* AddReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D6F1FDF6F8E00DC26F3 /* AddReminder.m */; };
 		C84C437B1FF5884D002DF511 /* icons8-select-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C84C437A1FF5884D002DF511 /* icons8-select-50.png */; };
 		C84C437D1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C84C437C1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png */; };
+		C85668BA1FF98C6500C7859C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85668B91FF98C6500C7859C /* SettingsViewController.m */; };
 		C85E76A21FF6E68D00810C03 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C85E76901FF6E68A00810C03 /* Icon-76@2x.png */; };
 		C85E76A31FF6E68D00810C03 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = C85E76911FF6E68A00810C03 /* Icon-76.png */; };
 		C85E76A41FF6E68D00810C03 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = C85E76921FF6E68B00810C03 /* Icon-Small.png */; };
@@ -141,6 +142,8 @@
 		C81F3D6F1FDF6F8E00DC26F3 /* AddReminder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReminder.m; sourceTree = "<group>"; };
 		C84C437A1FF5884D002DF511 /* icons8-select-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-select-50.png"; path = "../../../../../Downloads/icons8-select-50.png"; sourceTree = "<group>"; };
 		C84C437C1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-checked-checkbox-filled-50.png"; path = "../../../../../Downloads/icons8-checked-checkbox-filled-50.png"; sourceTree = "<group>"; };
+		C85668B81FF98C6500C7859C /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		C85668B91FF98C6500C7859C /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		C85E76901FF6E68A00810C03 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x.png"; path = "../../Downloads/AppIconResizer_201712292108_c9f45f1779218167bf8727de7cbdd859/Icon-76@2x.png"; sourceTree = "<group>"; };
 		C85E76911FF6E68A00810C03 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "../../Downloads/AppIconResizer_201712292108_c9f45f1779218167bf8727de7cbdd859/Icon-76.png"; sourceTree = "<group>"; };
 		C85E76921FF6E68B00810C03 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "../../Downloads/AppIconResizer_201712292108_c9f45f1779218167bf8727de7cbdd859/Icon-Small.png"; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 				C89614751FF3169D00F614F4 /* SettingsParentView.m */,
 				C89E596F1FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.h */,
 				C89E59701FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m */,
+				C85668B81FF98C6500C7859C /* SettingsViewController.h */,
+				C85668B91FF98C6500C7859C /* SettingsViewController.m */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -701,6 +706,7 @@
 				C88943AE1FE9B0EE00DDC331 /* Reminder.m in Sources */,
 				C8A690CD1FF30D2A00FD82E2 /* SettingsView.m in Sources */,
 				C86A9D6F1FE2FCAF00EBD50E /* CollectionViewController.m in Sources */,
+				C85668BA1FF98C6500C7859C /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,6 +42,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"I was called with tag %lu", self.indexPassedDuringSegue);
+    
+    [self initilizeFormaters];
+    [self initSetDateTimePicker];
+    [self applyThemeMethod];
+    [self decideWhereToPutBar];
+    [self createSwipeGesture];
+    
+    _largeTimeDisplayLabel.text = _textPassedDuringSegue; //[self formatDateAsString:[_datePickerAction date]];
+}
+
+- (void) createSwipeGesture {
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipe)];
+    swipe.numberOfTouchesRequired = 1;
+    swipe.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    [self.view addGestureRecognizer:swipe];
+}
+
+- (void) handleSwipe {
+    UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
+    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    
+    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
+    NSInteger index = [self indexPassedDuringSegue];
+    
+    NSLog(@"Index that we got for done was %lu", index);
+    
+    NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
+    
+    [updateReminderAction reminderToUpdate:reminders[index] date:[self.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:[reminders[index] snooz] indexToUpdateWith:index setRepeat:[reminders[index] repeat]];
+    
+    [self performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
+    
+    [self scheduleNotificationWithTitle:[reminders[index] title] date:[self.datePickerAction date] stringNotificationKeyFromIndex:stringNotificationKeyFromIndex withSnoozFromReminder:[reminders[index] snooz]];
+}
+
+- (void) applyThemeMethod {
     applyTheme = [[ApplyDarkTheme alloc] init];
     [applyTheme viewController:self];
     [applyTheme view:self.view];
@@ -50,16 +88,6 @@
     [applyTheme datePicker:self.datePickerAction];
     [applyTheme toolBar:self.topToolbar];
     [applyTheme toolBar:self.bottomToolbar];
-    
-        
-    NSLog(@"I was called with tag %lu", self.indexPassedDuringSegue);
-    
-    [self initilizeFormaters];
-    [self initSetDateTimePicker];
-    
-    [self decideWhereToPutBar];
-    
-    _largeTimeDisplayLabel.text = _textPassedDuringSegue; //[self formatDateAsString:[_datePickerAction date]];
 }
 
 - (void) decideWhereToPutBar {

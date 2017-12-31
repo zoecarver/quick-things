@@ -52,7 +52,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     settings = [fetchSettingsAction fetchSettings];
     
     cellActionsClass = [[CellActions alloc] init];
-
+    
     self.view.layer.cornerRadius = 25;
 }
 

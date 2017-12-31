@@ -26,7 +26,9 @@
     
     ApplyDarkTheme *applyTheme = [[ApplyDarkTheme alloc] init];
     [applyTheme viewController:self];
-//    [applyTheme textField:self.reminderInputField];
+    [applyTheme toolBar:self.topToolBar];
+    [applyTheme toolBar:self.middleToolBar];
+    [applyTheme toolBar:self.inputToolBar];
     
     NSLog(@"Started");
     
@@ -42,10 +44,10 @@
     self.reminderInputField.placeholder = @"Type your reminder here...";
     self.reminderInputField.layer.zPosition = 20;
     
-    [self.reminderInputField.layer setShadowColor:[[UIColor blackColor] CGColor]];
-    [self.reminderInputField.layer setShadowRadius:5.0f];
-    [self.reminderInputField.layer setShadowOffset:CGSizeMake(0 , 0)];
-    [self.reminderInputField.layer setShadowOpacity:0.3f];
+//    [self.reminderInputField.layer setShadowColor:[[UIColor blackColor] CGColor]];
+//    [self.reminderInputField.layer setShadowRadius:5.0f];
+//    [self.reminderInputField.layer setShadowOffset:CGSizeMake(0 , 0)];
+//    [self.reminderInputField.layer setShadowOpacity:0.3f];
     
     [self.reminderInputField setReturnKeyType:UIReturnKeyDone];
     [self.reminderInputField addTarget:self

@@ -20,54 +20,84 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1tT-XU-uH5">
-                                <rect key="frame" x="0.0" y="134" width="375" height="594"/>
+                                <rect key="frame" x="0.0" y="132" width="375" height="585"/>
                                 <connections>
                                     <segue destination="i0j-UP-4J5" kind="embed" id="c7Y-VD-6CK"/>
                                 </connections>
                             </containerView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eyT-lh-zhG">
+                                <rect key="frame" x="0.0" y="82" width="375" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="6eG-Y7-bQ2"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="ehf-Wn-tz0"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" id="59e-cx-cna">
+                                        <textField key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="tlb-Ad-ucJ">
+                                            <rect key="frame" x="16" y="10" width="297" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="KoZ-5Z-pps">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BHJ-mK-ePQ">
+                                            <rect key="frame" x="329" y="10" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="VTN-uD-tL8"/>
+                                            </constraints>
+                                            <state key="normal" title="➕"/>
+                                            <connections>
+                                                <action selector="addReminderButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hlC-s0-Psd"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fCp-BM-AyZ">
-                                <rect key="frame" x="20" y="738" width="57" height="30"/>
-                                <state key="normal" title="Settings"/>
+                                <rect key="frame" x="16" y="725" width="30" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="⚙️"/>
                                 <connections>
                                     <action selector="settingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lxb-TV-fSU"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tlb-Ad-ucJ">
-                                <rect key="frame" x="16" y="72" width="297" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHJ-mK-ePQ">
-                                <rect key="frame" x="329" y="71" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="VTN-uD-tL8"/>
-                                </constraints>
-                                <state key="normal" title="Add"/>
-                                <connections>
-                                    <action selector="addReminderButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hlC-s0-Psd"/>
-                                </connections>
-                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KAz-CA-fNr">
+                                <rect key="frame" x="0.0" y="38" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items/>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zrK-Z6-zJZ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="fCp-BM-AyZ" secondAttribute="trailing" constant="298" id="3jl-K4-Ami"/>
+                            <constraint firstAttribute="trailing" secondItem="fCp-BM-AyZ" secondAttribute="trailing" constant="329" id="3jl-K4-Ami"/>
                             <constraint firstItem="fCp-BM-AyZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8qv-9K-iA3"/>
-                            <constraint firstItem="tlb-Ad-ucJ" firstAttribute="baseline" secondItem="BHJ-mK-ePQ" secondAttribute="baseline" id="BMo-ce-XBG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fCp-BM-AyZ" secondAttribute="bottom" constant="10" id="BYe-HO-YFh"/>
+                            <constraint firstItem="eyT-lh-zhG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Air-cx-GAm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fCp-BM-AyZ" secondAttribute="bottom" constant="12" id="BYe-HO-YFh"/>
                             <constraint firstItem="1tT-XU-uH5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Em8-2e-Wfo"/>
-                            <constraint firstItem="tlb-Ad-ucJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="28" id="JBu-7u-gEc"/>
+                            <constraint firstItem="eyT-lh-zhG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="38" id="Fg6-kO-O5S"/>
                             <constraint firstItem="1tT-XU-uH5" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="KuB-B5-Tta"/>
-                            <constraint firstItem="1tT-XU-uH5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="134" id="O2S-Fv-4Wg"/>
-                            <constraint firstItem="fCp-BM-AyZ" firstAttribute="top" secondItem="1tT-XU-uH5" secondAttribute="bottom" constant="10" id="TDM-af-qHU"/>
-                            <constraint firstItem="BHJ-mK-ePQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ZpT-Ho-7HJ"/>
-                            <constraint firstItem="BHJ-mK-ePQ" firstAttribute="leading" secondItem="tlb-Ad-ucJ" secondAttribute="trailing" constant="16" id="n8n-tr-b7c"/>
-                            <constraint firstItem="tlb-Ad-ucJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="oB2-Mt-knm"/>
+                            <constraint firstItem="eyT-lh-zhG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="LxK-dB-Slk"/>
+                            <constraint firstItem="fCp-BM-AyZ" firstAttribute="top" secondItem="1tT-XU-uH5" secondAttribute="bottom" constant="8" id="TDM-af-qHU"/>
+                            <constraint firstItem="eyT-lh-zhG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="k0b-6J-dqv"/>
+                            <constraint firstItem="eyT-lh-zhG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="noH-6y-gdb"/>
+                            <constraint firstItem="1tT-XU-uH5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="88" id="tZb-qu-YhJ"/>
+                            <constraint firstItem="eyT-lh-zhG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="38" id="y1o-vg-vhl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="inputToolBar" destination="eyT-lh-zhG" id="ndd-bK-nNC"/>
+                        <outlet property="middleToolBar" destination="KAz-CA-fNr" id="fJa-6W-FI9"/>
                         <outlet property="reminderInputField" destination="tlb-Ad-ucJ" id="HXU-9f-Yyc"/>
+                        <outlet property="topToolBar" destination="zrK-Z6-zJZ" id="sUy-hz-BDO"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="1iX-sl-fJz"/>
                         <segue destination="dPL-8o-hnF" kind="showDetail" identifier="ShowDatePickerView" action="showViewController:sender:" id="XkM-XG-fOb"/>
                         <segue destination="Ve0-ZK-v2Y" kind="presentation" identifier="ShowUserSettings" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="jwl-bR-Lwn"/>
@@ -82,7 +112,7 @@
             <objects>
                 <tableViewController id="i0j-UP-4J5" customClass="TableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Mfp-nR-Kd1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="594"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="585"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -163,19 +193,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aNf-dv-cl2" customClass="SettingsView">
-                                <rect key="frame" x="15" y="351" width="345" height="427"/>
+                                <rect key="frame" x="15" y="332" width="345" height="377"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="377" id="1DB-zv-56Y"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="375" id="IkQ-IL-CCi"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="9gK-HY-x5V" kind="embed" id="bXb-St-cOB"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giu-Aj-P0b">
-                                <rect key="frame" x="16" y="47" width="344" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giu-Aj-P0b">
+                                <rect key="frame" x="16" y="67" width="345" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="cw2-3p-d3d">
-                                <rect key="frame" x="16" y="127" width="343" height="216"/>
+                                <rect key="frame" x="17" y="105" width="343" height="243"/>
                                 <date key="date" timeIntervalSinceReferenceDate="535045377.21416402">
                                     <!--2017-12-15 15:42:57 +0000-->
                                 </date>
@@ -185,34 +219,108 @@
                                 </connections>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="px7-2I-x9i">
-                                <rect key="frame" x="9" y="78" width="359" height="41"/>
+                                <rect key="frame" x="9" y="78" width="360" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jeA-Eh-V2E">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="GW0-ns-43e"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Done" id="gL9-dA-NlC">
+                                        <connections>
+                                            <action selector="donePressed:" destination="dPL-8o-hnF" id="Rb5-ua-eCK"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Snooz" id="tw8-UX-jRI">
+                                        <connections>
+                                            <action selector="snoozPressed:" destination="dPL-8o-hnF" id="XBC-SG-isE"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Repeat" id="pEA-35-RXI">
+                                        <connections>
+                                            <action selector="repeatPressed:" destination="dPL-8o-hnF" id="h78-sz-vm7"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="WebHook" id="hua-12-HwK">
+                                        <connections>
+                                            <action selector="webHookPressed:" destination="dPL-8o-hnF" id="b9q-cR-XSP"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="✅" id="vrR-nm-gRQ">
+                                        <connections>
+                                            <action selector="checkPressed:" destination="dPL-8o-hnF" id="WZ9-0s-J4b"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGO-XU-Jv8">
+                                <rect key="frame" x="2" y="729" width="375" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="QW7-PH-h0R"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Done" id="xFm-je-ZW7">
+                                        <connections>
+                                            <action selector="donePressed:" destination="dPL-8o-hnF" id="x7L-5p-UnI"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Snooz" id="ZKP-DS-v85">
+                                        <connections>
+                                            <action selector="snoozPressed:" destination="dPL-8o-hnF" id="k3f-gu-ULL"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Repeat" id="7c7-hX-IGG">
+                                        <connections>
+                                            <action selector="repeatPressed:" destination="dPL-8o-hnF" id="tY3-kH-fd1"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="WebHook" id="uQG-Yz-4Zx">
+                                        <connections>
+                                            <action selector="webHookPressed:" destination="dPL-8o-hnF" id="Xwq-KX-X3r"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="✅" id="sOX-Uk-5ve">
+                                        <connections>
+                                            <action selector="checkPressed:" destination="dPL-8o-hnF" id="yV7-QO-165"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="aNf-dv-cl2" firstAttribute="bottom" secondItem="jzG-vy-crc" secondAttribute="bottom" id="MKO-B9-HvA"/>
-                            <constraint firstItem="cw2-3p-d3d" firstAttribute="leading" secondItem="giu-Aj-P0b" secondAttribute="leading" id="N4Z-ym-6OC"/>
+                            <constraint firstItem="bGO-XU-Jv8" firstAttribute="bottom" secondItem="jzG-vy-crc" secondAttribute="bottom" id="F5x-Qc-cuQ"/>
+                            <constraint firstItem="bGO-XU-Jv8" firstAttribute="leading" secondItem="jzG-vy-crc" secondAttribute="leading" constant="2" id="GGZ-rB-cBr"/>
+                            <constraint firstItem="aNf-dv-cl2" firstAttribute="bottom" secondItem="jzG-vy-crc" secondAttribute="bottom" constant="-69" id="MKO-B9-HvA"/>
+                            <constraint firstItem="cw2-3p-d3d" firstAttribute="leading" secondItem="giu-Aj-P0b" secondAttribute="leading" constant="1" id="N4Z-ym-6OC"/>
                             <constraint firstItem="cw2-3p-d3d" firstAttribute="centerX" secondItem="giu-Aj-P0b" secondAttribute="centerX" id="Oys-UQ-iQf"/>
-                            <constraint firstItem="cw2-3p-d3d" firstAttribute="leading" secondItem="yHv-aG-XN3" secondAttribute="leadingMargin" id="PoY-cD-iWy"/>
-                            <constraint firstItem="cw2-3p-d3d" firstAttribute="centerX" secondItem="aNf-dv-cl2" secondAttribute="centerX" id="RK8-ii-xFG"/>
+                            <constraint firstItem="cw2-3p-d3d" firstAttribute="leading" secondItem="yHv-aG-XN3" secondAttribute="leadingMargin" constant="1" id="PoY-cD-iWy"/>
+                            <constraint firstItem="cw2-3p-d3d" firstAttribute="centerX" secondItem="aNf-dv-cl2" secondAttribute="centerX" constant="1" id="RK8-ii-xFG"/>
                             <constraint firstItem="px7-2I-x9i" firstAttribute="centerX" secondItem="giu-Aj-P0b" secondAttribute="centerX" id="RtZ-3h-Dbn"/>
+                            <constraint firstItem="jeA-Eh-V2E" firstAttribute="leading" secondItem="jzG-vy-crc" secondAttribute="leading" id="dq8-hW-ItZ"/>
                             <constraint firstItem="px7-2I-x9i" firstAttribute="leading" secondItem="jzG-vy-crc" secondAttribute="leading" constant="9" id="e2B-WU-cj7"/>
-                            <constraint firstItem="aNf-dv-cl2" firstAttribute="top" secondItem="cw2-3p-d3d" secondAttribute="bottom" constant="8" id="emp-EV-mIg"/>
+                            <constraint firstItem="aNf-dv-cl2" firstAttribute="top" secondItem="cw2-3p-d3d" secondAttribute="bottom" constant="-16" id="emp-EV-mIg"/>
                             <constraint firstItem="jzG-vy-crc" firstAttribute="trailing" secondItem="aNf-dv-cl2" secondAttribute="trailing" constant="15" id="fcE-IM-vre"/>
+                            <constraint firstItem="bGO-XU-Jv8" firstAttribute="centerX" secondItem="px7-2I-x9i" secondAttribute="centerX" id="hRh-Mg-H0M"/>
                             <constraint firstItem="aNf-dv-cl2" firstAttribute="leading" secondItem="jzG-vy-crc" secondAttribute="leading" constant="15" id="i3s-Ut-djG"/>
                             <constraint firstItem="px7-2I-x9i" firstAttribute="top" secondItem="giu-Aj-P0b" secondAttribute="bottom" constant="11" id="jE8-VF-pdb"/>
-                            <constraint firstItem="cw2-3p-d3d" firstAttribute="top" secondItem="px7-2I-x9i" secondAttribute="bottom" constant="8" symbolic="YES" id="ly3-Ib-CPo"/>
-                            <constraint firstItem="cw2-3p-d3d" firstAttribute="top" secondItem="yHv-aG-XN3" secondAttribute="top" constant="127" id="rV4-uA-m86"/>
+                            <constraint firstAttribute="trailing" secondItem="jeA-Eh-V2E" secondAttribute="trailing" id="jnW-iF-uhu"/>
+                            <constraint firstItem="cw2-3p-d3d" firstAttribute="top" secondItem="px7-2I-x9i" secondAttribute="bottom" constant="-14" id="ly3-Ib-CPo"/>
+                            <constraint firstItem="cw2-3p-d3d" firstAttribute="top" secondItem="yHv-aG-XN3" secondAttribute="top" constant="105" id="rV4-uA-m86"/>
+                            <constraint firstItem="jeA-Eh-V2E" firstAttribute="top" secondItem="yHv-aG-XN3" secondAttribute="top" id="rtn-gz-wlp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jzG-vy-crc"/>
                     </view>
                     <connections>
+                        <outlet property="bottomToolbar" destination="bGO-XU-Jv8" id="UrE-QE-0BW"/>
                         <outlet property="datePickerAction" destination="cw2-3p-d3d" id="80I-id-LJ7"/>
                         <outlet property="largeTimeDisplayLabel" destination="px7-2I-x9i" id="Jpk-cH-qE5"/>
                         <outlet property="smallReminderDisplayLabel" destination="giu-Aj-P0b" id="keG-eB-lhY"/>
+                        <outlet property="topToolbar" destination="jeA-Eh-V2E" id="uHu-Gf-Dsj"/>
                         <segue destination="BYZ-38-t0r" kind="showDetail" identifier="ShowAllRemindersView" id="kod-al-Psr"/>
                         <segue destination="lJo-px-bfk" kind="showDetail" identifier="ShowCellEditMenu" id="cDT-kl-IT8"/>
                         <segue destination="cG4-pz-i2W" kind="presentation" identifier="ShowRepeatTableView" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="XSr-FR-7fH"/>
@@ -221,7 +329,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5L-AH-a2u" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="qCz-F2-7ZF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1013.6" y="116.49175412293854"/>
+            <point key="canvasLocation" x="1013.6" y="116.00985221674877"/>
         </scene>
         <!--Cell Edit View Controller-->
         <scene sceneID="Tfp-dB-RMJ">
@@ -244,7 +352,7 @@
                                             <action selector="setTimePressed:" destination="lJo-px-bfk" id="O8X-gf-Z0b"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Preform Action" id="4qf-bS-1Dv">
+                                    <barButtonItem enabled="NO" id="4qf-bS-1Dv">
                                         <connections>
                                             <action selector="preformActionPressed:" destination="lJo-px-bfk" id="xZl-iB-9Au"/>
                                         </connections>
@@ -368,12 +476,27 @@
             </objects>
             <point key="canvasLocation" x="1872.8" y="116.49175412293854"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="z17-1l-Tix">
+            <objects>
+                <viewController id="qMH-fc-nwn" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="COY-wt-XQS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="1an-5M-rtL"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XLV-95-fth" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4215" y="117"/>
+        </scene>
         <!--Collection View Controller-->
         <scene sceneID="L0C-mb-QcH">
             <objects>
                 <collectionViewController id="9gK-HY-x5V" customClass="CollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="K9I-cR-G7c" customClass="CollectionViewControllerForStylesOnly">
-                        <rect key="frame" x="0.0" y="0.0" width="345" height="427"/>
+                        <rect key="frame" x="0.0" y="0.0" width="345" height="377"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HTN-dp-xuz">
@@ -675,6 +798,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="XkM-XG-fOb"/>
-        <segue reference="vEf-3R-T5n"/>
+        <segue reference="kod-al-Psr"/>
     </inferredMetricsTieBreakers>
 </document>

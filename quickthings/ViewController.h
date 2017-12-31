@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *reminderInputField;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *inputContainerView;
+@property (weak, nonatomic) IBOutlet UIToolbar *middleToolBar;
+@property (weak, nonatomic) IBOutlet UIToolbar *topToolBar;
+@property (weak, nonatomic) IBOutlet UIToolbar *inputToolBar;
 
 @property (strong, nonatomic) NSString *recivedString;
 @property (nonatomic) NSInteger recivedIndex;

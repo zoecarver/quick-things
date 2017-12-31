@@ -23,6 +23,16 @@
 @property (nonatomic) NSInteger indexPassedDuringSegue;
 @property (nonatomic) NSInteger cellIndexToPassDuringSegue;
 
+//toolbar
+@property (weak, nonatomic) IBOutlet UIToolbar *topToolbar;
+@property (weak, nonatomic) IBOutlet UIToolbar *bottomToolbar;
+
+- (IBAction)donePressed:(id)sender;
+- (IBAction)snoozPressed:(id)sender;
+- (IBAction)repeatPressed:(id)sender;
+- (IBAction)webHookPressed:(id)sender;
+- (IBAction)checkPressed:(id)sender;
+
 - (IBAction)datePickerActionChanged:(id)sender;
 - (void) test: (NSDate *) date;
 

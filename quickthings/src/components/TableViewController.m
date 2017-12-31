@@ -366,7 +366,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
     NSLog(@"Got swipe");
-    UIContextualAction *button = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"" handler:^(UIContextualAction *ca, UIView *view, void (^err)(BOOL)){
+    UIContextualAction *button = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"✅" handler:^(UIContextualAction *ca, UIView *view, void (^err)(BOOL)){
         NSLog(@"Full swipe - you should not be seeing this");
     }];
     button.backgroundColor = [UIColor colorWithRed:0.11 green:0.69 blue:0.97 alpha:1.0];
@@ -378,27 +378,32 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [UIView animateWithDuration:5 //not working but thats okay cuz it doesnt need to
                      animations:^{
-                         [cell.layer setShadowColor:[[UIColor blackColor] CGColor]];
-                         [cell.layer setShadowRadius:5.0f];
-                         [cell.layer setShadowOffset:CGSizeMake(0 , 0)];
-                         [cell.layer setShadowOpacity:0.8f];
+                         //do nothing
                      }
                      completion:^(BOOL completed){
-                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                              [tableView setEditing:NO animated:YES];
                              
-                             [UIView animateWithDuration:1
+                             [UIView animateWithDuration:0.4
                                               animations:^{
                                                   cell.backgroundColor = [UIColor colorWithRed:0.11 green:0.69 blue:0.97 alpha:1.0];
                                               }];
                              
-                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.75 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.4 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                  NSInteger actualCellIndex = [self getActuallIndexForIndex:indexPath.row];
                                  NSLog(@"completing cell at %lu", actualCellIndex);
                                  
                                  [completeReminderAction reminderToComplete:actualCellIndex];
                                  
                                  [self updateTableView];
+                                 
+                                 for (TableViewCell *cellElement in tableView.visibleCells) {
+                                     cellElement.backgroundColor = [UIColor whiteColor];
+                                     [applyTheme tableViewCell:cellElement];
+                                     [applyTheme label:cellElement.diffLabel];
+                                     [applyTheme label:cellElement.scheduledDateLabel];
+                                     [applyTheme label:cellElement.textLabel];
+                                 }
                              });
                          });
                      }];

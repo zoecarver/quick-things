@@ -39,15 +39,6 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-            <key>icon_circle_blue</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>icon_circle_blue</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
 			<key>icon_blue_check_inverted</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -71,6 +62,15 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>icon_circle_black</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>icon_circle_blue</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>icon_circle_blue</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
@@ -138,7 +138,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.4</string>
+	<string>1.0.6</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>

@@ -69,10 +69,10 @@
 - (NSInteger) fetchDoneColor {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    BOOL done = NO;
+    BOOL done = YES;
     
     if (userDefaults != nil) {
-        done = [userDefaults integerForKey:@"donecolor"];
+        done = [userDefaults boolForKey:@"donecolor"];
     } else {
         NSLog(@"ERROR: user defaults is nil");
     }

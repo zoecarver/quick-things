@@ -164,7 +164,7 @@
             return grayText;
             break;
         default:
-            return [UIColor whiteColor];
+            return [UIColor blackColor];
             break;
     }
 }
@@ -172,10 +172,10 @@
 - (void) toolBar: (UIToolbar *) toolBar {
     switch (theme) {
         case 1:
-            toolBar.barTintColor = [self invertColor:toolBar.barTintColor];
+            toolBar.backgroundColor = [UIColor blackColor];
             break;
         case 2:
-            toolBar.barTintColor = grayBackground;
+            toolBar.backgroundColor = grayBackground;
             break;
         default:
             break;

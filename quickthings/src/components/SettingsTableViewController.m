@@ -50,7 +50,7 @@ do { \
 //    [options addObject:@"Theme"];
     [options addObject:@"Repeat Notification For"];
     [options addObject:@"Default Snooz"];
-    [options addObject:@"Highlight done button"];
+//    [options addObject:@"Highlight done button"];
     [options addObject:@"Theme"];
     [options addObject:@"Default"];
     [options addObject:@"Black"];

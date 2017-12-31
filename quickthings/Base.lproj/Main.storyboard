@@ -358,6 +358,7 @@
                         <outlet property="actionOne" destination="Y5X-1r-lNx" id="LJa-N4-fc1"/>
                         <outlet property="actionTwo" destination="h2i-VU-yPp" id="TBu-dw-bOa"/>
                         <outlet property="cellEditDatePicker" destination="rc4-sn-3MC" id="uVT-Th-5sA"/>
+                        <outlet property="editLabel" destination="tgr-UV-OfW" id="1qv-zy-NkZ"/>
                         <outlet property="setAddSubPressed" destination="Bbd-dh-TSU" id="Msh-Tj-PlE"/>
                         <outlet property="setDatePicker" destination="3im-Oi-qGC" id="ila-qk-Ezk"/>
                         <segue destination="dPL-8o-hnF" kind="showDetail" identifier="cancelEdit" id="L5M-wK-hRl"/>
@@ -503,6 +504,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yUj-p0-HzJ"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="showDetail" identifier="reload" id="vEf-3R-T5n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzL-CG-C1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -587,6 +591,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="largeTextLabel" destination="gRm-qT-UwS" id="PaY-nA-r5U"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellSwitch" id="9oZ-zY-6z2" customClass="TableViewCell">
                                 <rect key="frame" x="0.0" y="160" width="315" height="44"/>
@@ -613,6 +620,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="cellSwitch" destination="22a-Lk-0BS" id="smF-Pl-yqS"/>
+                                    <outlet property="switchLabel" destination="7ea-EC-e5D" id="xqs-q4-t4N"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -667,5 +675,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="XkM-XG-fOb"/>
+        <segue reference="vEf-3R-T5n"/>
     </inferredMetricsTieBreakers>
 </document>

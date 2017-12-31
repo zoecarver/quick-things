@@ -13,12 +13,14 @@
 #import "RepeatViewController.h"
 #import "FetchRembinders.h"
 #import "Reminder.h"
+#import "ApplyDarkTheme.h"
 
 @interface DateModificationViewController () {
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
     NSString *labelText;
     NSData *timeToBeRemindedAt;
+    ApplyDarkTheme *applyTheme;
 }
 @end
 
@@ -34,6 +36,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme viewController:self];
+    [applyTheme view:self.view];
+    [applyTheme label:self.largeTimeDisplayLabel];
+    [applyTheme label:self.smallReminderDisplayLabel];
+    [applyTheme datePicker:self.datePickerAction];
         
     NSLog(@"I was called with tag %lu", self.indexPassedDuringSegue);
     

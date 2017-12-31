@@ -7,10 +7,16 @@
 //
 
 #import "SettingsParentView.h"
+#import "ApplyDarkTheme.h"
 
-@implementation SettingsParentView
+@implementation SettingsParentView {
+    ApplyDarkTheme *applyTheme;
+}
 
 - (void)commonInit {
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme view:self];
+    
     UIView *blur = [[UIView alloc] init];
     
     blur.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height*2);

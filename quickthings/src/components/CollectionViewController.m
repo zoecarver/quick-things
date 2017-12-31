@@ -17,6 +17,7 @@
 #import "TableViewController.h"
 #import "FetchWebHook.h"
 #import "FetchSmallUserSettings.h"
+#import "ApplyDarkTheme.h"
 #import <UserNotifications/UserNotifications.h>
 
 @interface CollectionViewController () {
@@ -27,6 +28,7 @@
     CellActions *cellActionsClass;
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
+    ApplyDarkTheme *applyTheme;
 }
 
 @end
@@ -37,6 +39,10 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme collectionViewController:self];
+    [applyTheme view:self.view];
     
     [self initilizeFormaters];
     [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
@@ -142,6 +148,9 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     cell.index = indexPath.row;
     [cell.cellLabel setText:@"Test"];
 
+    [applyTheme collectionViewCell:cell];
+    [applyTheme label:cell.cellLabel];
+    
     if ([settings[indexPath.row] isKindOfClass:[NSDate class]]) {
         return [self applyToSetTimeCell:cell index:indexPath];
     } else if ([settings[indexPath.row]  isEqual:@"Done"]) {

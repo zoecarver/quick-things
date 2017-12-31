@@ -16,5 +16,7 @@
 - (NSInteger) fetchDefaultSnooz;
 - (void) setDoneColor:(BOOL ) color;
 - (NSInteger) fetchDoneColor;
+- (void) setTheme:(NSInteger ) theme;
+- (NSInteger) fetchTheme;
 
 @end

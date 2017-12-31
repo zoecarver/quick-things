@@ -11,6 +11,8 @@
 #import "FetchSettings.h"
 #import "FetchWebHook.h"
 #import "DateModificationViewController.h"
+#import "FetchSmallUserSettings.h"
+#import "ApplyDarkTheme.h"
 
 @interface CellEditViewController () {
     NSMutableArray *settings;
@@ -19,6 +21,8 @@
     NSMutableArray *add;
     NSMutableArray *value;
     NSMutableArray *type;
+    ApplyDarkTheme *applyTheme;
+    FetchSmallUserSettings *smallUserSettings;
 }
 
 @end
@@ -29,8 +33,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme viewController:self];
+    [applyTheme datePicker:self.cellEditDatePicker];
+    [applyTheme label:self.editLabel];
+    
     FetchSettings *fetchSettingsAction = [[FetchSettings alloc] init];
     settings = [fetchSettingsAction fetchSettings];
+    smallUserSettings = [[FetchSmallUserSettings alloc] init];
     
     i = self.indexPassedDuringSegue;
     
@@ -46,6 +56,14 @@
     self.AddSubPicker.showsSelectionIndicator = YES;
     
     NSLog(@"Got index during segue: %lu", self.indexPassedDuringSegue);
+}
+
+- (void) applyTheme {
+    [applyTheme toolBar:self.actionOne];
+    [applyTheme toolBar:self.actionTwo];
+    [applyTheme toolBar:self.addSub];
+    [applyTheme datePicker:self.cellEditDatePicker];
+    [applyTheme picker:self.AddSubPicker];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -198,25 +216,53 @@
             break;
     }
 }
--(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+
+//-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+//    const int addCompontentInt = 0;
+//    const int valueComponentInt = 1;
+//    const int typeComponentInt = 2;
+//
+//    switch (component) {
+//        case addCompontentInt:
+//            return add[row];
+//            break;
+//        case valueComponentInt:
+//            return [NSString stringWithFormat:@"%lu", [value[row] integerValue]];
+//            break;
+//        case typeComponentInt:
+//            return type[row];
+//            break;
+//        default:
+//            return nil;
+//            break;
+//    }
+//}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     const int addCompontentInt = 0;
     const int valueComponentInt = 1;
     const int typeComponentInt = 2;
-    
+
+    UILabel *label = [[UILabel alloc] init];
+    label.textColor = [applyTheme picker:pickerView];
+    [label setTextAlignment:NSTextAlignmentCenter];
+
     switch (component) {
         case addCompontentInt:
-            return add[row];
+            label.text = add[row];
             break;
         case valueComponentInt:
-            return [NSString stringWithFormat:@"%lu", [value[row] integerValue]];
+            label.text = [NSString stringWithFormat:@"%lu", [value[row] integerValue]];
             break;
         case typeComponentInt:
-            return type[row];
+            label.text = type[row];
             break;
         default:
             return nil;
             break;
     }
+
+    return label;
 }
 
 @end

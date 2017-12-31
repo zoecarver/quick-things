@@ -9,6 +9,8 @@
 #import "SettingsTableViewController.h"
 #import "TableViewCell.h"
 #import "FetchSmallUserSettings.h"
+#import "ApplyDarkTheme.h"
+#import "ViewController.h"
 
 #define SuppressPerformSelectorLeakWarning(Stuff) \
 do { \
@@ -22,6 +24,7 @@ do { \
 @interface SettingsTableViewController () {
     NSMutableArray *options;
     FetchSmallUserSettings *smallUserSettings;
+    ApplyDarkTheme *applyTheme;
 }
 
 @end
@@ -31,6 +34,10 @@ do { \
 - (void)viewDidLoad {
     NSLog(@"Log loading Settings");
     [super viewDidLoad];
+    
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme tableViewController:self];
+    [applyTheme view:self.view];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -44,6 +51,10 @@ do { \
     [options addObject:@"Repeat Notification For"];
     [options addObject:@"Default Snooz"];
     [options addObject:@"Highlight done button"];
+    [options addObject:@"Theme"];
+    [options addObject:@"Default"];
+    [options addObject:@"Black"];
+    [options addObject:@"Grey"];
     [options addObject:@"Set Icon: "];
     [options addObject:@"Default"];
     [options addObject:@"Blue"];
@@ -85,6 +96,9 @@ do { \
         cell.cellSwitch.on = [smallUserSettings fetchDoneColor];
     } else if ([item isEqualToString:@"Set Icon: "]) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"CellHeader"];
+    } else if ([item isEqualToString:@"Theme"]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CellHeader"];
+        cell.largeTextLabel.text = @"Themes:";
     } else if ([item isEqualToString:@"Done"]) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"CellDone"];
     } else {
@@ -97,13 +111,32 @@ do { \
     cell.cellButton.tag = indexPath.row;
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEvent:) forControlEvents:UIControlEventTouchUpInside];
     
+    [applyTheme tableViewCell:cell];
+    [applyTheme label:cell.textLabel];
+    [applyTheme label:cell.largeTextLabel];
+    [applyTheme label:cell.switchLabel];
+
     return cell;
+}
+
+-(void) restart {
+    ViewController *parent = ((ViewController *) self.parentViewController);
+    [parent performSegueWithIdentifier:@"reload" sender:self];
 }
 
 - (void) handleTouchUpEvent: (UIButton *) sender {
     NSString *item = options[sender.tag];
     if ([item isEqualToString:@"Done"]) {
         [self dismissViewControllerAnimated:true completion:nil];
+    } else if ([item isEqualToString:@"Default"]) {
+        [smallUserSettings setTheme:0];
+        [self restart];
+    } else if ([item isEqualToString:@"Black"]) {
+        [smallUserSettings setTheme:1];
+        [self restart];
+    } else if ([item isEqualToString:@"Grey"]) {
+        [smallUserSettings setTheme:2];
+        [self restart];
     } else if ([item isEqualToString:@"Repeat Notification For"]) {
         [self prompt:@"Enter new number to repeat for" handler:@selector(setNewNotificationRepeat:) fromObject:self];
     } else if ([item isEqualToString:@"Default"]) {

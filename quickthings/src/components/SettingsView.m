@@ -7,8 +7,11 @@
 //
 
 #import "SettingsView.h"
+#import "ApplyDarkTheme.h"
 
-@implementation SettingsView
+@implementation SettingsView {
+    ApplyDarkTheme *applyTheme;
+}
 
 - (void)commonInit {
     self.layer.zPosition = 20;
@@ -17,6 +20,9 @@
     [self.layer setShadowOffset:CGSizeMake(0 , 0)];
     [self.layer setShadowOpacity:0.3f];
     self.layer.cornerRadius = 25;
+    
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme view:self];
 }
 
 - (id)initWithFrame:(CGRect)aRect {

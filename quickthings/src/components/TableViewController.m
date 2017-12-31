@@ -14,6 +14,7 @@
 #import "ViewController.h"
 #import "Reminder.h"
 #import "SortReminders.h"
+#import "ApplyDarkTheme.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <UserNotifications/UserNotifications.h>
 
@@ -27,6 +28,7 @@
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
     SortReminders *sortRemindersAction;
+    ApplyDarkTheme *applyTheme;
 }
 
 @end
@@ -35,6 +37,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme tableViewController:self];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -176,6 +181,11 @@
         cell = [self applyToDivider:cell withIndexPath:indexPath];
         cell.focusStyle = UITableViewCellEditingStyleNone;
     }
+    
+    [applyTheme tableViewCell:cell];
+    [applyTheme label:cell.diffLabel];
+    [applyTheme label:cell.scheduledDateLabel];
+    [applyTheme label:cell.textLabel];
     
     return cell;
 }

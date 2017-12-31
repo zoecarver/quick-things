@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface TableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIButton *cellButton;
 @property (weak, nonatomic) IBOutlet UILabel *scheduledDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *diffLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *cellSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *largeTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *switchLabel;
 
 - (IBAction)cellButton:(id)sender;
+
 @end

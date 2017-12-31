@@ -7,8 +7,11 @@
 //
 
 #import "RepeatViewController.h"
+#import "ApplyDarkTheme.h"
 
-@interface RepeatViewController ()
+@interface RepeatViewController () {
+    ApplyDarkTheme *applyTheme;
+}
 
 @end
 
@@ -17,7 +20,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme viewController:self];
     
     NSLog(@"Log loading with index %lu", self.indexPassedDuringSegue);
 }

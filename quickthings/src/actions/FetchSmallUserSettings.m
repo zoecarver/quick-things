@@ -38,6 +38,34 @@
     }
 }
 
+- (NSInteger) fetchTheme {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSInteger theme = 1;
+    
+    if (userDefaults != nil) {
+        if(![[[userDefaults dictionaryRepresentation] allKeys] containsObject:@"theme"]){
+            [self setTheme:1];
+        }
+        theme = [userDefaults integerForKey:@"theme"];
+    } else {
+        NSLog(@"ERROR: user defaults is nil");
+    }
+    
+    return theme;
+}
+
+- (void) setTheme:(NSInteger ) theme {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (userDefaults != nil) {
+        [userDefaults setInteger:theme forKey:@"theme"];
+        [userDefaults synchronize];
+    } else {
+        NSLog(@"ERROR: user defaults is nil");
+    }
+}
+
 - (NSInteger) fetchDoneColor {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     

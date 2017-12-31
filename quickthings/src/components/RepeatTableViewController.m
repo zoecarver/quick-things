@@ -12,9 +12,11 @@
 #import "UpdateReminder.h"
 #import "FetchRembinders.h"
 #import "RepeatViewController.h"
+#import "ApplyDarkTheme.h"
 
 @interface RepeatTableViewController () {
     NSMutableArray *options;
+    ApplyDarkTheme *applyTheme;
 }
 
 @end
@@ -34,6 +36,9 @@
     [options addObject:@"Weekly"];
     [options addObject:@"Monthly"];
     [options addObject:@"None"];
+    
+    applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme tableViewController:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,6 +64,10 @@
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:options[indexPath.row]];
     cell.cellButton.tag = indexPath.row;
     [cell.cellButton addTarget:self action:@selector(handleTouchUpEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [applyTheme tableViewCell:cell];
+    [applyTheme label:cell.textLabel];
+    [applyTheme label:cell.largeTextLabel];
     
     return cell;
 }

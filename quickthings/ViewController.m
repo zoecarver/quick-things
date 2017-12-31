@@ -11,6 +11,7 @@
 #import "AddReminder.h"
 #import "TableViewController.h"
 #import "DateModificationViewController.h"
+#import "ApplyDarkTheme.h"
 #include <CoreImage/CoreImage.h>
 
 @interface ViewController ()
@@ -22,6 +23,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    ApplyDarkTheme *applyTheme = [[ApplyDarkTheme alloc] init];
+    [applyTheme viewController:self];
+//    [applyTheme textField:self.reminderInputField];
     
     NSLog(@"Started");
     

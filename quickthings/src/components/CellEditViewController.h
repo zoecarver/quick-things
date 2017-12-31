@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *addSubInput;
 @property (weak, nonatomic) IBOutlet UIPickerView *AddSubPicker;
 @property (weak, nonatomic) IBOutlet UIButton *setAddSubPressed;
+@property (weak, nonatomic) IBOutlet UILabel *editLabel;
 
 //top level
 - (IBAction)addPressed:(id)sender;

@@ -38,6 +38,16 @@
     [applyTheme datePicker:self.cellEditDatePicker];
     [applyTheme label:self.editLabel];
     
+    UIView *blur = [[UIView alloc] init];
+    
+    blur.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*2);
+    blur.layer.zPosition = 10;
+    blur.backgroundColor = [UIColor blackColor];
+    blur.layer.opacity = 0.05f;
+    blur.userInteractionEnabled = NO;
+    
+    [self.view addSubview:blur];
+    
     FetchSettings *fetchSettingsAction = [[FetchSettings alloc] init];
     settings = [fetchSettingsAction fetchSettings];
     smallUserSettings = [[FetchSmallUserSettings alloc] init];
@@ -263,6 +273,14 @@
     }
 
     return label;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    
+    NSLog(@"Got touch %lu", touch.view.tag);
+    
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 @end

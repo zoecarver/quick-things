@@ -234,7 +234,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (void) getWebHookWithAlert {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter the webhook attached to your zapier or ifttt recipy" message:@"Click help for more info" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter a webhook attached to a service like zapier" message:@"Click settings -> help for more info" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Ender webhook url";
     }];

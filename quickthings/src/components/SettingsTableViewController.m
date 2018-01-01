@@ -10,6 +10,7 @@
 #import "TableViewCell.h"
 #import "FetchSmallUserSettings.h"
 #import "ApplyDarkTheme.h"
+#import "FetchWebHook.h"
 #import "FetchSettings.h"
 #import "ViewController.h"
 
@@ -55,6 +56,7 @@ do { \
     if ([settings containsObject:@"Done"]) {
         [options addObject:@"Highlight done button"];
     }
+    [options addObject:@"Reset WebHooks"];
     [options addObject:@"Help"];
     [options addObject:@"Theme"];
     [options addObject:@"Default"];
@@ -135,6 +137,12 @@ do { \
     NSString *item = options[sender.tag];
     if ([item isEqualToString:@"Done"]) {
         [self dismissViewControllerAnimated:true completion:nil];
+    } else if ([item isEqualToString:@"Reset WebHooks"]) {
+        FetchWebHook *fetchWebhookActions = [[FetchWebHook alloc] init];
+        [fetchWebhookActions setWebHook:@""];
+        
+        [self dismissViewControllerAnimated:true completion:nil];
+        NSLog(@"Done resetting webhook");
     } else if ([item isEqualToString:@"Help"]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://quick-things-docs.surge.sh/"]];
     } else if ([item isEqualToString:@"Default"]) {

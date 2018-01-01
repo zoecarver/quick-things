@@ -349,7 +349,7 @@
             CompleteReminder *completeReminderAction = [[CompleteReminder alloc] init];
             [completeReminderAction reminderToComplete:[DVC indexPassedDuringSegue]];
             
-            [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
+            [self performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
         }
     }];
     

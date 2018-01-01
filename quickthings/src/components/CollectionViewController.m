@@ -19,6 +19,7 @@
 #import "FetchSmallUserSettings.h"
 #import "ApplyDarkTheme.h"
 #import <UserNotifications/UserNotifications.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface CollectionViewController () {
     FetchSettings *fetchSettingsAction;
@@ -120,6 +121,8 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     
     if (sender.state == UIGestureRecognizerStateEnded) {
         NSLog(@"I was double tapped");
+        AudioServicesPlaySystemSound(1519);
+
         DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
         DVC.delegate = self;
         DVC.cellIndexToPassDuringSegue = sender.view.tag;

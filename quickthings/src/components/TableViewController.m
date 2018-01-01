@@ -224,19 +224,9 @@
     
     if ([cells[indexPath.row] repeat] != nil) {
         NSLog(@"Adding repeat icon...");
-        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
-        attachment.image = [UIImage imageNamed:@"icons8-sync-50.png"];
-        CGRect bounds = attachment.bounds;
-        bounds.size.height = 15;
-        bounds.size.width = 15;
-        attachment.bounds = bounds;
+        NSString *stringWithRepeatEmoji = [NSString stringWithFormat:@"%@, %@", [self formatDateAsString:[cells[indexPath.row] date]], @"🔄"];
         
-        NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
-        
-        NSMutableAttributedString *myString= [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@, %@", [self formatDateAsString:[cells[indexPath.row] date]], @"   "]];
-        [myString appendAttributedString:attachmentString];
-        
-        cell.scheduledDateLabel.attributedText = myString;
+        cell.scheduledDateLabel.text = stringWithRepeatEmoji;
     }
     
     return cell;

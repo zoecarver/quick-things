@@ -342,6 +342,7 @@
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             NSLog(@"Error! %@", error.description);
+            return;
         } else {
             NSLog(@"Success!");
             

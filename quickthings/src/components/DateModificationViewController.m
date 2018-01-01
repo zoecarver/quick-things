@@ -91,32 +91,33 @@
 }
 
 - (void) decideWhereToPutBar {
-    if([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone) {
-        switch ((int)[[UIScreen mainScreen] nativeBounds].size.height) {
-            case 1136:
-                NSLog(@"iPhone 5 or 5S or 5C");
-                self.bottomToolbar.hidden = YES;
-                self.topToolbar.hidden = NO;
-                break;
-            case 1334:
-                NSLog(@"iPhone 6/6S/7/8");
-                self.bottomToolbar.hidden = YES;
-                self.topToolbar.hidden = NO;
-                break;
-            case 2208:
-                NSLog(@"iPhone 6+/6S+/7+/8+");
-                self.bottomToolbar.hidden = YES;
-                self.topToolbar.hidden = NO;
-                break;
-            case 2436:
-                NSLog(@"iPhone X");
-                self.bottomToolbar.hidden = NO;
-                self.topToolbar.hidden = YES;
-                _smallReminderDisplayLabel.text = [self formatDateAsString:[_datePickerAction date]];
-                break;
-            default:
-                printf("unknown");
-        }
+    switch ((int)[[UIScreen mainScreen] nativeBounds].size.height) {
+        case 1136:
+            NSLog(@"iPhone 5 or 5S or 5C");
+            self.bottomToolbar.hidden = YES;
+            self.topToolbar.hidden = NO;
+            break;
+        case 1334:
+            NSLog(@"iPhone 6/6S/7/8");
+            self.bottomToolbar.hidden = YES;
+            self.topToolbar.hidden = NO;
+            break;
+        case 2208:
+            NSLog(@"iPhone 6+/6S+/7+/8+");
+            self.bottomToolbar.hidden = YES;
+            self.topToolbar.hidden = NO;
+            break;
+        case 2436:
+            NSLog(@"iPhone X");
+            self.bottomToolbar.hidden = NO;
+            self.topToolbar.hidden = YES;
+            _smallReminderDisplayLabel.text = [self formatDateAsString:[_datePickerAction date]];
+            break;
+        default:
+            printf("unknown");
+            self.bottomToolbar.hidden = YES;
+            self.topToolbar.hidden = NO;
+            break;
     }
 }
 

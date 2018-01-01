@@ -20,7 +20,7 @@
     
     UIView *blur = [[UIView alloc] init];
     
-    blur.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height*2);
+    blur.frame = CGRectMake(0, 0, self.frame.size.width*3, self.frame.size.height*2);
     blur.layer.zPosition = 10;
     blur.backgroundColor = [UIColor blackColor];
     blur.layer.opacity = 0.05f;

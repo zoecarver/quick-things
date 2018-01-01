@@ -30,6 +30,8 @@
     [applyTheme toolBar:self.middleToolBar];
     [applyTheme toolBar:self.inputToolBar];
     
+    [self decideWhatBarsToHide];
+    
     NSLog(@"Started");
     
     _recivedString = @"unchanged";
@@ -38,6 +40,41 @@
     [self applyTextInputStyle];
     
     NSLog(@"Finished");
+}
+
+- (void) decideWhatBarsToHide {
+    switch ((int)[[UIScreen mainScreen] nativeBounds].size.height) {
+        case 1136:
+            NSLog(@"iPhone 5 or 5S or 5C");
+            self.topToolBar.hidden = NO;
+            self.middleToolBar.hidden = NO;
+            self.inputToolBar.hidden = NO;
+            break;
+        case 1334:
+            NSLog(@"iPhone 6/6S/7/8");
+            self.topToolBar.hidden = NO;
+            self.middleToolBar.hidden = NO;
+            self.inputToolBar.hidden = NO;
+            break;
+        case 2208:
+            NSLog(@"iPhone 6+/6S+/7+/8+");
+            self.topToolBar.hidden = NO;
+            self.middleToolBar.hidden = NO;
+            self.inputToolBar.hidden = NO;
+            break;
+        case 2436:
+            NSLog(@"iPhone X");
+            self.topToolBar.hidden = NO;
+            self.middleToolBar.hidden = NO;
+            self.inputToolBar.hidden = NO;
+            break;
+        default:
+            printf("unknown");
+            self.topToolBar.hidden = YES;
+            self.middleToolBar.hidden = YES;
+            self.inputToolBar.hidden = NO;
+            break;
+    }
 }
 
 - (void) applyTextInputStyle {

@@ -185,14 +185,14 @@
     [applyTheme tableViewCell:cell];
     [applyTheme label:cell.diffLabel];
     [applyTheme label:cell.scheduledDateLabel];
-    [applyTheme label:cell.textLabel];
+    [applyTheme label:cell.customTextLabel];
     
     return cell;
 }
 
 - (TableViewCell *) applyToDivider:(TableViewCell *) cell withIndexPath:(NSIndexPath *) indexPath {
-    [cell.textLabel setText:cells[indexPath.row]];
-    [cell.textLabel setFont:[UIFont boldSystemFontOfSize:24]];
+    [cell.customTextLabel setText:cells[indexPath.row]];
+    [cell.customTextLabel setFont:[UIFont boldSystemFontOfSize:24]];
     cell.selectionStyle = UITableViewCellEditingStyleNone;
     
     return cell;
@@ -201,7 +201,7 @@
 - (TableViewCell *) applyToCell:(TableViewCell *) cell withIndexPath:(NSIndexPath *)indexPath {
     double diff = [self numberOfDaysBetween:[NSDate date] and:[cells[indexPath.row] date]];
 
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", @"  ", [cells[indexPath.row] title]];
+    cell.customTextLabel.text = [NSString stringWithFormat:@"%@ %@", @"  ", [cells[indexPath.row] title]];
     
     cell.scheduledDateLabel.text = [self formatDateAsString:[cells[indexPath.row] date]];
     if (diff == 0) {
@@ -392,7 +392,7 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
                                      [applyTheme tableViewCell:cellElement];
                                      [applyTheme label:cellElement.diffLabel];
                                      [applyTheme label:cellElement.scheduledDateLabel];
-                                     [applyTheme label:cellElement.textLabel];
+                                     [applyTheme label:cellElement.customTextLabel];
                                  }
                              });
                          });

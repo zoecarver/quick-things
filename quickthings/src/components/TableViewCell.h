@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *largeTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *switchLabel;
 @property (weak, nonatomic) IBOutlet UILabel *splashLabel;
+@property (weak, nonatomic) IBOutlet UILabel *customTextLabel;
 
 - (IBAction)cellButton:(id)sender;
 

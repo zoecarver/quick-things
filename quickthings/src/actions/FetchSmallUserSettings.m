@@ -41,11 +41,11 @@
 - (NSInteger) fetchTheme {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    NSInteger theme = 1;
+    NSInteger theme = 0;
     
     if (userDefaults != nil) {
         if(![[[userDefaults dictionaryRepresentation] allKeys] containsObject:@"theme"]){
-            [self setTheme:1];
+            [self setTheme:0];
         }
         theme = [userDefaults integerForKey:@"theme"];
     } else {
@@ -60,6 +60,31 @@
     
     if (userDefaults != nil) {
         [userDefaults setInteger:theme forKey:@"theme"];
+        [userDefaults synchronize];
+    } else {
+        NSLog(@"ERROR: user defaults is nil");
+    }
+}
+
+- (NSInteger) fetchHasStartedBefore {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    BOOL done = NO;
+    
+    if (userDefaults != nil) {
+        done = [userDefaults boolForKey:@"startedbefore"];
+    } else {
+        NSLog(@"ERROR: user defaults is nil");
+    }
+    
+    return done;
+}
+
+- (void) setHasStartedBefore:(BOOL ) has {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (userDefaults != nil) {
+        [userDefaults setBool:has forKey:@"startedbefore"];
         [userDefaults synchronize];
     } else {
         NSLog(@"ERROR: user defaults is nil");

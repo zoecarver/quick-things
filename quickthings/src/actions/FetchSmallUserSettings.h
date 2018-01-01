@@ -18,5 +18,7 @@
 - (NSInteger) fetchDoneColor;
 - (void) setTheme:(NSInteger ) theme;
 - (NSInteger) fetchTheme;
+- (NSInteger) fetchHasStartedBefore;
+- (void) setHasStartedBefore:(BOOL ) has;
 
 @end

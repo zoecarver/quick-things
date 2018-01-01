@@ -1,13 +1,13 @@
 //
-//  SettingsViewController.h
+//  CellEditView.h
 //  quickthings
 //
 //  Created by Zoe IAMZOE.io on 12/31/17.
 //  Copyright © 2017 Zoe IAMZOE.io. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface SettingsViewController : ViewController 
+@interface CellEditView : UIView
 
 @end

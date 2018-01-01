@@ -174,7 +174,7 @@
     NSString *stringOfRecivedDate = [self formatDateAsString:date];
     
     NSLog(@"Receved time, %@", stringOfRecivedDate);
-    _largeTimeDisplayLabel.text = stringOfRecivedDate;
+    _smallReminderDisplayLabel.text = stringOfRecivedDate;
 }
 
 - (IBAction)donePressed:(id)sender {

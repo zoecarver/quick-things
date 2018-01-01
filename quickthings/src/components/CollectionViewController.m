@@ -71,8 +71,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     
     NSLog(@"Idex of: %lu", index.row);
     
-    [CEVC setPreferredContentSize:CGSizeMake(0.0, 320.0)];
-
     DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
     DVC.delegate = self;
     DVC.cellIndexToPassDuringSegue = index.row;
@@ -147,7 +145,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     NSLog(@"Giving it tag: %lu", indexPath.row);
     cell.index = indexPath.row;
     [cell.cellLabel setText:@"Test"];
-
+    
     [applyTheme collectionViewCell:cell];
     [applyTheme label:cell.cellLabel];
     

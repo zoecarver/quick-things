@@ -1,13 +1,14 @@
 //
-//  SettingsViewController.h
+//  SplashTableViewController.h
 //  quickthings
 //
 //  Created by Zoe IAMZOE.io on 12/31/17.
 //  Copyright © 2017 Zoe IAMZOE.io. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TableViewController.h"
 
-@interface SettingsViewController : ViewController 
+@interface SplashTableViewController : UITableViewController
+
 
 @end

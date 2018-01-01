@@ -71,6 +71,7 @@
 		C86A9D721FE2FEFC00EBD50E /* FetchSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D711FE2FEFC00EBD50E /* FetchSettings.m */; };
 		C86A9D751FE30B8500EBD50E /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D741FE30B8500EBD50E /* CollectionViewCell.m */; };
 		C86A9D7B1FE427EB00EBD50E /* DateModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C86A9D7A1FE427EB00EBD50E /* DateModificationViewController.m */; };
+		C872AA4B1FF9A2B40048ED78 /* SplashTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C872AA4A1FF9A2B40048ED78 /* SplashTableViewController.m */; };
 		C877B1CA1FE83DBF006F52D8 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C877B1C91FE83DBF006F52D8 /* TableViewCell.m */; };
 		C8848C1D1FF5B8CF0055ED10 /* ApplyDarkTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C8848C1C1FF5B8CF0055ED10 /* ApplyDarkTheme.m */; };
 		C88943AB1FE9B07100DDC331 /* UpdateReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = C88943AA1FE9B07100DDC331 /* UpdateReminder.m */; };
@@ -97,6 +98,7 @@
 		C8F272571FF6C5990024306F /* icon_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F2724B1FF6C5990024306F /* icon_clear.png */; };
 		C8F272581FF6C5990024306F /* icon_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F2724C1FF6C5990024306F /* icon_grey.png */; };
 		C8F272591FF6C5990024306F /* icon_stack.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F2724D1FF6C5990024306F /* icon_stack.png */; };
+		C8F88BBC1FF9BF1E004D836E /* CellEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F88BBB1FF9BF1E004D836E /* CellEditView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +202,8 @@
 		C86A9D741FE30B8500EBD50E /* CollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		C86A9D791FE427EB00EBD50E /* DateModificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateModificationViewController.h; sourceTree = "<group>"; };
 		C86A9D7A1FE427EB00EBD50E /* DateModificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateModificationViewController.m; sourceTree = "<group>"; };
+		C872AA491FF9A2B40048ED78 /* SplashTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplashTableViewController.h; sourceTree = "<group>"; };
+		C872AA4A1FF9A2B40048ED78 /* SplashTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplashTableViewController.m; sourceTree = "<group>"; };
 		C877B1C81FE83DBF006F52D8 /* TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		C877B1C91FE83DBF006F52D8 /* TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		C8848C1B1FF5B8CF0055ED10 /* ApplyDarkTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyDarkTheme.h; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 		C8F2724B1FF6C5990024306F /* icon_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_clear.png; sourceTree = "<group>"; };
 		C8F2724C1FF6C5990024306F /* icon_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_grey.png; sourceTree = "<group>"; };
 		C8F2724D1FF6C5990024306F /* icon_stack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_stack.png; sourceTree = "<group>"; };
+		C8F88BBA1FF9BF1E004D836E /* CellEditView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellEditView.h; sourceTree = "<group>"; };
+		C8F88BBB1FF9BF1E004D836E /* CellEditView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellEditView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +401,10 @@
 				C89E59701FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m */,
 				C85668B81FF98C6500C7859C /* SettingsViewController.h */,
 				C85668B91FF98C6500C7859C /* SettingsViewController.m */,
+				C872AA491FF9A2B40048ED78 /* SplashTableViewController.h */,
+				C872AA4A1FF9A2B40048ED78 /* SplashTableViewController.m */,
+				C8F88BBA1FF9BF1E004D836E /* CellEditView.h */,
+				C8F88BBB1FF9BF1E004D836E /* CellEditView.m */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -689,6 +699,7 @@
 				C86A9D721FE2FEFC00EBD50E /* FetchSettings.m in Sources */,
 				C891F35A1FF5F47C00861EDD /* SortReminders.m in Sources */,
 				C8DDB9CD1FF21779004BF8FE /* FetchSmallUserSettings.m in Sources */,
+				C872AA4B1FF9A2B40048ED78 /* SplashTableViewController.m in Sources */,
 				C81F3D3C1FDF6F5C00DC26F3 /* ViewController.m in Sources */,
 				C8848C1D1FF5B8CF0055ED10 /* ApplyDarkTheme.m in Sources */,
 				C80DBFEE1FF07FB000B3B4B5 /* FetchWebHook.m in Sources */,
@@ -704,6 +715,7 @@
 				C89E59711FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m in Sources */,
 				C86A9D751FE30B8500EBD50E /* CollectionViewCell.m in Sources */,
 				C88943AE1FE9B0EE00DDC331 /* Reminder.m in Sources */,
+				C8F88BBC1FF9BF1E004D836E /* CellEditView.m in Sources */,
 				C8A690CD1FF30D2A00FD82E2 /* SettingsView.m in Sources */,
 				C86A9D6F1FE2FCAF00EBD50E /* CollectionViewController.m in Sources */,
 				C85668BA1FF98C6500C7859C /* SettingsViewController.m in Sources */,

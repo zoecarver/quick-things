@@ -10,6 +10,7 @@
 #import "TableViewCell.h"
 #import "FetchSmallUserSettings.h"
 #import "ApplyDarkTheme.h"
+#import "FetchSettings.h"
 #import "ViewController.h"
 
 #define SuppressPerformSelectorLeakWarning(Stuff) \
@@ -42,15 +43,18 @@ do { \
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     smallUserSettings = [[FetchSmallUserSettings alloc] init];
+    FetchSettings *fetchSettingsAction = [[FetchSettings alloc] init];
+    NSMutableArray *settings = [fetchSettingsAction fetchSettings];
     
     options = [[NSMutableArray alloc] init];
     
     [options addObject:@"Done"];
 //    [options addObject:@"Swipe Options"];
-//    [options addObject:@"Theme"];
     [options addObject:@"Repeat Notification For"];
     [options addObject:@"Default Snooz"];
-//    [options addObject:@"Highlight done button"];
+    if ([settings containsObject:@"Done"]) {
+        [options addObject:@"Highlight done button"];
+    }
     [options addObject:@"Theme"];
     [options addObject:@"Default"];
     [options addObject:@"Black"];

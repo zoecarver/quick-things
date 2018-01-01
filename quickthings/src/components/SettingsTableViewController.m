@@ -55,6 +55,7 @@ do { \
     if ([settings containsObject:@"Done"]) {
         [options addObject:@"Highlight done button"];
     }
+    [options addObject:@"Help"];
     [options addObject:@"Theme"];
     [options addObject:@"Default"];
     [options addObject:@"Black"];
@@ -134,6 +135,8 @@ do { \
     NSString *item = options[sender.tag];
     if ([item isEqualToString:@"Done"]) {
         [self dismissViewControllerAnimated:true completion:nil];
+    } else if ([item isEqualToString:@"Help"]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://quick-things-docs.surge.sh/"]];
     } else if ([item isEqualToString:@"Default"]) {
         [smallUserSettings setTheme:0];
         [self restart];

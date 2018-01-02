@@ -191,8 +191,8 @@
 }
 
 - (TableViewCell *) applyToDivider:(TableViewCell *) cell withIndexPath:(NSIndexPath *) indexPath {
-    [cell.customTextLabel setText:cells[indexPath.row]];
-    [cell.customTextLabel setFont:[UIFont boldSystemFontOfSize:24]];
+    [cell.textLabel setText:cells[indexPath.row]];
+    [cell.textLabel setFont:[UIFont boldSystemFontOfSize:24]];
     cell.selectionStyle = UITableViewCellEditingStyleNone;
     
     return cell;

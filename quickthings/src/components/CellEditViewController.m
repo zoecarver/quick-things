@@ -66,6 +66,10 @@
     self.AddSubPicker.showsSelectionIndicator = YES;
     
     NSLog(@"Got index during segue: %lu", self.indexPassedDuringSegue);
+    
+    if ((int)[[UIScreen mainScreen] nativeBounds].size.height == 1136) {
+        self.spaceAboveEditView.constant = (self.spaceAboveEditView.constant / 2);
+    }
 }
 
 - (void) applyTheme {

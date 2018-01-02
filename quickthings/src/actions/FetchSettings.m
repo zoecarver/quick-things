@@ -57,6 +57,14 @@
             [settings addObject: [self dateWithDay:0 dateWithHour:14 minute:30]];
             [settings addObject: [self dateWithDay:0 dateWithHour:15 minute:0]];
             [settings addObject: [self dateWithDay:0 dateWithHour:17 minute:30]];
+            [settings addObject: [self dateWithDay:0 dateWithHour:18 minute:0]];
+            [settings addObject: [self dateWithDay:0 dateWithHour:19 minute:0]];
+            [settings addObject: [self dateWithDay:0 dateWithHour:20 minute:0]];
+            [settings addObject: [self dateWithDay:0 dateWithHour:21 minute:0]];
+            [settings addObject: [NSNumber numberWithInteger:-10]];
+            [settings addObject: [NSNumber numberWithInteger:-15]];
+            [settings addObject: [NSNumber numberWithInteger:-30]];
+            [settings addObject: [NSNumber numberWithInteger:-45]];
             break;
         case 2208:
             NSLog(@"iPhone 6+/6S+/7+/8+");
@@ -76,7 +84,7 @@
             NSLog(@"iPhone X");
             [settings addObject: [self dateWithDay:0 dateWithHour:14 minute:30]];
             [settings addObject: [self dateWithDay:0 dateWithHour:15 minute:0]];
-            [settings addObject: [self dateWithDay:0 dateWithHour:17 minute:30]];
+            [settings addObject: [self dateWithDay:0 dateWithHour:17 minute:30]]; 
             [settings addObject: [self dateWithDay:0 dateWithHour:18 minute:0]];
             [settings addObject: [self dateWithDay:0 dateWithHour:19 minute:0]];
             [settings addObject: [self dateWithDay:0 dateWithHour:20 minute:0]];

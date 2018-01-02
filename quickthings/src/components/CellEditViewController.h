@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *AddSubPicker;
 @property (weak, nonatomic) IBOutlet UIButton *setAddSubPressed;
 @property (weak, nonatomic) IBOutlet UILabel *editLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceAboveEditView;
 
 //top level
 - (IBAction)addPressed:(id)sender;

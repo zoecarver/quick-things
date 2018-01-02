@@ -219,7 +219,6 @@
                                 <rect key="frame" x="15" y="332" width="345" height="377"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="377" id="1DB-zv-56Y"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="375" id="IkQ-IL-CCi"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="9gK-HY-x5V" kind="embed" id="bXb-St-cOB"/>
@@ -340,6 +339,8 @@
                     </view>
                     <connections>
                         <outlet property="bottomToolbar" destination="bGO-XU-Jv8" id="UrE-QE-0BW"/>
+                        <outlet property="collectionViewHeight" destination="1DB-zv-56Y" id="mPx-rR-hQX"/>
+                        <outlet property="constraintBelowCollectionView" destination="MKO-B9-HvA" id="Ize-IE-Nng"/>
                         <outlet property="datePickerAction" destination="cw2-3p-d3d" id="80I-id-LJ7"/>
                         <outlet property="largeTimeDisplayLabel" destination="px7-2I-x9i" id="Jpk-cH-qE5"/>
                         <outlet property="smallReminderDisplayLabel" destination="giu-Aj-P0b" id="keG-eB-lhY"/>
@@ -363,10 +364,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mcn-nx-qrQ" customClass="SettingsView">
-                                <rect key="frame" x="20" y="230" width="335" height="352"/>
+                                <rect key="frame" x="20" y="230" width="335" height="375"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHt-GD-gMm">
-                                        <rect key="frame" x="8" y="72" width="319" height="44"/>
+                                        <rect key="frame" x="8" y="93" width="319" height="44"/>
                                         <items>
                                             <barButtonItem title="Add / Sub" id="4Am-by-jJz">
                                                 <connections>
@@ -386,7 +387,7 @@
                                         </items>
                                     </toolbar>
                                     <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Y5X-1r-lNx">
-                                        <rect key="frame" x="8" y="116" width="319" height="44"/>
+                                        <rect key="frame" x="8" y="137" width="319" height="44"/>
                                         <items>
                                             <barButtonItem title="Mark as complete" id="4I1-0B-hT9">
                                                 <connections>
@@ -401,7 +402,7 @@
                                         </items>
                                     </toolbar>
                                     <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="h2i-VU-yPp">
-                                        <rect key="frame" x="8" y="160" width="319" height="44"/>
+                                        <rect key="frame" x="8" y="181" width="319" height="44"/>
                                         <items>
                                             <barButtonItem title="Cancel" id="9vn-sB-wUA">
                                                 <connections>
@@ -426,37 +427,37 @@
                                         </items>
                                     </toolbar>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3im-Oi-qGC">
-                                        <rect key="frame" x="288" y="302" width="30" height="30"/>
+                                        <rect key="frame" x="288" y="323" width="30" height="30"/>
                                         <state key="normal" title="Set"/>
                                         <connections>
                                             <action selector="setDatePickerTimePressed:" destination="lJo-px-bfk" eventType="touchUpInside" id="VQa-u1-TH5"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bbd-dh-TSU">
-                                        <rect key="frame" x="280" y="302" width="47" height="30"/>
+                                        <rect key="frame" x="280" y="323" width="47" height="30"/>
                                         <state key="normal" title="Set"/>
                                         <connections>
                                             <action selector="setPressed:" destination="lJo-px-bfk" eventType="touchUpInside" id="68P-NE-AGJ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LwA-jh-UuC">
-                                        <rect key="frame" x="279" y="21" width="48" height="30"/>
+                                        <rect key="frame" x="279" y="42" width="48" height="30"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
                                             <action selector="onCancelPressed:" destination="lJo-px-bfk" eventType="touchUpInside" id="Svc-Rz-5GL"/>
                                         </connections>
                                     </button>
                                     <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="rc4-sn-3MC">
-                                        <rect key="frame" x="44" y="116" width="246" height="216"/>
+                                        <rect key="frame" x="44" y="137" width="246" height="216"/>
                                         <date key="date" timeIntervalSinceReferenceDate="535492774.02026302">
                                             <!--2017-12-20 19:59:34 +0000-->
                                         </date>
                                     </datePicker>
                                     <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8e-wK-E4i">
-                                        <rect key="frame" x="44" y="116" width="246" height="216"/>
+                                        <rect key="frame" x="44" y="137" width="246" height="216"/>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgr-UV-OfW">
-                                        <rect key="frame" x="8" y="0.0" width="98" height="72"/>
+                                        <rect key="frame" x="8" y="21" width="98" height="72"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -474,7 +475,8 @@
                                     <constraint firstItem="tgr-UV-OfW" firstAttribute="leading" secondItem="zHt-GD-gMm" secondAttribute="leading" id="Dqp-x7-OYQ"/>
                                     <constraint firstItem="zHt-GD-gMm" firstAttribute="top" secondItem="tgr-UV-OfW" secondAttribute="bottom" id="Edk-ba-vQV"/>
                                     <constraint firstItem="LwA-jh-UuC" firstAttribute="trailing" secondItem="Mcn-nx-qrQ" secondAttribute="trailingMargin" id="IfH-TL-rpP"/>
-                                    <constraint firstItem="tgr-UV-OfW" firstAttribute="top" secondItem="Mcn-nx-qrQ" secondAttribute="top" id="KZe-Ug-QZi"/>
+                                    <constraint firstAttribute="height" constant="375" id="Iry-M0-shx"/>
+                                    <constraint firstItem="tgr-UV-OfW" firstAttribute="top" secondItem="Mcn-nx-qrQ" secondAttribute="top" constant="21" id="KZe-Ug-QZi"/>
                                     <constraint firstItem="h2i-VU-yPp" firstAttribute="trailing" secondItem="Bbd-dh-TSU" secondAttribute="trailing" id="P2Z-cx-Dhj"/>
                                     <constraint firstItem="h8e-wK-E4i" firstAttribute="top" secondItem="rc4-sn-3MC" secondAttribute="top" id="Pja-03-XtB"/>
                                     <constraint firstItem="3im-Oi-qGC" firstAttribute="centerX" secondItem="Bbd-dh-TSU" secondAttribute="centerX" id="Pv1-sb-cqu"/>
@@ -497,7 +499,6 @@
                             <constraint firstItem="Mcn-nx-qrQ" firstAttribute="leading" secondItem="cUo-Hx-PRE" secondAttribute="leading" constant="20" id="21A-S0-dlq"/>
                             <constraint firstItem="Mcn-nx-qrQ" firstAttribute="centerX" secondItem="Ha3-Qf-2BB" secondAttribute="centerX" id="EWc-9t-gCf"/>
                             <constraint firstItem="Mcn-nx-qrQ" firstAttribute="top" secondItem="cUo-Hx-PRE" secondAttribute="top" constant="186" id="Jqq-ex-xNi"/>
-                            <constraint firstItem="cUo-Hx-PRE" firstAttribute="bottom" secondItem="Mcn-nx-qrQ" secondAttribute="bottom" constant="196" id="pj1-Mt-Y4Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cUo-Hx-PRE"/>
                     </view>
@@ -509,6 +510,7 @@
                         <outlet property="editLabel" destination="tgr-UV-OfW" id="1qv-zy-NkZ"/>
                         <outlet property="setAddSubPressed" destination="Bbd-dh-TSU" id="Msh-Tj-PlE"/>
                         <outlet property="setDatePicker" destination="3im-Oi-qGC" id="ila-qk-Ezk"/>
+                        <outlet property="spaceAboveEditView" destination="Jqq-ex-xNi" id="uVt-pf-iga"/>
                         <segue destination="dPL-8o-hnF" kind="showDetail" identifier="cancelEdit" id="L5M-wK-hRl"/>
                     </connections>
                 </viewController>
@@ -934,7 +936,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XkM-XG-fOb"/>
-        <segue reference="vEf-3R-T5n"/>
+        <segue reference="cDT-kl-IT8"/>
+        <segue reference="L5M-wK-hRl"/>
+        <segue reference="kod-al-Psr"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -96,16 +96,20 @@
             NSLog(@"iPhone 5 or 5S or 5C");
             self.bottomToolbar.hidden = YES;
             self.topToolbar.hidden = NO;
+            self.collectionViewHeight.constant = (self.collectionViewHeight.constant/1.55);
+            self.constraintBelowCollectionView.constant = (self.constraintBelowCollectionView.constant/3);
             break;
         case 1334:
             NSLog(@"iPhone 6/6S/7/8");
             self.bottomToolbar.hidden = YES;
             self.topToolbar.hidden = NO;
+            self.constraintBelowCollectionView.constant = (self.constraintBelowCollectionView.constant/5);
             break;
         case 2208:
             NSLog(@"iPhone 6+/6S+/7+/8+");
             self.bottomToolbar.hidden = YES;
             self.topToolbar.hidden = NO;
+            self.constraintBelowCollectionView.constant = (self.constraintBelowCollectionView.constant/3);
             break;
         case 2436:
             NSLog(@"iPhone X");

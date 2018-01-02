@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *largeTimeDisplayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *smallReminderDisplayLabel;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePickerAction;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintBelowCollectionView;
 
 @property (strong, nonatomic) NSString *textPassedDuringSegue;
 @property (nonatomic) NSInteger indexPassedDuringSegue;

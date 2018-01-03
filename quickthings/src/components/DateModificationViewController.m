@@ -18,6 +18,8 @@
 #import "FetchRembinders.h"
 #import "Reminder.h"
 #import "ApplyDarkTheme.h"
+#import "ScheduleNotifications.h"
+#import "FetchNotificationIdentifiers.h"
 #import <UserNotifications/UserNotifications.h>
 
 @interface DateModificationViewController () {
@@ -26,6 +28,7 @@
     NSString *labelText;
     NSData *timeToBeRemindedAt;
     ApplyDarkTheme *applyTheme;
+    NSString *stringNotificationKeyFromIndex;
 }
 @end
 
@@ -41,8 +44,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSLog(@"I was called with tag %lu", self.indexPassedDuringSegue);
     
     [self initilizeFormaters];
     [self initSetDateTimePicker];
@@ -62,21 +63,10 @@
 }
 
 - (void) handleSwipe {
-    UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
-    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
-    
-    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
-    NSInteger index = [self indexPassedDuringSegue];
-    
-    NSLog(@"Index that we got for done was %lu", index);
-    
-    NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
-    
-    [updateReminderAction reminderToUpdate:reminders[index] date:[self.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:[reminders[index] snooz] indexToUpdateWith:index setRepeat:[reminders[index] repeat]];
+    FetchNotificationIdentifiers *notifications = [[FetchNotificationIdentifiers alloc] init];
+    [notifications schedule:[self.datePickerAction date] forInde:_indexPassedDuringSegue];
     
     [self performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
-    
-    [self scheduleNotificationWithTitle:[reminders[index] title] date:[self.datePickerAction date] stringNotificationKeyFromIndex:stringNotificationKeyFromIndex withSnoozFromReminder:[reminders[index] snooz]];
 }
 
 - (void) applyThemeMethod {
@@ -177,58 +167,31 @@
     [_datePickerAction setDate:date];
 
     NSString *stringOfRecivedDate = [self formatDateAsString:date];
-    
-    NSLog(@"Receved time, %@", stringOfRecivedDate);
     _smallReminderDisplayLabel.text = stringOfRecivedDate;
+    NSLog(@"Succesfully finished updating date picker time to: %@", stringOfRecivedDate);
 }
 
 - (IBAction)donePressed:(id)sender {
-    NSLog(@"Done pressed! ");
-    
-    UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
-    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
-    
-    NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
-    NSInteger index = [self indexPassedDuringSegue];
-    
-    NSLog(@"Index that we got for done was %lu", index);
-    
-    NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
-    
-    [updateReminderAction reminderToUpdate:reminders[index] date:[self.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:[reminders[index] snooz] indexToUpdateWith:index setRepeat:[reminders[index] repeat]];
+    FetchNotificationIdentifiers *notifications = [[FetchNotificationIdentifiers alloc] init];
+    [notifications schedule:[self.datePickerAction date] forInde:_indexPassedDuringSegue];
     
     [self performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
-    
-    [self scheduleNotificationWithTitle:[reminders[index] title] date:[self.datePickerAction date] stringNotificationKeyFromIndex:stringNotificationKeyFromIndex withSnoozFromReminder:[reminders[index] snooz]];
-    
-    NSLog(@"Done");
 }
 
-- (void) scheduleNotificationWithTitle: (NSString *)title date:(NSDate *)date stringNotificationKeyFromIndex:(NSString *) identifierForRequest withSnoozFromReminder:(NSInteger) snooz{
-    UNMutableNotificationContent *notificationContent = [[UNMutableNotificationContent alloc] init];
-    notificationContent.title = title;
-    UNUserNotificationCenter *userNotificationCenter = [UNUserNotificationCenter currentNotificationCenter];
-    NSCalendar *gorgianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *dateComponets;
-    UNCalendarNotificationTrigger *trigger;
-    UNNotificationRequest *request;
+- (void) setStringNotificationKeyFromIndexUsingUNUserNotificationCenter {
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+        stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", requests.count];
+        NSLog(@"Running %lu though notifications", requests.count);
+        NSLog(@"After being set string notification key form index is now %@", stringNotificationKeyFromIndex);
+        if ([stringNotificationKeyFromIndex  isEqual: @"(null)"]) stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%i", 0];
+        NSLog(@"Finally string is %@", stringNotificationKeyFromIndex);
+        dispatch_semaphore_signal(semaphore);
+    }];
     
-    FetchSmallUserSettings *smallUserSettings = [[FetchSmallUserSettings alloc] init];
-    
-    for (NSInteger i = 0; i < [smallUserSettings fetchNumberOfNotificationsToSchedule]; i++) {
-        dateComponets = [gorgianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
-        trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponets repeats:true];
-        request = [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%@_%lu", identifierForRequest, i] content:notificationContent trigger:trigger];
-        
-        [userNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-            if (error != nil) {
-                NSLog(@"Error: %@", error.localizedDescription);
-            }
-        }];
-        
-        date = [date dateByAddingTimeInterval:60*snooz];
-        NSLog(@"Next date will be %@ from snooz %lu", [self formatDateAsString:date], snooz);
-    }
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
 - (IBAction)snoozPressed:(id)sender {
@@ -242,7 +205,7 @@
         
         NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", [self indexPassedDuringSegue]];
         NSInteger valueGotFromAlert = [[[alertController textFields][0] text] integerValue];
-        NSLog(@"Got val %lu", valueGotFromAlert);
+        NSLog(@"Alert produced value: %lu", valueGotFromAlert);
         
         UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
         FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
@@ -254,7 +217,7 @@
     }];
     [alertController addAction:confirmAction];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"Canelled");
+        NSLog(@"Alert Canelled");
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -279,6 +242,7 @@
 - (IBAction)checkPressed:(id)sender {
     CompleteReminder *completeReminderAction = [[CompleteReminder alloc] init];
     [completeReminderAction reminderToComplete:[self indexPassedDuringSegue]];
+    NSLog(@"Completed reminder %lu", _indexPassedDuringSegue);
     
     [self performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
 }
@@ -313,7 +277,7 @@
     }];
     [alertController addAction:confirmAction];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"Canelled");
+        NSLog(@"Alert Canelled");
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -349,7 +313,7 @@
             NSLog(@"Error! %@", error.description);
             return;
         } else {
-            NSLog(@"Success!");
+            NSLog(@"Success suploading reminder!");
             
             CompleteReminder *completeReminderAction = [[CompleteReminder alloc] init];
             [completeReminderAction reminderToComplete:[DVC indexPassedDuringSegue]];

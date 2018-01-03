@@ -46,11 +46,28 @@
     fetchRemindersAction = [[FetchRembinders alloc] init];
     completeReminderAction = [[CompleteReminder alloc] init];
     sortRemindersAction = [[SortReminders alloc] init];
-//    cells = [sortRemindersAction sort];
+    cells = [sortRemindersAction sort];
     cellsCheck = cells;
     
     [self initilizeFormaters];
     [self updateTableView];
+//    [self clearNotifications];
+    [self logNotificationRequests];
+}
+
+- (void) logNotificationRequests {
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+        NSLog(@"__Pending Notification Requests %i__", (int)requests.count);
+        for (UNNotificationRequest *req in requests) {
+            NSLog(@"__%@, ID__: %@", req.content.title, req.identifier);
+        }
+    }];
+}
+
+- (void) clearNotifications {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void) initilizeFormaters {
@@ -68,8 +85,6 @@
     [self.tableView reloadData];
     
     cellsCheck = cells;
-
-    NSLog(@"Finished updating successfully");
 }
 
 - (void) updateSections {
@@ -78,15 +93,11 @@
     BOOL hasDoneNextSevenDays = NO;
     BOOL hasDoneFuture = NO;
     
-    for (NSInteger i = 0; i < cells.count; i++) {
-        NSLog(@"Currently on %lu with max %lu", i, cells.count);
-        [self logCells];
-        
+    for (NSInteger i = 0; i < cells.count; i++) {        
         Reminder *reminderCell = cells[i];
         
         double diff = [self numberOfDaysBetween:[NSDate date] and:reminderCell.date];
         double diffMins = [self numberOfMinutesBetween:[NSDate date] and:reminderCell.date];
-        NSLog(@"Got days difforence: %f or minutes %f for reminder %@", diff, diffMins, reminderCell.title);
         
         if (diffMins < 0) {
             if (hasDoneOverDue == NO) {
@@ -219,11 +230,9 @@
     
     cell.cellButton.accessibilityAttributedLabel = [[NSMutableAttributedString alloc] initWithString:[cells[indexPath.row] title]];
     cell.cellButton.tag = indexPath.row;
-    NSLog(@"Adding actrion for index %lu repeat %@", indexPath.row, [cells[indexPath.row] repeat]);
     [cell.cellButton addTarget:self action:@selector(onLongPress:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([cells[indexPath.row] repeat] != nil) {
-        NSLog(@"Adding repeat icon...");
         NSString *stringWithRepeatEmoji = [NSString stringWithFormat:@"%@, %@", [self formatDateAsString:[cells[indexPath.row] date]], @"🔄"];
         
         cell.scheduledDateLabel.text = stringWithRepeatEmoji;
@@ -297,18 +306,12 @@
                                           }];
                      }];
     
-    NSLog(@"Got the press");
     NSString *recivedValue = [sender.accessibilityAttributedLabel string];
-    NSLog(@"Preforming Segue with value, %@", recivedValue);
     
     ViewController *VC =  ((ViewController *) self.parentViewController);
     [VC setDelegate:self];
-    
     [VC setRecivedString:recivedValue];
     [VC setRecivedIndex:actualCellIndex];
-    
-    NSLog(@"seguing to tag %lu", [VC recivedIndex]);
-    
     [VC performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
 }
 
@@ -319,20 +322,20 @@
     return YES;
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"✅" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        NSInteger actualCellIndex = [self getActuallIndexForIndex:indexPath.row];
-        NSLog(@"completing cell at %lu", actualCellIndex);
-        
-        [completeReminderAction reminderToComplete:actualCellIndex];
-        
-        [self updateTableView];
-    }];
-    button.backgroundColor = [UIColor greenColor];
-
-    NSArray *returnArrayWithButtons = @[button];
-    return returnArrayWithButtons;
-}
+//- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+//    UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"✅" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+//        NSInteger actualCellIndex = [self getActuallIndexForIndex:indexPath.row];
+//        NSLog(@"completing cell at %lu", actualCellIndex);
+//
+//        [completeReminderAction reminderToComplete:actualCellIndex];
+//
+//        [self updateTableView];
+//    }];
+//    button.backgroundColor = [UIColor greenColor];
+//
+//    NSArray *returnArrayWithButtons = @[button];
+//    return returnArrayWithButtons;
+//}
 
 - (NSInteger) getActuallIndexForIndex:(NSInteger)index {
     NSInteger nI = 0;
@@ -355,9 +358,8 @@
 trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
-    NSLog(@"Got swipe");
     UIContextualAction *button = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"✅" handler:^(UIContextualAction *ca, UIView *view, void (^err)(BOOL)){
-        NSLog(@"Full swipe - you should not be seeing this");
+        //do nothing :p
     }];
     button.backgroundColor = [UIColor colorWithRed:0.11 green:0.69 blue:0.97 alpha:1.0];
     
@@ -381,7 +383,6 @@ trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
                              
                              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.4 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                  NSInteger actualCellIndex = [self getActuallIndexForIndex:indexPath.row];
-                                 NSLog(@"completing cell at %lu", actualCellIndex);
                                  
                                  [completeReminderAction reminderToComplete:actualCellIndex];
                                  

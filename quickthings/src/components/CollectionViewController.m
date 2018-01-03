@@ -18,6 +18,7 @@
 #import "FetchWebHook.h"
 #import "FetchSmallUserSettings.h"
 #import "ApplyDarkTheme.h"
+#import "ScheduleNotifications.h"
 #import <UserNotifications/UserNotifications.h>
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -30,6 +31,7 @@
     NSDateFormatter *timeFormatter;
     NSDateFormatter *dayFormatter;
     ApplyDarkTheme *applyTheme;
+    NSString *stringNotificationKeyFromIndex;
 }
 
 @end
@@ -70,7 +72,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     if (!index) { return nil; }
     CellEditViewController *CEVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detail"];
     
-    NSLog(@"Idex of: %lu", index.row);
+    NSLog(@"Previewing with index: %lu", index.row);
     
     DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
     DVC.delegate = self;
@@ -86,7 +88,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"Pressed");
+//what happens when we delete?
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,8 +101,8 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 
+// this is unnesesary?
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSLog(@"Got it with %f", [[UIScreen mainScreen] bounds].size.width);
     const int iPhoneSE = 320.000000;
     const int iPhoneSix = 375.000000;
     
@@ -115,12 +117,11 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
             return [settings count];
     }
 }
+/**/
 
 - (void) processDoubleTap:(UITapGestureRecognizer *)sender {
-    NSLog(@"Got tapped twice by: %lu", sender.view.tag);
-    
     if (sender.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"I was double tapped");
+        NSLog(@"Double Tapped");
         AudioServicesPlaySystemSound(1519);
 
         DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
@@ -145,7 +146,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     
     [cell setTag:[indexPath row]];
     
-    NSLog(@"Giving it tag: %lu", indexPath.row);
     cell.index = indexPath.row;
     [cell.cellLabel setText:@"Test"];
     
@@ -183,8 +183,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (void) handleTouchUpEventRepeat {
-    NSLog(@"Repeat");
-    
     [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowRepeatTableView" sender:self];
 }
 
@@ -213,8 +211,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (void) handleTouchUpEventTodoist: (UIButton *) sender {
-    NSLog(@"Todoist");
-    
     FetchWebHook *fetchWebhookActions = [[FetchWebHook alloc] init];
     NSString *webHook = [fetchWebhookActions fetchWebHook];
     
@@ -248,7 +244,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     }];
     [alertController addAction:confirmAction];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"Canelled");
+        NSLog(@"Canelled Alert");
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -315,9 +311,9 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     return cell;
 }
 
+// we should get rid of cancel button
 - (void) handleTouchUpEventCancel {
     [self dismissViewControllerAnimated:true completion:nil];
-    NSLog(@"Cancel");
 }
 
 - (void) handleTouchUpEventSnooz {
@@ -333,7 +329,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
         
         NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", [DVC indexPassedDuringSegue]];
         NSInteger valueGotFromAlert = [[[alertController textFields][0] text] integerValue];
-        NSLog(@"Got val %lu", valueGotFromAlert);
+        NSLog(@"Alert pressented value: %lu", valueGotFromAlert);
         
         UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
         FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
@@ -345,7 +341,7 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     }];
     [alertController addAction:confirmAction];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"Canelled");
+        NSLog(@"Canelled alert");
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -388,7 +384,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (void) handleTouchUpEvent: (UIButton *) sender {
-    NSLog(@"Pressed Here ------------------ ");
     UIView *parent = [sender superview];
     while (parent && ![parent isKindOfClass:[CollectionViewCell class]]) {
         parent = parent.superview;
@@ -396,8 +391,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     
     CollectionViewCell *cell = (CollectionViewCell *)parent;
     
-    NSLog(@"Adding %@ minutes", cell.addSubVal);
-
     DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
     
     DVC.delegate = self;
@@ -479,8 +472,6 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
 }
 
 - (void) handleTouchUpEventDone {
-    NSLog(@"Done pressed! ");
-    
     DateModificationViewController *DVC = ((DateModificationViewController *) self.parentViewController);
     DVC.delegate = self;
     UpdateReminder *updateReminderAction = [[UpdateReminder alloc] init];
@@ -489,54 +480,23 @@ static NSString * const reuseIdentifier = @"CollectionViewCell";
     NSMutableArray *reminders = [fetchRemindersAction fetchRembinders];
     NSInteger index = [DVC indexPassedDuringSegue];
     
-    NSLog(@"Index that we got for done was %lu", index);
-    
-    NSString *stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", index];
+    [self setStringNotificationKeyFromIndexUsingUNUserNotificationCenter];
     
     [updateReminderAction reminderToUpdate:reminders[index] date:[DVC.datePickerAction date] notificationKey:stringNotificationKeyFromIndex snooz:[reminders[index] snooz] indexToUpdateWith:index setRepeat:[reminders[index] repeat]];
     
     [((DateModificationViewController *) self.parentViewController) performSegueWithIdentifier:@"ShowAllRemindersView" sender:self];
     
-    [self scheduleNotificationWithTitle:[reminders[index] title] date:[DVC.datePickerAction date] stringNotificationKeyFromIndex:stringNotificationKeyFromIndex withSnoozFromReminder:[reminders[index] snooz]];
-    
-    NSLog(@"Done");
+    ScheduleNotifications *scheduleNotifications = [[ScheduleNotifications alloc] init];
+    [scheduleNotifications scheduleNotificationWithTitle:[reminders[index] title] date:[DVC.datePickerAction date] stringNotificationKeyFromIndex:stringNotificationKeyFromIndex withSnoozFromReminder:[reminders[index] snooz]];
 }
 
-- (void) scheduleNotificationWithTitle: (NSString *)title date:(NSDate *)date stringNotificationKeyFromIndex:(NSString *) identifierForRequest withSnoozFromReminder:(NSInteger) snooz{
-    UNMutableNotificationContent *notificationContent = [[UNMutableNotificationContent alloc] init];
-    notificationContent.title = title;
-    UNUserNotificationCenter *userNotificationCenter = [UNUserNotificationCenter currentNotificationCenter];
-    NSCalendar *gorgianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *dateComponets;
-    UNCalendarNotificationTrigger *trigger;
-    UNNotificationRequest *request;
-    
-    FetchSmallUserSettings *smallUserSettings = [[FetchSmallUserSettings alloc] init];
-    
-    for (NSInteger i = 0; i < [smallUserSettings fetchNumberOfNotificationsToSchedule]; i++) {
-        dateComponets = [gorgianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
-        trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponets repeats:true];
-        request = [UNNotificationRequest requestWithIdentifier:[NSString stringWithFormat:@"%@_%lu", identifierForRequest, i] content:notificationContent trigger:trigger];
-        
-        [userNotificationCenter addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-            if (error != nil) {
-                NSLog(@"Error: %@", error.localizedDescription);
-            }
-        }];
-        
-        date = [date dateByAddingTimeInterval:60*snooz];
-        NSLog(@"Next date will be %@ from snooz %lu", [self formatDateAsString:date], snooz);
-    }
-}
-
-- (NSDateComponents *) createGorgianDateComponentsForDate:(NSDate *) date {
-    NSCalendar *gorgianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    
-    return [gorgianCalendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:date];
-}
-
-- (UNCalendarNotificationTrigger *) createNotificationTriggerWithDateCompontnet:(NSDateComponents *) dateComponets {
-    return [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:dateComponets repeats:true];
+- (void) setStringNotificationKeyFromIndexUsingUNUserNotificationCenter {
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+        stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%lu", requests.count];
+        return;
+    }];
+    stringNotificationKeyFromIndex = [NSString stringWithFormat:@"%i", 0];
 }
 
 - (NSString *) formatDateAsString: (NSDate *) date {

@@ -754,7 +754,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3g-ts-C8t">
-                                            <rect key="frame" x="4" y="-5" width="307" height="52"/>
+                                            <rect key="frame" x="4" y="-16.666666666666664" width="307" height="75"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="75" id="eBZ-wT-No2"/>
+                                            </constraints>
                                             <connections>
                                                 <action selector="cellButton:" destination="Jfb-g1-2AE" eventType="touchUpInside" id="yT3-R9-bmq"/>
                                             </connections>
@@ -763,6 +766,7 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="c3g-ts-C8t" secondAttribute="trailing" constant="4" id="6Ry-Lw-57O"/>
                                         <constraint firstItem="FKE-Fe-1P2" firstAttribute="leading" secondItem="6mJ-C4-34t" secondAttribute="leadingMargin" constant="78" id="A0q-SU-xmB"/>
+                                        <constraint firstItem="FKE-Fe-1P2" firstAttribute="top" secondItem="6mJ-C4-34t" secondAttribute="topMargin" id="J0P-xN-GjA"/>
                                         <constraint firstItem="c3g-ts-C8t" firstAttribute="centerY" secondItem="6mJ-C4-34t" secondAttribute="centerY" id="Mfz-pf-Hw2"/>
                                         <constraint firstItem="c3g-ts-C8t" firstAttribute="leading" secondItem="6mJ-C4-34t" secondAttribute="leading" constant="4" id="U4Y-ik-A45"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="FKE-Fe-1P2" secondAttribute="trailing" constant="84" id="b3r-y2-JWc"/>
@@ -936,7 +940,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cDT-kl-IT8"/>
         <segue reference="L5M-wK-hRl"/>
         <segue reference="kod-al-Psr"/>
     </inferredMetricsTieBreakers>

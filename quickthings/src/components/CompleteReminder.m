@@ -12,27 +12,20 @@
 #import "Reminder.h"
 #import "UpdateReminder.h"
 #import "FetchSmallUserSettings.h"
+#import "FetchNotificationIdentifiers.h"
 #import <UserNotifications/UserNotifications.h>
 
 @implementation CompleteReminder
 
 - (void) reminderToComplete:(NSInteger) reminderToComplete {
-    NSLog(@"Completing reminder %lu", reminderToComplete);
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     FetchSmallUserSettings *smallUserSettings = [[FetchSmallUserSettings alloc] init];
     FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
-//    FetchCompleted *fetchCompletedAction = [[FetchCompleted alloc] init];
-//    NSMutableArray *completedReminder = [fetchCompletedAction fetchRembinders];
     NSMutableArray *currentReminders = [fetchRemindersAction fetchRembinders];
-//    re implement me later
-//    [completedReminder addObject:[[currentReminders objectAtIndex:reminderToComplete] title]];
-//    [userDefaults setObject:completedReminder forKey:@"completed"];
 
-    Reminder *reminderToPreformRepeatOn = currentReminders[reminderToComplete];
-    NSLog(@"Got complete status %@", [reminderToPreformRepeatOn repeat]);
-    if ([reminderToPreformRepeatOn repeat] != nil) {
-        [self reScedule:reminderToPreformRepeatOn withIndex:reminderToComplete];
+    Reminder *reminder = currentReminders[reminderToComplete];
+    if ([reminder repeat] != nil) {
+        [self reScedule:reminder withIndex:reminderToComplete];
         return;
     }
     
@@ -47,9 +40,16 @@
     [userDefaults synchronize];
     
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    NSMutableArray *toRemove = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < [smallUserSettings fetchNumberOfNotificationsToSchedule]; i++) {
-        [center removePendingNotificationRequestsWithIdentifiers:@[[NSString stringWithFormat:@"%lu_%lu", reminderToComplete, i]]];
+        [toRemove addObject:[NSString stringWithFormat:@"%@_%lu", reminder.notificationKey, i]];
+        NSLog(@"Add to list: %@", [NSString stringWithFormat:@"%@_%lu", reminder.notificationKey, i]);
     }
+    
+    [center removePendingNotificationRequestsWithIdentifiers:toRemove];
+    
+    FetchNotificationIdentifiers *notifications = [[FetchNotificationIdentifiers alloc] init];
+    [notifications removeNotification:reminder.notificationKey];
 }
 
 - (void) reScedule:(Reminder *) reminder withIndex:(NSInteger ) index {
@@ -70,3 +70,9 @@
 }
 
 @end
+
+//    FetchCompleted *fetchCompletedAction = [[FetchCompleted alloc] init];
+//    NSMutableArray *completedReminder = [fetchCompletedAction fetchRembinders];
+//    re implement me later
+//    [completedReminder addObject:[[currentReminders objectAtIndex:reminderToComplete] title]];
+//    [userDefaults setObject:completedReminder forKey:@"completed"];

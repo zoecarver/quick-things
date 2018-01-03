@@ -21,6 +21,7 @@
 		C84C437B1FF5884D002DF511 /* icons8-select-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C84C437A1FF5884D002DF511 /* icons8-select-50.png */; };
 		C84C437D1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C84C437C1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png */; };
 		C85668BA1FF98C6500C7859C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85668B91FF98C6500C7859C /* SettingsViewController.m */; };
+		C85C06E81FFC04CF00A6DC0A /* ScheduleNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = C85C06E71FFC04CF00A6DC0A /* ScheduleNotifications.m */; };
 		C85E76A21FF6E68D00810C03 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C85E76901FF6E68A00810C03 /* Icon-76@2x.png */; };
 		C85E76A31FF6E68D00810C03 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = C85E76911FF6E68A00810C03 /* Icon-76.png */; };
 		C85E76A41FF6E68D00810C03 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = C85E76921FF6E68B00810C03 /* Icon-Small.png */; };
@@ -98,6 +99,7 @@
 		C8F272571FF6C5990024306F /* icon_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F2724B1FF6C5990024306F /* icon_clear.png */; };
 		C8F272581FF6C5990024306F /* icon_grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F2724C1FF6C5990024306F /* icon_grey.png */; };
 		C8F272591FF6C5990024306F /* icon_stack.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F2724D1FF6C5990024306F /* icon_stack.png */; };
+		C8F6B0E11FFC53C40026C4E3 /* FetchNotificationIdentifiers.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F6B0E01FFC53C40026C4E3 /* FetchNotificationIdentifiers.m */; };
 		C8F88BBC1FF9BF1E004D836E /* CellEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F88BBB1FF9BF1E004D836E /* CellEditView.m */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +148,8 @@
 		C84C437C1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-checked-checkbox-filled-50.png"; path = "../../../../../Downloads/icons8-checked-checkbox-filled-50.png"; sourceTree = "<group>"; };
 		C85668B81FF98C6500C7859C /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		C85668B91FF98C6500C7859C /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		C85C06E61FFC04CF00A6DC0A /* ScheduleNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleNotifications.h; sourceTree = "<group>"; };
+		C85C06E71FFC04CF00A6DC0A /* ScheduleNotifications.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleNotifications.m; sourceTree = "<group>"; };
 		C85E76901FF6E68A00810C03 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x.png"; path = "../../Downloads/AppIconResizer_201712292108_c9f45f1779218167bf8727de7cbdd859/Icon-76@2x.png"; sourceTree = "<group>"; };
 		C85E76911FF6E68A00810C03 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "../../Downloads/AppIconResizer_201712292108_c9f45f1779218167bf8727de7cbdd859/Icon-76.png"; sourceTree = "<group>"; };
 		C85E76921FF6E68B00810C03 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "../../Downloads/AppIconResizer_201712292108_c9f45f1779218167bf8727de7cbdd859/Icon-Small.png"; sourceTree = "<group>"; };
@@ -245,6 +249,8 @@
 		C8F2724B1FF6C5990024306F /* icon_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_clear.png; sourceTree = "<group>"; };
 		C8F2724C1FF6C5990024306F /* icon_grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_grey.png; sourceTree = "<group>"; };
 		C8F2724D1FF6C5990024306F /* icon_stack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_stack.png; sourceTree = "<group>"; };
+		C8F6B0DF1FFC53C40026C4E3 /* FetchNotificationIdentifiers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchNotificationIdentifiers.h; sourceTree = "<group>"; };
+		C8F6B0E01FFC53C40026C4E3 /* FetchNotificationIdentifiers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchNotificationIdentifiers.m; sourceTree = "<group>"; };
 		C8F88BBA1FF9BF1E004D836E /* CellEditView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellEditView.h; sourceTree = "<group>"; };
 		C8F88BBB1FF9BF1E004D836E /* CellEditView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellEditView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -362,6 +368,10 @@
 				C8848C1C1FF5B8CF0055ED10 /* ApplyDarkTheme.m */,
 				C891F3581FF5F47C00861EDD /* SortReminders.h */,
 				C891F3591FF5F47C00861EDD /* SortReminders.m */,
+				C85C06E61FFC04CF00A6DC0A /* ScheduleNotifications.h */,
+				C85C06E71FFC04CF00A6DC0A /* ScheduleNotifications.m */,
+				C8F6B0DF1FFC53C40026C4E3 /* FetchNotificationIdentifiers.h */,
+				C8F6B0E01FFC53C40026C4E3 /* FetchNotificationIdentifiers.m */,
 			);
 			path = actions;
 			sourceTree = "<group>";
@@ -689,6 +699,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8F6B0E11FFC53C40026C4E3 /* FetchNotificationIdentifiers.m in Sources */,
 				C8DDB9CA1FF21436004BF8FE /* SettingsTableViewController.m in Sources */,
 				C86A9D7B1FE427EB00EBD50E /* DateModificationViewController.m in Sources */,
 				C80DBFF11FF0876600B3B4B5 /* RepeatViewController.m in Sources */,
@@ -710,6 +721,7 @@
 				C88943AB1FE9B07100DDC331 /* UpdateReminder.m in Sources */,
 				C81F3D701FDF6F8E00DC26F3 /* FetchRembinders.m in Sources */,
 				C8DE8BAC1FEEB81B0058F9FE /* CellActions.m in Sources */,
+				C85C06E81FFC04CF00A6DC0A /* ScheduleNotifications.m in Sources */,
 				C81F3D471FDF6F5C00DC26F3 /* main.m in Sources */,
 				C81F3D391FDF6F5C00DC26F3 /* AppDelegate.m in Sources */,
 				C89E59711FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m in Sources */,

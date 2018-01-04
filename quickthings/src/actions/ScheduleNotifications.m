@@ -17,6 +17,7 @@
     
     UNMutableNotificationContent *notificationContent = [[UNMutableNotificationContent alloc] init];
     notificationContent.title = title;
+    notificationContent.sound = [UNNotificationSound defaultSound]; //TODO: test if this works
     UNUserNotificationCenter *userNotificationCenter = [UNUserNotificationCenter currentNotificationCenter];
     NSCalendar *gorgianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *dateComponets;

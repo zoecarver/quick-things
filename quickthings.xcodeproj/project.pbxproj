@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C80B7C621FFD83710064A404 /* DoneHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C80B7C611FFD83710064A404 /* DoneHandler.m */; };
+		C80B7C651FFD85610064A404 /* SnoozHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C80B7C641FFD85610064A404 /* SnoozHandler.m */; };
+		C80B7C681FFD88EF0064A404 /* WebHookHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C80B7C671FFD88EF0064A404 /* WebHookHandler.m */; };
 		C80DBFEE1FF07FB000B3B4B5 /* FetchWebHook.m in Sources */ = {isa = PBXBuildFile; fileRef = C80DBFED1FF07FB000B3B4B5 /* FetchWebHook.m */; };
 		C80DBFF11FF0876600B3B4B5 /* RepeatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C80DBFF01FF0876600B3B4B5 /* RepeatViewController.m */; };
 		C81F3D391FDF6F5C00DC26F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D381FDF6F5C00DC26F3 /* AppDelegate.m */; };
@@ -121,6 +124,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C80B7C601FFD83710064A404 /* DoneHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoneHandler.h; sourceTree = "<group>"; };
+		C80B7C611FFD83710064A404 /* DoneHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoneHandler.m; sourceTree = "<group>"; };
+		C80B7C631FFD85610064A404 /* SnoozHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnoozHandler.h; sourceTree = "<group>"; };
+		C80B7C641FFD85610064A404 /* SnoozHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnoozHandler.m; sourceTree = "<group>"; };
+		C80B7C661FFD88EF0064A404 /* WebHookHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebHookHandler.h; sourceTree = "<group>"; };
+		C80B7C671FFD88EF0064A404 /* WebHookHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebHookHandler.m; sourceTree = "<group>"; };
 		C80DBFEC1FF07FB000B3B4B5 /* FetchWebHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchWebHook.h; sourceTree = "<group>"; };
 		C80DBFED1FF07FB000B3B4B5 /* FetchWebHook.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchWebHook.m; sourceTree = "<group>"; };
 		C80DBFEF1FF0876600B3B4B5 /* RepeatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepeatViewController.h; sourceTree = "<group>"; };
@@ -280,6 +289,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C80B7C691FFD911E0064A404 /* handler */ = {
+			isa = PBXGroup;
+			children = (
+				C80B7C601FFD83710064A404 /* DoneHandler.h */,
+				C80B7C611FFD83710064A404 /* DoneHandler.m */,
+				C80B7C631FFD85610064A404 /* SnoozHandler.h */,
+				C80B7C641FFD85610064A404 /* SnoozHandler.m */,
+				C80B7C661FFD88EF0064A404 /* WebHookHandler.h */,
+				C80B7C671FFD88EF0064A404 /* WebHookHandler.m */,
+			);
+			path = handler;
+			sourceTree = "<group>";
+		};
+		C80B7C6A1FFD911E0064A404 /* fetch */ = {
+			isa = PBXGroup;
+			children = (
+				C81F3D6B1FDF6F8E00DC26F3 /* FetchRembinders.h */,
+				C81F3D6C1FDF6F8E00DC26F3 /* FetchRembinders.m */,
+				C86A9D6A1FE2F80E00EBD50E /* FetchCompleted.h */,
+				C86A9D6B1FE2F80E00EBD50E /* FetchCompleted.m */,
+				C86A9D701FE2FEFC00EBD50E /* FetchSettings.h */,
+				C86A9D711FE2FEFC00EBD50E /* FetchSettings.m */,
+				C80DBFEC1FF07FB000B3B4B5 /* FetchWebHook.h */,
+				C80DBFED1FF07FB000B3B4B5 /* FetchWebHook.m */,
+				C8DDB9CB1FF21779004BF8FE /* FetchSmallUserSettings.h */,
+				C8DDB9CC1FF21779004BF8FE /* FetchSmallUserSettings.m */,
+				C8F6B0DF1FFC53C40026C4E3 /* FetchNotificationIdentifiers.h */,
+				C8F6B0E01FFC53C40026C4E3 /* FetchNotificationIdentifiers.m */,
+			);
+			path = fetch;
+			sourceTree = "<group>";
+		};
 		C81F3D2B1FDF6F5C00DC26F3 = {
 			isa = PBXGroup;
 			children = (
@@ -352,26 +393,16 @@
 		C81F3D6A1FDF6F8E00DC26F3 /* actions */ = {
 			isa = PBXGroup;
 			children = (
-				C81F3D6B1FDF6F8E00DC26F3 /* FetchRembinders.h */,
-				C81F3D6C1FDF6F8E00DC26F3 /* FetchRembinders.m */,
-				C86A9D6A1FE2F80E00EBD50E /* FetchCompleted.h */,
-				C86A9D6B1FE2F80E00EBD50E /* FetchCompleted.m */,
-				C86A9D701FE2FEFC00EBD50E /* FetchSettings.h */,
-				C86A9D711FE2FEFC00EBD50E /* FetchSettings.m */,
+				C80B7C6A1FFD911E0064A404 /* fetch */,
+				C80B7C691FFD911E0064A404 /* handler */,
 				C8DE8BAA1FEEB81B0058F9FE /* CellActions.h */,
 				C8DE8BAB1FEEB81B0058F9FE /* CellActions.m */,
-				C80DBFEC1FF07FB000B3B4B5 /* FetchWebHook.h */,
-				C80DBFED1FF07FB000B3B4B5 /* FetchWebHook.m */,
-				C8DDB9CB1FF21779004BF8FE /* FetchSmallUserSettings.h */,
-				C8DDB9CC1FF21779004BF8FE /* FetchSmallUserSettings.m */,
 				C8848C1B1FF5B8CF0055ED10 /* ApplyDarkTheme.h */,
 				C8848C1C1FF5B8CF0055ED10 /* ApplyDarkTheme.m */,
 				C891F3581FF5F47C00861EDD /* SortReminders.h */,
 				C891F3591FF5F47C00861EDD /* SortReminders.m */,
 				C85C06E61FFC04CF00A6DC0A /* ScheduleNotifications.h */,
 				C85C06E71FFC04CF00A6DC0A /* ScheduleNotifications.m */,
-				C8F6B0DF1FFC53C40026C4E3 /* FetchNotificationIdentifiers.h */,
-				C8F6B0E01FFC53C40026C4E3 /* FetchNotificationIdentifiers.m */,
 			);
 			path = actions;
 			sourceTree = "<group>";
@@ -701,8 +732,10 @@
 			files = (
 				C8F6B0E11FFC53C40026C4E3 /* FetchNotificationIdentifiers.m in Sources */,
 				C8DDB9CA1FF21436004BF8FE /* SettingsTableViewController.m in Sources */,
+				C80B7C681FFD88EF0064A404 /* WebHookHandler.m in Sources */,
 				C86A9D7B1FE427EB00EBD50E /* DateModificationViewController.m in Sources */,
 				C80DBFF11FF0876600B3B4B5 /* RepeatViewController.m in Sources */,
+				C80B7C651FFD85610064A404 /* SnoozHandler.m in Sources */,
 				C81F3D711FDF6F8E00DC26F3 /* AddReminder.m in Sources */,
 				C89C78251FEF23D000D49E1B /* RepeatTableViewController.m in Sources */,
 				C8AB072B1FE06957009DD6A6 /* TableViewController.m in Sources */,
@@ -724,6 +757,7 @@
 				C85C06E81FFC04CF00A6DC0A /* ScheduleNotifications.m in Sources */,
 				C81F3D471FDF6F5C00DC26F3 /* main.m in Sources */,
 				C81F3D391FDF6F5C00DC26F3 /* AppDelegate.m in Sources */,
+				C80B7C621FFD83710064A404 /* DoneHandler.m in Sources */,
 				C89E59711FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m in Sources */,
 				C86A9D751FE30B8500EBD50E /* CollectionViewCell.m in Sources */,
 				C88943AE1FE9B0EE00DDC331 /* Reminder.m in Sources */,

@@ -173,7 +173,20 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    [self hideTextView];
     return [cells count];
+}
+
+- (void) hideTextView {
+    ViewController *VC =  ((ViewController *) self.parentViewController);
+
+    if (cells.count > 1) {
+        VC.textView.hidden = YES;
+        VC.textLabelHowTo.hidden = YES;
+    } else {
+        VC.textView.hidden = NO;
+        VC.textLabelHowTo.hidden = NO;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -205,6 +218,8 @@
     [cell.textLabel setText:cells[indexPath.row]];
     [cell.textLabel setFont:[UIFont boldSystemFontOfSize:24]];
     cell.selectionStyle = UITableViewCellEditingStyleNone;
+    [applyTheme tableViewCell:cell];
+    [applyTheme label:cell.textLabel];
     
     return cell;
 }

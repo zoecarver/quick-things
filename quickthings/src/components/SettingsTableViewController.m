@@ -52,7 +52,7 @@ do { \
     [options addObject:@"Done"];
 //    [options addObject:@"Swipe Options"];
     [options addObject:@"Repeat Notification For"];
-    [options addObject:@"Default Snooz"];
+    [options addObject:@"Default Snooze"];
     if ([settings containsObject:@"Done"]) {
         [options addObject:@"Highlight done button"];
     }
@@ -98,8 +98,8 @@ do { \
 
     if ([item isEqualToString:@"Repeat Notification For"]) {
         cell.textLabel.text = [NSString stringWithFormat:@"Repeat Notification %lu times", [smallUserSettings fetchNumberOfNotificationsToSchedule]];
-    } else if ([item isEqualToString:@"Default Snooz"]) {
-        cell.textLabel.text = [NSString stringWithFormat:@"Default Snooz %lu", [smallUserSettings fetchDefaultSnooz]];
+    } else if ([item isEqualToString:@"Default Snooze"]) {
+        cell.textLabel.text = [NSString stringWithFormat:@"Default Snooze %lu", [smallUserSettings fetchDefaultSnooz]];
     } else if ([item isEqualToString:@"Highlight done button"]) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"CellSwitch"];
         cell.cellSwitch.on = [smallUserSettings fetchDoneColor];
@@ -204,8 +204,8 @@ do { \
         [[UIApplication sharedApplication] setAlternateIconName:@"icon_circle_check_black" completionHandler:^(NSError * _Nullable error) {
             NSLog(@"Error... %@", error.localizedDescription);
         }];
-    } else if ([item isEqualToString:@"Default Snooz"]) {
-        [self prompt:@"Enter new default snooz" handler:@selector(setNewSnooz:) fromObject:self];
+    } else if ([item isEqualToString:@"Default Snooze"]) {
+        [self prompt:@"Enter new default snooze" handler:@selector(setNewSnooz:) fromObject:self];
     }
 }
 

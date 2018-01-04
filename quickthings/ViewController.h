@@ -28,5 +28,8 @@
 @property (strong, nonatomic) NSString *recivedString;
 @property (nonatomic) NSInteger recivedIndex;
 
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *textLabelHowTo;
+
 @end
 

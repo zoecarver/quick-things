@@ -11,6 +11,7 @@
 #import "AddReminder.h"
 #import "TableViewController.h"
 #import "DateModificationViewController.h"
+#import "FetchSmallUserSettings.h"
 #import "ApplyDarkTheme.h"
 #include <CoreImage/CoreImage.h>
 
@@ -24,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    FetchSmallUserSettings *smallUserSettings = [[FetchSmallUserSettings alloc] init];
+
     ApplyDarkTheme *applyTheme = [[ApplyDarkTheme alloc] init];
     [applyTheme viewController:self];
     [applyTheme toolBar:self.topToolBar];
@@ -32,14 +35,10 @@
     
     [self decideWhatBarsToHide];
     
-    NSLog(@"Started");
-    
     _recivedString = @"unchanged";
     _recivedIndex = 0;
     
     [self applyTextInputStyle];
-    
-    NSLog(@"Finished");
 }
 
 - (void) decideWhatBarsToHide {
@@ -147,6 +146,30 @@
     _recivedString = _reminderInputField.text;
     self.recivedIndex = [recivedReminders count] - 1;
     [self performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
+}
+
+- (void) add:(NSString *)text withSegue:(BOOL)segue {
+    //init classes
+    FetchRembinders *fetchRemindersAction = [[FetchRembinders alloc] init];
+    AddReminder *addRemindersAction = [[AddReminder alloc] init];
+    
+    //create remindern
+    [addRemindersAction reminderToAdd:text];
+    
+    //log out reminders
+    NSMutableArray *recivedReminders = [fetchRemindersAction fetchRembinders];
+    NSLog(@"logging %lu reminders", [recivedReminders count]);
+    
+    for (NSString *reminder in recivedReminders) {
+        NSLog(@"Reminder: %@", reminder);
+    }
+    
+    NSLog(@"Sending to date picker");
+    _recivedString = text;
+    self.recivedIndex = [recivedReminders count] - 1;
+    if  (segue) {
+        [self performSegueWithIdentifier:@"ShowDatePickerView" sender:self];
+    }
 }
 
 - (IBAction)settingsButton:(id)sender {

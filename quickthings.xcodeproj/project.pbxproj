@@ -15,7 +15,6 @@
 		C81F3D391FDF6F5C00DC26F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D381FDF6F5C00DC26F3 /* AppDelegate.m */; };
 		C81F3D3C1FDF6F5C00DC26F3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D3B1FDF6F5C00DC26F3 /* ViewController.m */; };
 		C81F3D3F1FDF6F5C00DC26F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C81F3D3D1FDF6F5C00DC26F3 /* Main.storyboard */; };
-		C81F3D441FDF6F5C00DC26F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C81F3D421FDF6F5C00DC26F3 /* LaunchScreen.storyboard */; };
 		C81F3D471FDF6F5C00DC26F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D461FDF6F5C00DC26F3 /* main.m */; };
 		C81F3D511FDF6F5C00DC26F3 /* quickthingsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D501FDF6F5C00DC26F3 /* quickthingsTests.m */; };
 		C81F3D5C1FDF6F5D00DC26F3 /* quickthingsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C81F3D5B1FDF6F5D00DC26F3 /* quickthingsUITests.m */; };
@@ -87,6 +86,7 @@
 		C89E59711FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = C89E59701FF4529B00BF4D20 /* CollectionViewControllerForStylesOnly.m */; };
 		C8A690CD1FF30D2A00FD82E2 /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A690CC1FF30D2A00FD82E2 /* SettingsView.m */; };
 		C8AB072B1FE06957009DD6A6 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8AB072A1FE06957009DD6A6 /* TableViewController.m */; };
+		C8BCA21C200A5BC200F6FD05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8BCA21B200A5BC200F6FD05 /* LaunchScreen.storyboard */; };
 		C8DDB9CA1FF21436004BF8FE /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DDB9C91FF21436004BF8FE /* SettingsTableViewController.m */; };
 		C8DDB9CD1FF21779004BF8FE /* FetchSmallUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DDB9CC1FF21779004BF8FE /* FetchSmallUserSettings.m */; };
 		C8DE8BAC1FEEB81B0058F9FE /* CellActions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8DE8BAB1FEEB81B0058F9FE /* CellActions.m */; };
@@ -140,7 +140,6 @@
 		C81F3D3A1FDF6F5C00DC26F3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C81F3D3B1FDF6F5C00DC26F3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C81F3D3E1FDF6F5C00DC26F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C81F3D431FDF6F5C00DC26F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C81F3D451FDF6F5C00DC26F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C81F3D461FDF6F5C00DC26F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C81F3D4C1FDF6F5C00DC26F3 /* quickthingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = quickthingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -240,6 +239,7 @@
 		C8A690CC1FF30D2A00FD82E2 /* SettingsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
 		C8AB07291FE06957009DD6A6 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = src/components/TableViewController.h; sourceTree = "<group>"; };
 		C8AB072A1FE06957009DD6A6 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TableViewController.m; path = src/components/TableViewController.m; sourceTree = "<group>"; };
+		C8BCA21B200A5BC200F6FD05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8DDB9C81FF21436004BF8FE /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		C8DDB9C91FF21436004BF8FE /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		C8DDB9CB1FF21779004BF8FE /* FetchSmallUserSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchSmallUserSettings.h; sourceTree = "<group>"; };
@@ -351,13 +351,13 @@
 				C81F3D3A1FDF6F5C00DC26F3 /* ViewController.h */,
 				C81F3D3B1FDF6F5C00DC26F3 /* ViewController.m */,
 				C81F3D3D1FDF6F5C00DC26F3 /* Main.storyboard */,
-				C81F3D421FDF6F5C00DC26F3 /* LaunchScreen.storyboard */,
 				C81F3D451FDF6F5C00DC26F3 /* Info.plist */,
 				C81F3D461FDF6F5C00DC26F3 /* main.m */,
 				C8AB07291FE06957009DD6A6 /* TableViewController.h */,
 				C8AB072A1FE06957009DD6A6 /* TableViewController.m */,
 				C85E76E71FF6EAB900810C03 /* Assets.xcassets */,
 				C85E76B61FF6EA4C00810C03 /* AppIcon.appiconset */,
+				C8BCA21B200A5BC200F6FD05 /* LaunchScreen.storyboard */,
 			);
 			path = quickthings;
 			sourceTree = "<group>";
@@ -650,7 +650,6 @@
 				C85E76AA1FF6E68D00810C03 /* Icon@2x.png in Resources */,
 				C85E76B21FF6E68D00810C03 /* Icon-Small-50@2x.png in Resources */,
 				C8F272571FF6C5990024306F /* icon_clear.png in Resources */,
-				C81F3D441FDF6F5C00DC26F3 /* LaunchScreen.storyboard in Resources */,
 				C8F272511FF6C5990024306F /* icon_blue_check_inverted.png in Resources */,
 				C8F103881FF56391001C8602 /* icons8-sync-50.png in Resources */,
 				C85E76D01FF6EA4C00810C03 /* Icon-App-20x20@1x.png in Resources */,
@@ -680,6 +679,7 @@
 				C85E76B01FF6E68D00810C03 /* Icon-83.5@2x.png in Resources */,
 				C85E76AB1FF6E68D00810C03 /* Icon-60@2x.png in Resources */,
 				C85E76D51FF6EA4C00810C03 /* Icon-App-29x29@3x.png in Resources */,
+				C8BCA21C200A5BC200F6FD05 /* LaunchScreen.storyboard in Resources */,
 				C85E76E81FF6EAB900810C03 /* Assets.xcassets in Resources */,
 				C84C437D1FF5889A002DF511 /* icons8-checked-checkbox-filled-50.png in Resources */,
 				C85E76D71FF6EA4C00810C03 /* Icon-App-40x40@2x.png in Resources */,
@@ -808,14 +808,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		C81F3D421FDF6F5C00DC26F3 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C81F3D431FDF6F5C00DC26F3 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -938,8 +930,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickthings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				RESOURCES_TARGETED_DEVICE_FAMILY = iPhone;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -957,8 +950,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickthings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				RESOURCES_TARGETED_DEVICE_FAMILY = iPhone;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

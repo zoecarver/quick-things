@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="kYq-zg-39E">
+            <objects>
+                <viewController id="7Z4-5g-t4j" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lo4-os-BPc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dpt-2m-0Uj">
+                                <rect key="frame" x="112" y="332" width="150" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dpt-2m-0Uj" secondAttribute="height" multiplier="75:1" id="KOz-v7-Zre"/>
+                                </constraints>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dpt-2m-0Uj" firstAttribute="centerY" secondItem="lo4-os-BPc" secondAttribute="centerY" id="SUr-AN-k11"/>
+                            <constraint firstItem="dpt-2m-0Uj" firstAttribute="centerX" secondItem="lo4-os-BPc" secondAttribute="centerX" id="rea-gr-tZf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KWq-cQ-ENE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pKh-90-ASm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="129" y="110"/>
+        </scene>
+    </scenes>
+</document>

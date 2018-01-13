@@ -38,10 +38,10 @@
 }
 
 - (NSMutableArray *) applySettingsToDifforentDevices:(NSMutableArray *) settings {
-    [settings addObject: [NSNumber numberWithInteger:10]];
     [settings addObject: [NSNumber numberWithInteger:5]];
-    [settings addObject: [NSNumber numberWithInteger:2]];
-    [settings addObject: [NSNumber numberWithInteger:1]];
+    [settings addObject: [NSNumber numberWithInteger:10]];
+    [settings addObject: [NSNumber numberWithInteger:15]];
+    [settings addObject: [NSNumber numberWithInteger:30]];
     [settings addObject: [self dateWithDay:0 dateWithHour:6 minute:0]];
     [settings addObject: [self dateWithDay:0 dateWithHour:7 minute:30]];
     [settings addObject: [self dateWithDay:0 dateWithHour:8 minute:0]];
